@@ -1,0 +1,14 @@
+node_modules
+.env
+dist
+Information.txt
+.firebaserc
+*.xlsx
+firebase.json
+ubuntu@
+NodeJsFiles/ssl
+NodeJsFiles/TransforCode
+coverage
+DatabaseBackup
+letsencrypt
+.coveralls.yml
