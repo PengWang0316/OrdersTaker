@@ -1,0 +1,17 @@
+{
+  "name": "orderstaker",
+  "version": "0.0.1",
+  "description": "A progressive web app that aims to help restaurants taking order easier.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "order",
+    "taker",
+    "react",
+    "pwa"
+  ],
+  "author": "Kevin W.",
+  "license": "MIT"
+}
