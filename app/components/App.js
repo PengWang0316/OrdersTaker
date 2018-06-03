@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import importedComponent from 'react-imported-component';
 // import { CSSTransitionGroup } from 'react-transition-group';
 
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 /* istanbul ignore next */
@@ -15,7 +15,7 @@ const HomePage = importedComponent(() => import(/* webpackChunkName: "LoginConta
 const App = props => (
   <Router>
     <div>
-      <Navbar />
+      {/*<Navbar />*/}
       <main>
         {/*
             <CSSTransitionGroup
