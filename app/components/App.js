@@ -10,12 +10,12 @@ import importedComponent from 'react-imported-component';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 /* istanbul ignore next */
-const HomePage = importedComponent(() => import(/* webpackChunkName: "LoginContainer" */ './containers/HomePageContainer'), { LoadingComponent: LoadingAnimation });
+const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" */ './containers/HomePageContainer'), { LoadingComponent: LoadingAnimation });
 
 const App = props => (
   <Router>
     <div>
-      {/*<Navbar />*/}
+      {/* <Navbar /> */}
       <main>
         {/*
             <CSSTransitionGroup

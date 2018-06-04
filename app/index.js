@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
-import App from './Components/App';
+import App from './components/App';
 import configureStore from './store/ConfigureStore';
 import './styles/index.global.css';
 import registerServiceWorker from './registerServiceWorker';
 
-// import jQuery from "jQuery";
-// require('bootstrap');
 const store = configureStore();
 
 // ReactDOM.render(
