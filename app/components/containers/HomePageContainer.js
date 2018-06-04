@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-export const HomePage = () => <div>Home Page</div>;
+import Banner from '../Banner';
+
+export const HomePage = () => (
+  <Fragment>
+    <Banner />
+  </Fragment>
+);
 export default HomePage;
