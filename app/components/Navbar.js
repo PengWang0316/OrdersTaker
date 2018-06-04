@@ -66,7 +66,7 @@ export class Navbar extends Component {
               id="simple-menu"
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
-              onClose={this.handleMenuClose}
+              onClose={this.handleMenuIconClick}
             >
               <MenuItem>Profile</MenuItem>
               <MenuItem>My account</MenuItem>
