@@ -4,7 +4,13 @@
   "description": "A progressive web app that aims to help restaurants taking order easier.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "create": "webpack",
+    "start": "webpack-dev-server --mode development --open",
+    "build": "set NODE_ENV=production & webpack --mode production -p",
+    "test": "jest",
+    "testCoverage": "jest --coverage --runInBand",
+    "testWatch": "jest --watch",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
   "keywords": [
     "order",
@@ -14,15 +20,11 @@
   ],
   "author": "Kevin W.",
   "license": "MIT",
-  "scripts": {
-    "create": "webpack",
-    "start": "webpack-dev-server --mode development --open",
-    "build": "set NODE_ENV=production & webpack --mode production -p",
-    "test": "jest",
-    "testCoverage": "jest --coverage --runInBand",
-    "testWatch": "jest --watch",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PengWang0316/OrdersTaker.git"
   },
+  "sideEffects": false,
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/tools/assetsTransformer.js",
@@ -45,6 +47,8 @@
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
     "prop-types": "^15.6.1",
     "query-string": "^6.1.0",
