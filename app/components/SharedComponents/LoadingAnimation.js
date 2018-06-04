@@ -12,8 +12,9 @@ export const LoadingAnimation = props => {
   return <div />;
 };
 LoadingAnimation.propTypes = {
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool
 };
+LoadingAnimation.defaultProps = { isLoading: true };
 /* istanbul ignore next */
 const mapStateToProps = state => ({ isLoading: state.isLoading });
 export default connect(mapStateToProps, null)(LoadingAnimation);
