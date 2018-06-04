@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import Loadable from 'react-loadable'; Does not work with react-hot-loader very well.
 // import universal from 'react-universal-component'; Does not work with react-hot-loader very well.
 import importedComponent from 'react-imported-component';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 // import { CSSTransitionGroup } from 'react-transition-group';
 
-// import Navbar from './Navbar';
+import Navbar from './Navbar';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 /* istanbul ignore next */
@@ -15,7 +17,8 @@ const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageCo
 const App = props => (
   <Router>
     <div>
-      {/* <Navbar /> */}
+      <CssBaseline />
+      <Navbar />
       <main>
         {/*
             <CSSTransitionGroup
