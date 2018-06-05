@@ -30,7 +30,7 @@ const theme = createMuiTheme({
 });
 
 /* istanbul ignore next */
-const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" */ './containers/HomePageContainer'), { LoadingComponent: LoadingAnimation });
+const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" */ './containers/HomePageContainer').catch(err => {}), { LoadingComponent: LoadingAnimation });
 
 const App = props => (
   <MuiThemeProvider theme={theme}>
