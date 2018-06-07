@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner snapshot 1`] = `
+<div
+  className=""
+>
+  <Hidden
+    only="xs"
+  >
+    <img
+      alt="Big Banner"
+      src="url"
+    />
+  </Hidden>
+  <Hidden
+    only={
+      Array [
+        "lg",
+        "md",
+        "sm",
+      ]
+    }
+  >
+    <img
+      alt="Small Banner"
+      src="xsUrl"
+    />
+  </Hidden>
+  <div>
+    <div>
+      title
+    </div>
+    <div>
+      subTitle
+    </div>
+  </div>
+</div>
+`;

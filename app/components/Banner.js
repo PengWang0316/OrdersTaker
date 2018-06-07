@@ -87,7 +87,9 @@ export class Banner extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = ({ basicInformation }) => ({ basicInformation });
+/* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchBasicInformation: () => dispatch(fetchBasicInformation())
 });
