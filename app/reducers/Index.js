@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 // import { routerReducer } from 'react-router-redux';
 
-
-
-// import bigrams from '../reducers/BigramsReducers';
+import BasicInformation from './BasicInformationReducers';
 
 export default combineReducers({
-  
+  BasicInformation
 });
