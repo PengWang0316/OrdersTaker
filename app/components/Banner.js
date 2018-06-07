@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,6 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 import { fetchBasicInformation } from '../actions/BasicInformationActions';
 
 const styles = {
+  divPlaceHolder: {
+    background: '#efefef',
+    width: '100%',
+    minHeight: '400px'
+  },
   bigBanner: {
     width: '100%',
     maxHeight: '770px'
@@ -38,7 +43,8 @@ const styles = {
   '@media (max-width: 600px)': {
     bannerText: { marginTop: '-43%' },
     title: { fontSize: '30px' },
-    subTitle: { fontSize: '18px' }
+    subTitle: { fontSize: '18px' },
+    divPlaceHolder: { minHeight: '230px' }
   }
 };
 
@@ -61,21 +67,22 @@ export class Banner extends Component {
    * @return {jsx} Return the jsx.
    */
   render() {
-    const { classes } = this.props;
+    const { classes, basicInformation } = this.props;
     return (
-      <div>
-        <Hidden only="xs">
-          <img alt="Big Banner" src="http://res.cloudinary.com/orderstaker/image/upload/c_crop,h_770,q_auto:eco,w_2000,y_322/v1528139518/banner/restaurant-shot.jpg" className={classes.bigBanner} />
-        </Hidden>
-        <Hidden only={['lg', 'md', 'sm']}>
-          <img alt="Small Banner" src="http://res.cloudinary.com/orderstaker/image/upload/c_fit,h_400,w_600/v1528139518/banner/restaurant-shot.jpg" className={classes.smallBanner} />
-        </Hidden>
-        <div className={classes.bannerText}>
-          <div className={classes.title}>This is the Title</div>
-          <div className={classes.subTitle}>
-            We should say somethink here to demostrate the subtitle
-          </div>
-        </div>
+      <div className={basicInformation ? '' : classes.divPlaceHolder}>
+        {basicInformation &&
+          <Fragment>
+            <Hidden only="xs">
+              <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} />
+            </Hidden>
+            <Hidden only={['lg', 'md', 'sm']}>
+              <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} />
+            </Hidden>
+            <div className={classes.bannerText}>
+              <div className={classes.title}>{basicInformation.banners[0].title}</div>
+              <div className={classes.subTitle}>{basicInformation.banners[0].subTitle}</div>
+            </div>
+          </Fragment>}
       </div>
     );
   }

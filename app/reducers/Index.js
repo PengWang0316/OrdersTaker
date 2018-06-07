@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 // import { routerReducer } from 'react-router-redux';
 
-import BasicInformation from './BasicInformationReducers';
+import basicInformation from './BasicInformationReducers';
 
 export default combineReducers({
-  BasicInformation
+  basicInformation
 });
