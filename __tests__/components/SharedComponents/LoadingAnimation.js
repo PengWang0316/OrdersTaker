@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 // import { shallow } from 'enzyme';
 
-import { LoadingAnimation } from '../../../app/Components/SharedComponents/LoadingAnimation';
+import { LoadingAnimation } from '../../../app/components/SharedComponents/LoadingAnimation';
 
 describe('LoadingAnimation test', () => {
   const defaultProps = {
