@@ -23,8 +23,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     width: '60%',
-    position: 'relative',
-    marginTop: '-25%',
+    position: 'absolute',
+    marginTop: '18%',
     left: '20%'
   },
   title: {
@@ -41,7 +41,7 @@ const styles = {
     textShadow: '1px 1px 1px #909090'
   },
   '@media (max-width: 600px)': {
-    bannerText: { marginTop: '-43%' },
+    bannerText: { marginTop: '21%' },
     title: { fontSize: '30px' },
     subTitle: { fontSize: '18px' },
     divPlaceHolder: { minHeight: '230px' }
@@ -72,16 +72,16 @@ export class Banner extends Component {
       <div className={basicInformation ? '' : classes.divPlaceHolder}>
         {basicInformation &&
           <Fragment>
+            <div className={classes.bannerText}>
+              <div className={classes.title}>{basicInformation.banners[0].title}</div>
+              <div className={classes.subTitle}>{basicInformation.banners[0].subTitle}</div>
+            </div>
             <Hidden only="xs">
               <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} />
             </Hidden>
             <Hidden only={['lg', 'md', 'sm']}>
               <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} />
             </Hidden>
-            <div className={classes.bannerText}>
-              <div className={classes.title}>{basicInformation.banners[0].title}</div>
-              <div className={classes.subTitle}>{basicInformation.banners[0].subTitle}</div>
-            </div>
           </Fragment>}
       </div>
     );

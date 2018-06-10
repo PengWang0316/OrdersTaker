@@ -4,6 +4,14 @@ exports[`Banner snapshot 1`] = `
 <div
   className=""
 >
+  <div>
+    <div>
+      title
+    </div>
+    <div>
+      subTitle
+    </div>
+  </div>
   <Hidden
     only="xs"
   >
@@ -26,13 +34,5 @@ exports[`Banner snapshot 1`] = `
       src="xsUrl"
     />
   </Hidden>
-  <div>
-    <div>
-      title
-    </div>
-    <div>
-      subTitle
-    </div>
-  </div>
 </div>
 `;
