@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Avatar, Typography, IconButton, Tooltip } from '@material-ui/core';
+import { AddBox } from '@material-ui/icons';
 
 const styles = {
   avatar: {
@@ -63,7 +60,7 @@ export const MenuItem = ({ classes }) => (
       <Typography color="textSecondary">$12.5</Typography>
       <Tooltip id="tooltip-fab" title="Add to your order" placement="right-end">
         <IconButton className={classes.addButton} aria-label="Add to your order" color="primary">
-          <AddBoxIcon className={classes.addButtonIcon} />
+          <AddBox className={classes.addButtonIcon} />
         </IconButton>
       </Tooltip>
     </div>
