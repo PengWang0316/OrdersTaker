@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 // import { CSSTransitionGroup } from 'react-transition-group';
 
 import Navbar from './Navbar';
+// import BackgroundMainPager from './BackgroundMainPager';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 const theme = createMuiTheme({
