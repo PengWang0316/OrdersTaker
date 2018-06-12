@@ -10,3 +10,4 @@ export const API_CHECK_USERNAME_AVAILABLE = `${API_BASE_URL}/auth/checkUsernameA
 export const API_REGISTER_NEW_USER = `${API_BASE_URL}/auth/registerNewUser`;
 
 export const API_FETCH_BASIC_INFORMATION = `${API_BASE_URL}/fetchBasicInformation`;
+export const API_FETCH_ALL_MENU = `${API_BASE_URL}/fetchAllMenu`;
