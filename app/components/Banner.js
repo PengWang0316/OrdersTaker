@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import { withStyles } from '@material-ui/core/styles';
@@ -52,6 +53,13 @@ const styles = {
  * The Component to show the banner image and title.
  */
 export class Banner extends Component {
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+    basicInformation: PropTypes.object,
+    fetchBasicInformation: PropTypes.func.isRequired
+  };
+  static defaultProps = { basicInformation: null };
+
   /**
    * Call the redux action to get the basic infomariont.
    * @param {object} props contains this component's prop values;
