@@ -24,4 +24,13 @@ describe('MenuActions', () => {
     return store.dispatch(fetchAllMenu())
       .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
+
+  test('fetchAllMenu with axios error', () => {
+    const mockErrorFn = jest.fn();
+    window.console.error = mockErrorFn;
+    axiosMock.onGet(API_FETCH_ALL_MENU).networkError();
+    const store = mockStore();
+    return store.dispatch(fetchAllMenu())
+      .then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
+  });
 });
