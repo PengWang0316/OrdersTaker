@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuItem Snapshot 1`] = `
+<div
+  className="menuItem"
+>
+  <Avatar
+    alt="Remy Sharp"
+    className="avatar"
+    src="photo"
+  />
+  <Typography
+    className="menuName"
+    color="primary"
+  >
+    name
+  </Typography>
+  <PriceItem
+    item={
+      Object {
+        "name": "name",
+        "photo": "photo",
+      }
+    }
+  />
+</div>
+`;
