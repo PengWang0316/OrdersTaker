@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuCategory Snapshot 1`] = `
+<div
+  className="root"
+>
+  <Typography
+    className="title"
+    color="secondary"
+  >
+    category
+  </Typography>
+  <div
+    className="flexBox"
+  >
+    <MenuItem
+      item={
+        Object {
+          "_id": 1,
+        }
+      }
+    />
+    <MenuItem
+      item={
+        Object {
+          "_id": 2,
+        }
+      }
+    />
+  </div>
+</div>
+`;
