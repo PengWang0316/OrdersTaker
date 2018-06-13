@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Avatar, Typography, IconButton, Tooltip } from '@material-ui/core';
-import { AddBox } from '@material-ui/icons';
+import { Avatar, Typography } from '@material-ui/core';
+
+import PriceItem from './PriceItem';
 
 const styles = {
   avatar: {
@@ -26,19 +27,6 @@ const styles = {
     fontWeight: 'bold',
     wordWrap: 'break-word',
   },
-  addButton: {
-    width: 40,
-    height: 40
-  },
-  addButtonIcon: {
-    width: 20,
-    height: 20
-  },
-  priceDiv: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
-  },
   '@media (max-width: 600px)': {
     avatar: {
       width: '200px',
@@ -52,18 +40,11 @@ const styles = {
   }
 };
 
-export const MenuItem = ({ classes }) => (
+export const MenuItem = ({ classes, item }) => (
   <div className={classes.menuItem}>
-    <Avatar alt="Remy Sharp" src="http://res.cloudinary.com/orderstaker/image/upload/c_fit,h_300,q_auto:good,w_300/v1528599880/menu/food.jpg" className={classes.avatar} />
-    <Typography className={classes.menuName} color="primary">Some name for dish</Typography>
-    <div className={classes.priceDiv}>
-      <Typography color="textSecondary">$12.5</Typography>
-      <Tooltip id="tooltip-fab" title="Add to your order" placement="right-end">
-        <IconButton className={classes.addButton} aria-label="Add to your order" color="primary">
-          <AddBox className={classes.addButtonIcon} />
-        </IconButton>
-      </Tooltip>
-    </div>
+    <Avatar alt="Remy Sharp" src={item.photo} className={classes.avatar} />
+    <Typography className={classes.menuName} color="primary">{item.name}</Typography>
+    <PriceItem item={item} />
   </div>
 );
 MenuItem.propTypes = {
