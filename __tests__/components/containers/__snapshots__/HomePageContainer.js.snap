@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePageContainer snapshot with menu props 1`] = `
+Array [
+  <Banner />,
+  <MenuCategory
+    menu={
+      Object {
+        "_id": 1,
+      }
+    }
+  />,
+  <MenuCategory
+    menu={
+      Object {
+        "_id": 2,
+      }
+    }
+  />,
+]
+`;
+
+exports[`HomePageContainer snapshot without menu props 1`] = `<Banner />`;
