@@ -24,17 +24,18 @@ const styles = {
   }
 };
 
-export const MenuCategory = ({ classes }) => (
+export const MenuCategory = ({ classes, menu }) => (
   <div className={classes.root}>
     <Typography className={classes.title} color="secondary">
-      This is a sheet of paper.
+      {menu.category}
     </Typography>
     <div className={classes.flexBox}>
-      <MenuItem />
+      {menu.items.map(item => <MenuItem key={item._id} item={item} />)}
     </div>
   </div>
 );
 MenuCategory.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  menu: PropTypes.object.isRequired
 };
 export default withStyles(styles)(MenuCategory);
