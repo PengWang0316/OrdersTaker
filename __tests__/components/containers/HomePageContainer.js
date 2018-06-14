@@ -7,6 +7,8 @@ import { HomePageContainer } from '../../../app/components/containers/HomePageCo
 jest.mock('../../../app/components/Banner', () => 'Banner');
 jest.mock('../../../app/components/MenuCategory', () => 'MenuCategory');
 
+window.innerWidth = 800;
+
 describe('HomePageContainer', () => {
   const defaultProps = {
     menus: null,
@@ -14,9 +16,32 @@ describe('HomePageContainer', () => {
   };
   const getShallowComponent = (props = defaultProps) => shallow(<HomePageContainer {...props} />);
 
-  test('constructor call fetchAllMenu', () => {
-    getShallowComponent();
+  test('constructor', () => {
+    window.addEventListener = jest.fn();
+    const component = getShallowComponent();
     expect(defaultProps.fetchAllMenu).toHaveBeenCalledTimes(1);
+    expect(window.addEventListener).toHaveBeenLastCalledWith('resize', component.instance().handleResize);
+    expect(component.state('itemAmount')).toBe(6);
+  });
+
+  test('handleResize', () => {
+    const component = getShallowComponent();
+    expect(component.state('itemAmount')).toBe(6);
+    window.innerWidth = 850;
+    component.instance().handleResize();
+    expect(component.state('itemAmount')).toBe(8);
+    window.innerWidth = 800;
+  });
+
+  test('getAmountNumber', () => {
+    expect(HomePageContainer.getAmountNumber(800)).toBe(6);
+    expect(HomePageContainer.getAmountNumber(801)).toBe(6);
+    expect(HomePageContainer.getAmountNumber(900)).toBe(8);
+    expect(HomePageContainer.getAmountNumber(987)).toBe(8);
+    expect(HomePageContainer.getAmountNumber(1100)).toBe(10);
+    expect(HomePageContainer.getAmountNumber(1200)).toBe(10);
+    expect(HomePageContainer.getAmountNumber(1201)).toBe(12);
+    expect(HomePageContainer.getAmountNumber(1600)).toBe(12);
   });
 
   test('snapshot without menu props', () => expect(renderer.create(<HomePageContainer {...defaultProps} />).toJSON()).toMatchSnapshot());

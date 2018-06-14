@@ -4,6 +4,7 @@ exports[`HomePageContainer snapshot with menu props 1`] = `
 Array [
   <Banner />,
   <MenuCategory
+    itemAmount={6}
     menu={
       Object {
         "_id": 1,
@@ -11,6 +12,7 @@ Array [
     }
   />,
   <MenuCategory
+    itemAmount={6}
     menu={
       Object {
         "_id": 2,
