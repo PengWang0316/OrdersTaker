@@ -17,7 +17,8 @@ const styles = {
   },
   flexBox: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
   },
   '@media (max-width: 500px)': {
     flexBox: { justifyContent: 'center' }
