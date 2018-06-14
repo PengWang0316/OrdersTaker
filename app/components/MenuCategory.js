@@ -7,7 +7,7 @@ import MenuItem from './MenuItem';
 
 const styles = {
   root: {
-    width: '100%',
+    maxWidth: 1200,
     padding: '10px 20px',
     margin: '15px auto'
   },
