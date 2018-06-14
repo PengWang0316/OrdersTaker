@@ -14,6 +14,8 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../../app/components/Navbar', () => 'Navbar');
 jest.mock('../../app/components/containers/HomePageContainer', () => 'HomePageContainer');
 
+window.console.log = jest.fn(); // Silencing the console log.
+
 describe('App component test', () => {
   test('App snapshot', () => expect(renderer.create(<App />).toJSON()).toMatchSnapshot());
 });
