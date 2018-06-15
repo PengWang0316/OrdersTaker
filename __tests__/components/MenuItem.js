@@ -8,6 +8,6 @@ jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('../../app/components/PriceItem', () => 'PriceItem');
 
 describe('MenuItem', () => {
-  test('Snapshot', () => expect(renderer.create(<MenuItem {...{ item: { photo: 'photo', name: 'name' }, classes: { menuItem: 'menuItem', avatar: 'avatar', menuName: 'menuName' } }} />).toJSON())
+  test('Snapshot', () => expect(renderer.create(<MenuItem {...{ handleClick: () => {}, item: { photo: 'photo', name: 'name' }, classes: { menuItem: 'menuItem', avatar: 'avatar', menuName: 'menuName' } }} />).toJSON())
     .toMatchSnapshot());
 });

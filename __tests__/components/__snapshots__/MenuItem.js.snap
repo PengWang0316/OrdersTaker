@@ -7,11 +7,13 @@ exports[`MenuItem Snapshot 1`] = `
   <Avatar
     alt="Remy Sharp"
     className="avatar"
+    onClick={[Function]}
     src="photo"
   />
   <Typography
     className="menuName"
     color="primary"
+    onClick={[Function]}
   >
     name
   </Typography>

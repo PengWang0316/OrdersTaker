@@ -26,6 +26,9 @@ const styles = {
     fontSize: 14,
     fontWeight: 'bold',
     wordWrap: 'break-word',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   '@media (max-width: 600px)': {
     avatar: {
@@ -40,14 +43,17 @@ const styles = {
   }
 };
 
-export const MenuItem = ({ classes, item }) => (
+export const MenuItem = ({ classes, item, handleClick }) => (
   <div className={classes.menuItem}>
-    <Avatar alt="Remy Sharp" src={item.photo} className={classes.avatar} />
-    <Typography className={classes.menuName} color="primary">{item.name}</Typography>
+    <Avatar alt="Remy Sharp" src={item.photo} className={classes.avatar} onClick={handleClick} />
+    <Typography className={classes.menuName} color="primary" onClick={handleClick}>{item.name}</Typography>
     <PriceItem item={item} />
   </div>
 );
 MenuItem.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
+  handleClick: PropTypes.func
 };
+MenuItem.defaultProps = { handleClick: null };
 export default withStyles(styles)(MenuItem);
