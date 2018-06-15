@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HiddenItemPanel Snapshot isExpand false 1`] = `
+Array [
+  <div
+    className="flexBoxAround"
+    style={
+      Object {
+        "maxHeight": 0,
+      }
+    }
+  >
+    <MenuItem
+      item={
+        Object {
+          "_id": 1,
+        }
+      }
+    />
+    <MenuItem
+      item={
+        Object {
+          "_id": 2,
+        }
+      }
+    />
+  </div>,
+  <div
+    className="buttonDiv"
+  >
+    <Button
+      color="primary"
+      onClick={[Function]}
+    >
+      Show More 
+      <ExpandMore />
+    </Button>
+  </div>,
+]
+`;
+
+exports[`HiddenItemPanel Snapshot isExpand true 1`] = `
+Array [
+  <div
+    className="flexBoxAround"
+    style={
+      Object {
+        "maxHeight": "861px",
+      }
+    }
+  >
+    <MenuItem
+      item={
+        Object {
+          "_id": 1,
+        }
+      }
+    />
+    <MenuItem
+      item={
+        Object {
+          "_id": 2,
+        }
+      }
+    />
+  </div>,
+  <div
+    className="buttonDiv"
+  >
+    <Button
+      color="primary"
+      onClick={[Function]}
+    >
+      Hide 
+      <ExpandLess />
+    </Button>
+  </div>,
+]
+`;

@@ -1,17 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MenuCategory Snapshot 1`] = `
+exports[`MenuCategory Snapshot menu.times length < isAmount 1`] = `
 <div
-  className="root"
+  className="MenuCategory-root-1 root"
 >
   <Typography
-    className="title"
+    className="MenuCategory-title-2 title"
     color="secondary"
+    name="category"
   >
     category
   </Typography>
   <div
-    className="flexBox"
+    className="MenuCategory-flexBoxStart-4 flexBoxStart"
   >
     <MenuItem
       item={
@@ -28,5 +29,44 @@ exports[`MenuCategory Snapshot 1`] = `
       }
     />
   </div>
+  <HiddenItemPanel
+    category="category"
+    items={Array []}
+  />
+</div>
+`;
+
+exports[`MenuCategory Snapshot menu.times length > isAmount 1`] = `
+<div
+  className="MenuCategory-root-1 root"
+>
+  <Typography
+    className="MenuCategory-title-2 title"
+    color="secondary"
+    name="category"
+  >
+    category
+  </Typography>
+  <div
+    className="MenuCategory-flexBoxAround-3 flexBoxAround"
+  >
+    <MenuItem
+      item={
+        Object {
+          "_id": 1,
+        }
+      }
+    />
+  </div>
+  <HiddenItemPanel
+    category="category"
+    items={
+      Array [
+        Object {
+          "_id": 2,
+        },
+      ]
+    }
+  />
 </div>
 `;
