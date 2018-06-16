@@ -6,6 +6,9 @@ import { fetchAllMenu } from '../../actions/MenuActions';
 
 import Banner from '../Banner';
 import MenuCategory from '../MenuCategory';
+import ItemDetailDialog from '../ItemDetailDialog';
+import ShowDetailDialogContext from '../../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
+
 
 /** The component that shows the home page containt */
 export class HomePageContainer extends Component {
@@ -29,7 +32,11 @@ export class HomePageContainer extends Component {
    * itemAmount is the number will be showed on the page (Rest of them will be hidden in an expaned panel.)
    * width > 1200 shows 12, > 987 shows 10, >801 shows 8, < 615 shows 6
    */
-  state = { itemAmount: HomePageContainer.getAmountNumber(window.innerWidth) };
+  state = {
+    itemAmount: HomePageContainer.getAmountNumber(window.innerWidth),
+    isDialogOpen: false,
+    currentItem: null
+  };
 
 
   /**
@@ -53,17 +60,37 @@ export class HomePageContainer extends Component {
   });
 
   /**
+   * Showing the item detail dialog.
+   * Making sure the currentItem has been setup before open the dialog.
+   * @param {string} itemId is the id of an item.
+   * @return {null} No return.
+   */
+  showDetailDialog = itemId => this.setState(
+    { currentItem: this.props.menuItems[itemId] },
+    () => this.handleDialogToggle()
+  );
+
+  /**
+   * Setting the isDialogOpen state to a opposite value.
+   * @return {null} Ignore tht return.
+   */
+  handleDialogToggle = () => this.setState(({ isDialogOpen }) => ({ isDialogOpen: !isDialogOpen }));
+
+  /**
    * Rendering the jsx for the component.
    * @return {jsx} Return jsx
    */
   render() {
     const { menus } = this.props;
-    const { itemAmount } = this.state;
+    const { itemAmount, isDialogOpen, currentItem } = this.state;
     return (
       <Fragment>
         <Banner />
-        {menus && menus.map(menu =>
-          <MenuCategory menu={menu} key={menu._id} itemAmount={itemAmount} />)}
+        <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
+          {menus && menus.map(menu =>
+            <MenuCategory menu={menu} key={menu._id} itemAmount={itemAmount} />)}
+        </ShowDetailDialogContext.Provider>
+        <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />
       </Fragment>
     );
   }
@@ -71,7 +98,8 @@ export class HomePageContainer extends Component {
 
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  menus: state.menus
+  menus: state.menus,
+  menuItems: state.menuItems
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
