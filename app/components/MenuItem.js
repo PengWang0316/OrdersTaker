@@ -49,7 +49,7 @@ export const MenuItem = ({ classes, item }) => (
   <ShowDetailDialogContext.Consumer>
     {showDetailDialog => (
       <div className={classes.menuItem}>
-        <Avatar alt="Remy Sharp" src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(item._id)} />
+        <Avatar src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(item._id)} />
         <Typography className={classes.menuName} color="primary" onClick={() => showDetailDialog(item._id)}>{item.name}</Typography>
         <PriceItem item={item} />
       </div>
