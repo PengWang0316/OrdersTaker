@@ -28,6 +28,9 @@ const styles = {
     '&:hover': {
       cursor: 'pointer'
     }
+  },
+  flexEnd: {
+    justifyContent: 'flex-end'
   }
 };
 
@@ -37,8 +40,10 @@ const styles = {
 export class PriceItem extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    item: PropTypes.object.isRequired
+    item: PropTypes.object.isRequired,
+    flexEnd: PropTypes.bool
   };
+  static defaultProps = { flexEnd: false };
 
   state = {
     anchorEl: null
@@ -59,11 +64,11 @@ export class PriceItem extends Component {
    * @return {jsx} Return jsx.
    */
   render() {
-    const { classes, item } = this.props;
+    const { classes, item, flexEnd } = this.props;
     const { anchorEl } = this.state;
     const pricesObjectKeys = Object.keys(item.prices); // Save the keys of prices.
     if (pricesObjectKeys.length === 1) return (
-      <div className={classes.priceDiv}>
+      <div className={`${classes.priceDiv} ${flexEnd ? classes.flexEnd : ''}`}>
         <Typography color="textSecondary">$ {item.prices[pricesObjectKeys[0]]}</Typography>
         <Tooltip id="tooltip-fab" title="Add to your order" placement="right-end">
           <IconButton className={classes.addButton} aria-label="Add to your order" color="primary">
@@ -76,7 +81,7 @@ export class PriceItem extends Component {
     return (
       <Fragment>
         <Tooltip id="tooltip-fab" title="Check prices" placement="right-end">
-          <div className={classes.multiplePriceDiv} onClick={this.handleMenuIconClick} role="button" tabIndex="-1">
+          <div className={`${classes.multiplePriceDiv} ${flexEnd ? classes.flexEnd : ''}`} onClick={this.handleMenuIconClick} role="button" tabIndex="-1">
             <Typography color="textSecondary">More Choices</Typography>
             <KeyboardArrowDown className={classes.icon} color="primary" />
           </div>
