@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Avatar, Typography } from '@material-ui/core';
 
 import PriceItem from './PriceItem';
+import ShowDetailDialogContext from '../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
+
 
 const styles = {
   avatar: {
@@ -26,6 +28,9 @@ const styles = {
     fontSize: 14,
     fontWeight: 'bold',
     wordWrap: 'break-word',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   '@media (max-width: 600px)': {
     avatar: {
@@ -41,13 +46,18 @@ const styles = {
 };
 
 export const MenuItem = ({ classes, item }) => (
-  <div className={classes.menuItem}>
-    <Avatar alt="Remy Sharp" src={item.photo} className={classes.avatar} />
-    <Typography className={classes.menuName} color="primary">{item.name}</Typography>
-    <PriceItem item={item} />
-  </div>
+  <ShowDetailDialogContext.Consumer>
+    {showDetailDialog => (
+      <div className={classes.menuItem}>
+        <Avatar src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(item._id)} />
+        <Typography className={classes.menuName} color="primary" onClick={() => showDetailDialog(item._id)}>{item.name}</Typography>
+        <PriceItem item={item} />
+      </div>
+      )}
+  </ShowDetailDialogContext.Consumer>
 );
 MenuItem.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired
 };
 export default withStyles(styles)(MenuItem);

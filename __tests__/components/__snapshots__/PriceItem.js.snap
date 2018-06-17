@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PriceItem Snapshot with multiple prices 1`] = `
+exports[`PriceItem Snapshot with multiple prices flexEnd 1`] = `
 Array [
   <Tooltip
     id="tooltip-fab"
@@ -8,7 +8,7 @@ Array [
     title="Check prices"
   >
     <div
-      className="multiplePriceDiv"
+      className="multiplePriceDiv flex-end"
       onClick={[Function]}
       role="button"
       tabIndex="-1"
@@ -115,9 +115,152 @@ Array [
 ]
 `;
 
-exports[`PriceItem Snapshot with one price 1`] = `
+exports[`PriceItem Snapshot with multiple prices not flexEnd 1`] = `
+Array [
+  <Tooltip
+    id="tooltip-fab"
+    placement="right-end"
+    title="Check prices"
+  >
+    <div
+      className="multiplePriceDiv "
+      onClick={[Function]}
+      role="button"
+      tabIndex="-1"
+    >
+      <Typography
+        color="textSecondary"
+      >
+        More Choices
+      </Typography>
+      <KeyboardArrowDown
+        className="icon"
+        color="primary"
+      />
+    </div>
+  </Tooltip>,
+  <Menu
+    anchorEl={null}
+    id="simple-menu"
+    onClose={[Function]}
+    open={false}
+  >
+    <MenuItem
+      className="priceDiv"
+      onClick={[Function]}
+    >
+      <Typography
+        className="upperCase"
+        color="primary"
+      >
+        small
+          
+      </Typography>
+      <Typography
+        color="primary"
+      >
+        $
+        100
+      </Typography>
+      <IconButton
+        aria-label="Add to your order"
+        className="addButton"
+        color="primary"
+      >
+        <AddBox
+          className="icon"
+        />
+      </IconButton>
+    </MenuItem>
+    <MenuItem
+      className="priceDiv"
+      onClick={[Function]}
+    >
+      <Typography
+        className="upperCase"
+        color="primary"
+      >
+        middle
+          
+      </Typography>
+      <Typography
+        color="primary"
+      >
+        $
+        200
+      </Typography>
+      <IconButton
+        aria-label="Add to your order"
+        className="addButton"
+        color="primary"
+      >
+        <AddBox
+          className="icon"
+        />
+      </IconButton>
+    </MenuItem>
+    <MenuItem
+      className="priceDiv"
+      onClick={[Function]}
+    >
+      <Typography
+        className="upperCase"
+        color="primary"
+      >
+        large
+          
+      </Typography>
+      <Typography
+        color="primary"
+      >
+        $
+        300
+      </Typography>
+      <IconButton
+        aria-label="Add to your order"
+        className="addButton"
+        color="primary"
+      >
+        <AddBox
+          className="icon"
+        />
+      </IconButton>
+    </MenuItem>
+  </Menu>,
+]
+`;
+
+exports[`PriceItem Snapshot with one price flexEnd 1`] = `
 <div
-  className="priceDiv"
+  className="priceDiv flex-end"
+>
+  <Typography
+    color="textSecondary"
+  >
+    $ 
+    100
+  </Typography>
+  <Tooltip
+    id="tooltip-fab"
+    placement="right-end"
+    title="Add to your order"
+  >
+    <IconButton
+      aria-label="Add to your order"
+      className="addButton"
+      color="primary"
+    >
+      <AddBox
+        className="icon"
+      />
+    </IconButton>
+  </Tooltip>
+</div>
+`;
+
+exports[`PriceItem Snapshot with one price not flexEnd 1`] = `
+<div
+  className="priceDiv "
 >
   <Typography
     color="textSecondary"

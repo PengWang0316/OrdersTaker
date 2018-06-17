@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecipePanel Snapshot 1`] = `
+<ExpansionPanel
+  classes={
+    Object {
+      "root": "panel",
+    }
+  }
+>
+  <ExpansionPanelSummary
+    expandIcon={
+      <pure(ExpandMore)
+        color="primary"
+      />
+    }
+  >
+    <Typography
+      className="recipe"
+      color="primary"
+    >
+      Recipe
+    </Typography>
+  </ExpansionPanelSummary>
+  <ExpansionPanelDetails>
+    <List
+      className="list"
+    >
+      <ListItem
+        button={true}
+      >
+        <ListItemText
+          disableTypography={true}
+          primary={
+            <Typography
+              color="textSecondary"
+            >
+              recipe A
+            </Typography>
+          }
+        />
+      </ListItem>
+      <Divider />
+      <ListItem
+        button={true}
+      >
+        <ListItemText
+          disableTypography={true}
+          primary={
+            <Typography
+              color="textSecondary"
+            >
+              recipe B
+            </Typography>
+          }
+        />
+      </ListItem>
+      <Divider />
+    </List>
+  </ExpansionPanelDetails>
+</ExpansionPanel>
+`;

@@ -21,7 +21,8 @@ describe('PriceItem', () => {
       icon: 'icon',
       upperCase: 'upperCase',
       priceDiv: 'priceDiv',
-      multiplePriceDiv: 'multiplePriceDiv'
+      multiplePriceDiv: 'multiplePriceDiv',
+      flexEnd: 'flex-end'
     }
   };
   const getShallowComponent = (props = defaultProps) => shallow(<PriceItem {...props} />);
@@ -40,8 +41,11 @@ describe('PriceItem', () => {
     expect(component.state('anchorEl')).toBeNull();
   });
 
-  test('Snapshot with one price', () => expect(renderer.create(<PriceItem {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with one price not flexEnd', () => expect(renderer.create(<PriceItem {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with one price flexEnd', () => expect(renderer.create(<PriceItem {...{ ...defaultProps, flexEnd: true }} />).toJSON()).toMatchSnapshot());
 
-  test('Snapshot with multiple prices', () => expect(renderer.create(<PriceItem {...{ ...defaultProps, item: { prices: { small: 100, middle: 200, large: 300 } } }} />).toJSON())
+  test('Snapshot with multiple prices not flexEnd', () => expect(renderer.create(<PriceItem {...{ ...defaultProps, item: { prices: { small: 100, middle: 200, large: 300 } } }} />).toJSON())
+    .toMatchSnapshot());
+  test('Snapshot with multiple prices flexEnd', () => expect(renderer.create(<PriceItem {...{ ...defaultProps, flexEnd: true, item: { prices: { small: 100, middle: 200, large: 300 } } }} />).toJSON())
     .toMatchSnapshot());
 });

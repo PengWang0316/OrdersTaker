@@ -11,6 +11,7 @@ window.innerWidth = 800;
 
 describe('HomePageContainer', () => {
   const defaultProps = {
+    menuItems: { id: 1 },
     menus: null,
     fetchAllMenu: jest.fn()
   };
@@ -42,6 +43,21 @@ describe('HomePageContainer', () => {
     expect(HomePageContainer.getAmountNumber(1200)).toBe(10);
     expect(HomePageContainer.getAmountNumber(1201)).toBe(12);
     expect(HomePageContainer.getAmountNumber(1600)).toBe(12);
+  });
+
+  test('handleDialogToggle', () => {
+    const component = getShallowComponent();
+    expect(component.state('isDialogOpen')).toBe(false);
+    component.instance().handleDialogToggle();
+    expect(component.state('isDialogOpen')).toBe(true);
+  });
+
+  test('showDetailDialog', () => {
+    const component = getShallowComponent();
+    expect(component.state('isDialogOpen')).toBe(false);
+    component.instance().showDetailDialog('id');
+    expect(component.state('isDialogOpen')).toBe(true);
+    expect(component.state('currentItem')).toBe(1);
   });
 
   test('snapshot without menu props', () => expect(renderer.create(<HomePageContainer {...defaultProps} />).toJSON()).toMatchSnapshot());
