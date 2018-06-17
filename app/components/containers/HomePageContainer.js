@@ -14,9 +14,10 @@ import ShowDetailDialogContext from '../../contexts/ShowDetailDialogContext'; //
 export class HomePageContainer extends Component {
   static propTypes = {
     menus: PropTypes.array,
+    menuItems: PropTypes.object,
     fetchAllMenu: PropTypes.func.isRequired
   };
-  static defaultProps = { menus: null };
+  static defaultProps = { menus: null, menuItems: null };
 
   /**
    * call fetchAllMenu method when the menus is null
