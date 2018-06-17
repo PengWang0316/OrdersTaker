@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemDetailDialog Snapshot has item 1`] = `
+<Dialog
+  classes={
+    Object {
+      "paper": "dialogPager",
+    }
+  }
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogContent
+    className="root"
+  >
+    <IconButton
+      className="closeButton"
+      onClick={[MockFunction]}
+    >
+      <Close
+        className="closeIcon"
+      />
+    </IconButton>
+    <div
+      className="flexBox"
+    >
+      <Avatar
+        className="avatar"
+        src="photo"
+      />
+      <div
+        className="description"
+      >
+        <Typography
+          className="title"
+          color="primary"
+        />
+        <Typography
+          color="textSecondary"
+        />
+        <PriceItem
+          flexEnd={true}
+          item={
+            Object {
+              "photo": "photo",
+              "recipes": "recipes",
+            }
+          }
+        />
+      </div>
+    </div>
+    <RecipePanel
+      recipes="recipes"
+    />
+    <div
+      className="buttonDiv"
+    >
+      <Button
+        aria-label="Close the detail page"
+        color="primary"
+        onClick={[MockFunction]}
+        size="small"
+        variant="contained"
+      >
+        Close
+      </Button>
+    </div>
+  </DialogContent>
+</Dialog>
+`;
+
+exports[`ItemDetailDialog Snapshot no item 1`] = `
+<Dialog
+  classes={
+    Object {
+      "paper": "dialogPager",
+    }
+  }
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogContent
+    className="root"
+  />
+</Dialog>
+`;
