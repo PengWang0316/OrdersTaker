@@ -6,15 +6,10 @@ import { Close } from '@material-ui/icons/';
 
 import PriceItem from './PriceItem';
 import RecipePanel from './RecipePanel';
-
+import dialogStyles from '../styles/DialogSytels';
 
 const styles = ({
-  root: {
-    padding: 40
-  },
-  dialogPaper: {
-    maxWidth: 1100
-  },
+  ...dialogStyles,
   flexBox: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -66,7 +61,7 @@ export const ItemDetailDialog = ({
   onClose, open, item, classes
 }) => (
   <Dialog onClose={onClose} open={open} classes={{ paper: classes.dialogPaper }}>
-    <DialogContent className={classes.root}>
+    <DialogContent className={classes.dialogContent}>
       {item && (
         <Fragment>
           <IconButton onClick={onClose} className={classes.closeButton}><Close className={classes.closeIcon} /></IconButton>
