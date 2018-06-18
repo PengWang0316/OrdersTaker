@@ -9,7 +9,7 @@ import RecipePanel from './RecipePanel';
 import dialogStyles from '../styles/DialogSytels';
 
 const styles = ({
-  ...dialogStyles,
+  ...dialogStyles, // Extending some basic dialog styles from DialogSytels.
   flexBox: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -32,21 +32,6 @@ const styles = ({
     flexDirection: 'column',
     justifyContent: 'space-around'
   },
-  buttonDiv: {
-    textAlign: 'right',
-    marginTop: 50
-  },
-  closeButton: {
-    width: 30,
-    height: 30,
-    position: 'relative',
-    top: -10,
-    left: '98%'
-  },
-  closeIcon: {
-    width: 20,
-    height: 20
-  },
   '@media (max-width: 923px)': {
     avatar: {
       width: '200px',
@@ -64,7 +49,7 @@ export const ItemDetailDialog = ({
     <DialogContent className={classes.dialogContent}>
       {item && (
         <Fragment>
-          <IconButton onClick={onClose} className={classes.closeButton}><Close className={classes.closeIcon} /></IconButton>
+          <IconButton onClick={onClose} className={classes.dialogCloseButton}><Close className={classes.dialogCloseIcon} /></IconButton>
           <div className={classes.flexBox}>
             <Avatar src={item.photo} className={classes.avatar} />
             <div className={classes.description}>
@@ -74,7 +59,7 @@ export const ItemDetailDialog = ({
             </div>
           </div>
           <RecipePanel recipes={item.recipes} />
-          <div className={classes.buttonDiv}>
+          <div className={classes.dialogButtonDiv}>
             <Button onClick={onClose} variant="contained" size="small" aria-label="Close the detail page" color="primary">Close</Button>
           </div>
         </Fragment>
