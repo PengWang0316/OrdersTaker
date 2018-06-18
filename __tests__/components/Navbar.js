@@ -17,13 +17,15 @@ jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
 
 describe('Navbar test', () => {
   const defaultProps = {
-    classes: { flex: 'flex', appbar: 'appbar' }
+    classes: { flex: 'flex', appbar: 'appbar' },
+    logout: jest.fn()
   };
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
   test('Initial state', () => {
     const component = getShallowComponent();
     expect(component.state('anchorEl')).toBe(null);
+    expect(component.state('open')).toBe(false);
   });
 
   test('handleMenuIconClick', () => {
@@ -34,5 +36,29 @@ describe('Navbar test', () => {
     expect(component.state('anchorEl')).toBe(null);
   });
 
-  test('NavBar snapshot', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('handleToggleDialog', () => {
+    const component = getShallowComponent();
+    expect(component.state('open')).toBe(false);
+    component.instance().handleToggleDialog();
+    expect(component.state('open')).toBe(true);
+  });
+
+  test('handleMenuIconClick', () => {
+    const component = getShallowComponent({ ...defaultProps });
+    component.setState({ anchorEl: true });
+    expect(component.state('open')).toBe(false);
+    component.instance().handleLoginButtonClick();
+    expect(defaultProps.logout).not.toHaveBeenCalled();
+    expect(component.state('anchorEl')).toBeNull();
+    expect(component.state('open')).toBe(true);
+
+    component.setProps({ user: {} }); // Setting a user object to props in order to test handleLoginButtonClick function.
+    component.instance().handleLoginButtonClick();
+    expect(defaultProps.logout).toHaveBeenCalledTimes(1);
+    // expect(component.state('open')).toBe(false);
+  });
+
+  test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
+
+  test('NavBar snapshot with user', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: {} }} />).toJSON()).toMatchSnapshot());
 });
