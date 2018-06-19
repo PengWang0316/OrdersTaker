@@ -12,7 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import LoginDialog from './LoginDialog';
+import LoginDialog from './LoginDialog/';
 import { logout } from '../actions/UserActions';
 
 const styles = {
