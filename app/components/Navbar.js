@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import LoginDialog from './LoginDialog/';
+import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
 import { logout } from '../actions/UserActions';
 
 const styles = {
@@ -32,7 +33,9 @@ export class Navbar extends Component {
 
   state = {
     anchorEl: null, // The indecator for the menu
-    open: false // The indecator for the loginDialog
+    open: false, // The indecator for the loginDialog,
+    snackbarOpen: false, // For the warning snackbar.
+    snackbarMessage: ''
   };
 
   /**
@@ -64,12 +67,23 @@ export class Navbar extends Component {
   };
 
   /**
+   * Setting the snackbarOpen state to true in order to open the snackbar.
+   * If message paramter is a string, set it to message state. Otherwise, set a empty message.
+   * @param {string} message will be showed in the snackbar.
+   * @return {null} No return.
+   */
+  handleToggleSnackbar = message => this.setState(({ snackbarOpen }) =>
+    ({ snackbarOpen: !snackbarOpen, snackbarMessage: typeof message === 'string' ? message : '' }));
+
+  /**
    * The render method to render the jsx.
    * @return {jsx} Return jsx.
    */
   render() {
     const { classes, user } = this.props;
-    const { anchorEl, open } = this.state;
+    const {
+      anchorEl, open, snackbarOpen, snackbarMessage
+    } = this.state;
     return (
       <Fragment>
         <AppBar position="static" className={classes.appbar}>
@@ -105,7 +119,12 @@ export class Navbar extends Component {
             </Hidden>
           </Toolbar>
         </AppBar>
-        {!user && <LoginDialog open={open} onClose={this.handleToggleDialog} />}
+        {!user && ( // If a user has already login, do not need to load componnets below.
+          <Fragment>
+            <LoginDialog open={open} onClose={this.handleToggleDialog} onToggleSnackbar={this.handleToggleSnackbar} />}
+            <LoginDialogSnackbar open={snackbarOpen} onClose={this.handleToggleSnackbar} message={snackbarMessage} />
+          </Fragment>
+        )}
       </Fragment>
     );
   }

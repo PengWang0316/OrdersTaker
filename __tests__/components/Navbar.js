@@ -13,6 +13,8 @@ jest.mock('@material-ui/core/IconButton', () => 'IconButton');
 jest.mock('@material-ui/core/Menu', () => 'Menu');
 jest.mock('@material-ui/core/MenuItem', () => 'MenuItem');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
+jest.mock('../../app/components/LoginDialog/LoginDialog', () => 'LoginDialog');
+jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDialogSnackbar');
 // jest.mock('@material-ui/core/styles', () => { withStyles });
 
 describe('Navbar test', () => {
@@ -24,8 +26,13 @@ describe('Navbar test', () => {
 
   test('Initial state', () => {
     const component = getShallowComponent();
-    expect(component.state('anchorEl')).toBe(null);
-    expect(component.state('open')).toBe(false);
+    const {
+      anchorEl, open, snackbarOpen, snackbarMessage
+    } = component.state();
+    expect(anchorEl).toBe(null);
+    expect(open).toBe(false);
+    expect(snackbarOpen).toBe(false);
+    expect(snackbarMessage).toBe('');
   });
 
   test('handleMenuIconClick', () => {
@@ -58,7 +65,19 @@ describe('Navbar test', () => {
     // expect(component.state('open')).toBe(false);
   });
 
+  test('handleToggleSnackbar', () => {
+    const component = getShallowComponent();
+    expect(component.state('snackbarOpen')).toBe(false);
+    expect(component.state('snackbarMessage')).toBe('');
+    component.instance().handleToggleSnackbar('message');
+    expect(component.state('snackbarOpen')).toBe(true);
+    expect(component.state('snackbarMessage')).toBe('message');
+    component.instance().handleToggleSnackbar({});
+    expect(component.state('snackbarOpen')).toBe(false);
+    expect(component.state('snackbarMessage')).toBe('');
+  });
+
   test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
 
-  test('NavBar snapshot with user', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: {} }} />).toJSON()).toMatchSnapshot());
+  test('NavBar snapshot with user', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id' } }} />).toJSON()).toMatchSnapshot());
 });
