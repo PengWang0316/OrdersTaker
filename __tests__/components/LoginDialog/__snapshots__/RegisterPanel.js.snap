@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegisterPanel Snapshot 1`] = `
+Array [
+  <Typography
+    className="title"
+    color="primary"
+  >
+    Register a new user
+  </Typography>,
+  <form
+    autoComplete="off"
+    noValidate={true}
+  >
+    <Tooltip
+      id="tooltipUsername"
+      title="Just characters, number, _ and @ are allowed"
+    >
+      <TextField
+        autoFocus={true}
+        disabled={false}
+        error={false}
+        fullWidth={true}
+        helperText={null}
+        id="username"
+        label="Username"
+        margin="normal"
+        onChange={[Function]}
+        type="email"
+        value=""
+      />
+    </Tooltip>
+    <div>
+      <TextField
+        disabled={false}
+        fullWidth={true}
+        id="password"
+        label="Password"
+        margin="normal"
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </div>
+    <Tooltip
+      id="tooltipRpPw"
+      title="Please type in your password again"
+    >
+      <TextField
+        disabled={false}
+        error={false}
+        fullWidth={true}
+        helperText={null}
+        id="repeatPassword"
+        label="Repeat Password"
+        margin="normal"
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </Tooltip>
+    <div>
+      <TextField
+        disabled={false}
+        error={false}
+        fullWidth={true}
+        helperText={null}
+        id="email"
+        label="Email"
+        margin="normal"
+        onChange={[Function]}
+        type="email"
+        value=""
+      />
+    </div>
+    <Tooltip
+      id="tooltipRegisterBtn"
+      placement="bottom-end"
+      title="Please fill out all field above"
+    >
+      <div
+        className="registerBtnDiv"
+      >
+        <Button
+          aria-label="Register"
+          color="primary"
+          disabled={true}
+          onClick={[Function]}
+          size="small"
+          variant="contained"
+        >
+          Register
+        </Button>
+      </div>
+    </Tooltip>
+    <div>
+      <Button
+        color="primary"
+        onClick={
+          [MockFunction] {
+            "calls": Array [
+              Array [],
+            ],
+            "results": Array [
+              Object {
+                "isThrow": false,
+                "value": undefined,
+              },
+            ],
+          }
+        }
+      >
+        Have an account already? Go to login
+      </Button>
+    </div>
+  </form>,
+]
+`;
