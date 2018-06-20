@@ -37,7 +37,8 @@
     ],
     "coveragePathIgnorePatterns": [
       "app/resources/",
-      "app/tools"
+      "app/tools",
+      "index.js"
     ]
   },
   "babel": {
