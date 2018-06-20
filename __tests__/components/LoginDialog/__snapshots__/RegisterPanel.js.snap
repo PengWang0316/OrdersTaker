@@ -95,6 +95,7 @@ Array [
     </Tooltip>
     <div>
       <Button
+        className="switchBtn"
         color="primary"
         onClick={
           [MockFunction] {

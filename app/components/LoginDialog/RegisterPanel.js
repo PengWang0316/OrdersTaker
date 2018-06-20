@@ -30,6 +30,9 @@ const styles = {
     position: 'relative',
     right: -49,
     top: 25
+  },
+  switchBtn: {
+    textTransform: 'capitalize'
   }
   // '@media (max-width: 450px)': {
   //   textField: {
@@ -208,7 +211,7 @@ export class RegisterPanel extends Component {
             </div>
           </Tooltip>
           <div>
-            <Button onClick={onTogglePanels} color="primary">Have an account already? Go to login</Button>
+            <Button onClick={onTogglePanels} color="primary" className={classes.switchBtn}>Have an account already? Go to login</Button>
           </div>
         </form>
 

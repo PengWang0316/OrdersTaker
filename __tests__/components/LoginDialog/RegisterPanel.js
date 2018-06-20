@@ -17,7 +17,8 @@ describe('RegisterPanel', () => {
       title: 'title',
       registerBtnDiv: 'registerBtnDiv',
       checkIcon: 'checkIcon',
-      circularProgress: 'circularProgress'
+      circularProgress: 'circularProgress',
+      switchBtn: 'switchBtn'
     },
     onTogglePanels: jest.fn(),
     onToggleSnackbar: jest.fn(),
