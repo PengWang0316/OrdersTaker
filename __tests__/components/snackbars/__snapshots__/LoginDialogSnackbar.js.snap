@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginDialogSnackbar Snapshot 1`] = `
+<Snackbar
+  ContentProps={
+    Object {
+      "aria-describedby": "message-id",
+    }
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "center",
+      "vertical": "bottom",
+    }
+  }
+  autoHideDuration={4000}
+  onClose={[MockFunction]}
+  open={true}
+>
+  <SnackbarContent
+    action={
+      Array [
+        <IconButton
+          aria-label="Close"
+          color="inherit"
+          onClick={[MockFunction]}
+        >
+          <Close />
+        </IconButton>,
+      ]
+    }
+    className="snackbarContent"
+    message={
+      <span
+        className="messageSpan"
+        id="message-id"
+      >
+        <Error />
+        <span
+          className="message"
+        >
+          message
+        </span>
+      </span>
+    }
+  />
+</Snackbar>
+`;
