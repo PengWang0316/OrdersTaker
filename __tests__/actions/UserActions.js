@@ -3,7 +3,8 @@ import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { USER_LOGOUT_SUCCESS } from '../../app/actions/ActionTypes';
+import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS } from '../../app/actions/ActionTypes';
+import { API_REGISTER_USER } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
 import * as UserActions from '../../app/actions/UserActions';
 
@@ -19,5 +20,27 @@ describe('UserActions', () => {
     expect(store.getActions()).toEqual(expectActions);
     expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
     expect(localStorage.removeItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+  });
+
+  test('login', () => {
+    const user = { id: 'id' };
+    const returnUser = { ...user, role: 1 };
+    const expectActions = [
+      { type: USER_LOGIN_SUCCESS, user: returnUser }
+    ];
+    axiosMock.onPost(API_REGISTER_USER, user).reply(200, returnUser);
+    const store = mockStore();
+    return store.dispatch(UserActions.registerUser(user))
+      .then(() => expect(store.getActions()).toEqual(expectActions));
+  });
+
+  test('login with network error', () => {
+    const user = {};
+    const mockErrorFn = jest.fn();
+    console.error = mockErrorFn;
+    axiosMock.onPost(API_REGISTER_USER, user).networkError();
+    const store = mockStore();
+    return store.dispatch(UserActions.registerUser(user))
+      .then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
 });
