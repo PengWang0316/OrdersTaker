@@ -24,14 +24,18 @@ describe('UserActions', () => {
 
   test('login', () => {
     const user = { id: 'id' };
-    const returnUser = { ...user, role: 1 };
+    const returnUser = { ...user, role: 1, jwt: 'jwt' };
     const expectActions = [
       { type: USER_LOGIN_SUCCESS, user: returnUser }
     ];
     axiosMock.onPost(API_REGISTER_USER, user).reply(200, returnUser);
     const store = mockStore();
     return store.dispatch(UserActions.registerUser(user))
-      .then(() => expect(store.getActions()).toEqual(expectActions));
+      .then(() => {
+        expect(store.getActions()).toEqual(expectActions);
+        expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+        expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, returnUser.jwt);
+      });
   });
 
   test('login with network error', () => {

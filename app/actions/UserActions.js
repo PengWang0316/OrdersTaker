@@ -22,5 +22,8 @@ export const logout = () => dispatch => {
 
 export const registerUser = user => dispatch =>
   axios.post(API_REGISTER_USER, user)
-    .then(({ data }) => dispatch(userLoginSuccess(data)))
+    .then(({ data }) => { // After get user back, write it to localStorage and dispatch it to redux.
+      localStorage.setItem(JWT_MESSAGE, data.jwt);
+      dispatch(userLoginSuccess(data));
+    })
     .catch(err => console.error(err));
