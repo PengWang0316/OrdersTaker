@@ -59,7 +59,10 @@ export class Navbar extends Component {
    * @return {null} No return.
    */
   handleLoginButtonClick = () => {
-    if (this.props.user) this.props.logout();
+    if (this.props.user) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
+      this.setState({ open: false });
+      this.props.logout();
+    }
     else { // Have to make sure always close the menu.
       this.setState({ anchorEl: null });
       this.handleToggleDialog();

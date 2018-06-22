@@ -50,7 +50,7 @@ describe('Navbar test', () => {
     expect(component.state('open')).toBe(true);
   });
 
-  test('handleMenuIconClick', () => {
+  test('handleLoginButtonClick', () => {
     const component = getShallowComponent({ ...defaultProps });
     component.setState({ anchorEl: true });
     expect(component.state('open')).toBe(false);
@@ -62,6 +62,7 @@ describe('Navbar test', () => {
     component.setProps({ user: {} }); // Setting a user object to props in order to test handleLoginButtonClick function.
     component.instance().handleLoginButtonClick();
     expect(defaultProps.logout).toHaveBeenCalledTimes(1);
+    expect(component.state('open')).toBe(false);
     // expect(component.state('open')).toBe(false);
   });
 
