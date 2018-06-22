@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_REGISTER_USER } from '../../app/actions/ApiUrls';
+import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
 import * as UserActions from '../../app/actions/UserActions';
 
@@ -46,5 +46,17 @@ describe('UserActions', () => {
     const store = mockStore();
     return store.dispatch(UserActions.registerUser(user))
       .then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
+  });
+
+  test('checkUsernameAvailable without error', () => {
+    axiosMock.onGet(API_CHECK_USERNAME_AVAILABLE, { params: { username: 'username' } }).reply(200, true);
+    UserActions.checkUsernameAvailable('username').then(result => expect(result).toBe(true));
+  });
+
+  test('checkUsernameAvailable with nextwork error', () => {
+    const mockErrorFn = jest.fn();
+    console.error = mockErrorFn;
+    axiosMock.onGet(API_CHECK_USERNAME_AVAILABLE, { params: { username: 'username' } }).networkError();
+    UserActions.checkUsernameAvailable('username').then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
 });
