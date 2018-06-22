@@ -1,14 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { MenuItem, Menu, IconButton, Hidden, Button, Typography, Toolbar, AppBar, Avatar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -18,7 +11,12 @@ import { logout } from '../actions/UserActions';
 
 const styles = {
   flex: { flex: 1 },
-  appbar: { maxHeight: 55 }
+  appbar: { maxHeight: 55 },
+  avatar: {
+    width: 30,
+    height: 30,
+    marginRight: 8
+  }
 };
 
 /** Navbar component */
@@ -97,7 +95,8 @@ export class Navbar extends Component {
             <Hidden only="xs">
               <Button color="inherit">Order</Button>
               <Button color="inherit">Menu</Button>
-              <Button color="inherit" onClick={this.handleLoginButtonClick}>{user ? 'Logout' : 'Login'}</Button>
+              <Button color="inherit" onClick={this.handleLoginButtonClick}>{user ?
+                (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}</Button>
             </Hidden>
             <Hidden only={['lg', 'md', 'sm']}>
               <IconButton
@@ -117,7 +116,9 @@ export class Navbar extends Component {
               >
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>My account</MenuItem>
-                <MenuItem onClick={this.handleLoginButtonClick}>{user ? 'Logout' : 'Login'}</MenuItem>
+                <MenuItem onClick={this.handleLoginButtonClick}>{user ?
+                  (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
+                </MenuItem>
               </Menu>
             </Hidden>
           </Toolbar>

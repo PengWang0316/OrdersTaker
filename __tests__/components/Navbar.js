@@ -12,6 +12,7 @@ jest.mock('@material-ui/core/Hidden', () => 'Hidden');
 jest.mock('@material-ui/core/IconButton', () => 'IconButton');
 jest.mock('@material-ui/core/Menu', () => 'Menu');
 jest.mock('@material-ui/core/MenuItem', () => 'MenuItem');
+jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
 jest.mock('../../app/components/LoginDialog/LoginDialog', () => 'LoginDialog');
 jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDialogSnackbar');
@@ -80,5 +81,7 @@ describe('Navbar test', () => {
 
   test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());
 
-  test('NavBar snapshot with user', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id' } }} />).toJSON()).toMatchSnapshot());
+  test('NavBar snapshot with user without avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id' } }} />).toJSON()).toMatchSnapshot());
+
+  test('NavBar snapshot with user with avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar' } }} />).toJSON()).toMatchSnapshot());
 });
