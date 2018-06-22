@@ -152,7 +152,6 @@ Array [
     onToggleSnackbar={[Function]}
     open={false}
   />,
-  "}",
   <LoginDialogSnackbar
     message=""
     onClose={[Function]}

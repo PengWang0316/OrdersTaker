@@ -121,7 +121,7 @@ export class Navbar extends Component {
         </AppBar>
         {!user && ( // If a user has already login, do not need to load componnets below.
           <Fragment>
-            <LoginDialog open={open} onClose={this.handleToggleDialog} onToggleSnackbar={this.handleToggleSnackbar} />}
+            <LoginDialog open={open} onClose={this.handleToggleDialog} onToggleSnackbar={this.handleToggleSnackbar} />
             <LoginDialogSnackbar open={snackbarOpen} onClose={this.handleToggleSnackbar} message={snackbarMessage} />
           </Fragment>
         )}
