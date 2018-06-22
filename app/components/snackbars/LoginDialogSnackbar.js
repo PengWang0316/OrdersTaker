@@ -4,6 +4,7 @@ import { Snackbar, IconButton, SnackbarContent } from '@material-ui/core';
 import { Close, Error } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
+/* istanbul ignore next */
 const styles = theme => ({
   messageSpan: {
     display: 'flex',
