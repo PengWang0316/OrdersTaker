@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckingIndicator Snapshot isCheck false isAvaliable false 1`] = `
+<Tooltip
+  id="usernameTooltip"
+  title="This user name has already been taken."
+>
+  <Error
+    className="error"
+    size={20}
+  />
+</Tooltip>
+`;
+
+exports[`CheckingIndicator Snapshot isCheck false isAvaliable true 1`] = `
+<CheckCircle
+  className="checkCircle"
+  size={20}
+/>
+`;
+
+exports[`CheckingIndicator Snapshot isCheck true 1`] = `
+<CircularProgress
+  className="circularProgress"
+  size={20}
+/>
+`;
