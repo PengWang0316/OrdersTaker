@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { TextField, Typography, Button, Tooltip, CircularProgress } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import { withStyles } from '@material-ui/core/styles';
-import { Check } from '@material-ui/icons';
+import { Check, Search, CheckCircle, Error } from '@material-ui/icons';
 
-import { registerUser } from '../../actions/UserActions';
+import { registerUser, checkUsernameAvailable } from '../../actions/UserActions';
+import CheckingIndicator from './CheckingIndicator';
 
 const styles = {
   title: {
@@ -33,6 +34,10 @@ const styles = {
   },
   switchBtn: {
     textTransform: 'capitalize'
+  },
+  usernameDiv: {
+    display: 'flex',
+    alignItems: 'flex-end'
   }
   // '@media (max-width: 450px)': {
   //   textField: {
@@ -66,6 +71,8 @@ export class RegisterPanel extends Component {
     isUsernameError: false,
     isPasswordError: false,
     isEmailError: false,
+    isNameAvalible: false, // whether username is avalible to be used.
+    isChecking: false, // whether checking the avalibility for the user name.
     isWaiting: false // When register button is hit turn this to true.
   };
 
@@ -76,43 +83,55 @@ export class RegisterPanel extends Component {
    * @return {null} No return.
    */
   handleTextFieldChange = ({ target }) => {
-    // If all field is not empty, set the isReady to true.
-    this.setState({ [target.id]: target.value }, () => this.setState(({
-      username, password, repeatPassword, email
-    }) => ({ isReady: !!(username && password && repeatPassword && email) })));
-    // Do the validation
-    switch (target.id) {
-      case 'username':
-        this.setState({ isUsernameError: false }); // Erasing the error state and check it again.
-        if (target.value.match(USERNAME_REGEXP)) {
-          this.props.onToggleSnackbar(USERNAME_TIP_MESSAGE);
-          this.setState({ isUsernameError: true, isReady: false });
-        }
-        break;
-      case 'password':
-        this.setState({ isPasswordError: false }); // Erasing the error state and check it again.
-        if (target.value !== this.state.repeatPassword) {
-          this.props.onToggleSnackbar(PASSWORD_TIP_MESSAGE);
-          this.setState({ isPasswordError: true, isReady: false });
-        }
-        break;
-      case 'repeatPassword':
-        this.setState({ isPasswordError: false }); // Erasing the error state and check it again.
-        if (target.value !== this.state.password) {
-          this.props.onToggleSnackbar(PASSWORD_TIP_MESSAGE);
-          this.setState({ isPasswordError: true, isReady: false });
-        }
-        break;
-      case 'email':
-        this.setState({ isEmailError: false }); // Erasing the error state and check it again.
-        if (!target.value.match(EMAIL_REGEXP)) {
-          this.props.onToggleSnackbar(EMAIL_TIP_MESSAGE);
-          this.setState({ isEmailError: true, isReady: false });
-        }
-        break;
-      default:
-        break;
-    }
+    this.setState({ [target.id]: target.value }, () => {
+      // If all field is not empty, set the isReady to true.
+      this.setState(({
+        username, password, repeatPassword, email
+      }) => ({ isReady: !!(username && password && repeatPassword && email) }));
+
+      // Do the validation
+      switch (target.id) {
+        case 'username':
+          this.setState({ isUsernameError: false, isReady: false }); // Erasing the error state and check it again. If username is changed, alway set the isReady to false and let the checking function callback to decide it state.
+          if (target.value.match(USERNAME_REGEXP)) {
+            this.props.onToggleSnackbar(USERNAME_TIP_MESSAGE);
+            this.setState({ isUsernameError: true });
+          } else {
+            // Setting up a timeout function to check the avalibility for the username.
+            if (this.checkUsernameTimeout) clearTimeout(this.checkUsernameTimeout); // If the check function has already been schulded, clear the old one.
+            this.checkUsernameTimeout = setTimeout(() => {
+              this.setState({ isChecking: true });
+              checkUsernameAvailable(target.value).then(isAvalible => this.setState(({
+                username, password, repeatPassword, email
+              }) => ({ isReady: !!(username && password && repeatPassword && email && !!isAvalible), isChecking: false, isNameAvalible: !!isAvalible })));
+            }, 1000);
+          }
+          break;
+        case 'password':
+          this.setState({ isPasswordError: false }); // Erasing the error state and check it again.
+          if (target.value !== this.state.repeatPassword) {
+            this.props.onToggleSnackbar(PASSWORD_TIP_MESSAGE);
+            this.setState({ isPasswordError: true, isReady: false });
+          }
+          break;
+        case 'repeatPassword':
+          this.setState({ isPasswordError: false }); // Erasing the error state and check it again.
+          if (target.value !== this.state.password) {
+            this.props.onToggleSnackbar(PASSWORD_TIP_MESSAGE);
+            this.setState({ isPasswordError: true, isReady: false });
+          }
+          break;
+        case 'email':
+          this.setState({ isEmailError: false }); // Erasing the error state and check it again.
+          if (!target.value.match(EMAIL_REGEXP)) {
+            this.props.onToggleSnackbar(EMAIL_TIP_MESSAGE);
+            this.setState({ isEmailError: true, isReady: false });
+          }
+          break;
+        default:
+          break;
+      }
+    });
   };
 
   /**
@@ -138,27 +157,31 @@ export class RegisterPanel extends Component {
   render() {
     const { classes, onTogglePanels } = this.props;
     const {
-      username, password, repeatPassword, email, isUsernameError, isPasswordError, isEmailError, isReady, isWaiting
+      username, password, repeatPassword, email,
+      isUsernameError, isPasswordError, isEmailError, isReady, isWaiting, isChecking, isNameAvalible
     } = this.state;
     return (
       <Fragment>
         <Typography className={classes.title} color="primary">Register a new user</Typography>
         <form noValidate autoComplete="off">
-          <Tooltip id="tooltipUsername" title={USERNAME_TIP_MESSAGE}>
-            <TextField
-              error={isUsernameError}
-              helperText={isUsernameError ? USERNAME_TIP_MESSAGE : null}
-              autoFocus
-              id="username"
-              label="Username"
-              margin="normal"
-              type="email"
-              value={username}
-              onChange={this.handleTextFieldChange}
-              disabled={isWaiting}
-              fullWidth
-            />
-          </Tooltip>
+          <div className={classes.usernameDiv}>
+            <Tooltip id="tooltipUsername" title={USERNAME_TIP_MESSAGE}>
+              <TextField
+                error={isUsernameError}
+                helperText={isUsernameError ? USERNAME_TIP_MESSAGE : null}
+                autoFocus
+                id="username"
+                label="Username"
+                margin="normal"
+                type="email"
+                value={username}
+                onChange={this.handleTextFieldChange}
+                disabled={isWaiting}
+                fullWidth
+              />
+            </Tooltip>
+            {username !== '' && <CheckingIndicator isChecking={isChecking} isAvaliable={isNameAvalible} />}
+          </div>
           <div>
             <TextField
               id="password"
