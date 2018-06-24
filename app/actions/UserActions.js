@@ -39,5 +39,5 @@ export const checkUsernameAvailable = username =>
       .then(({ data }) => resolve(data)).catch(err => console.error(err)));
 
 export const parserUserFromJwt = jwtMessage => dispatch =>
-  axios.get(API_JWTMESSAGE_VERIFY, { params: { JWT_MESSAGE: jwtMessage } })
+  axios.get(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } })
     .then(({ data }) => dispatch(parserUserFromJwtSuccess(data))).catch(err => console.error(err));

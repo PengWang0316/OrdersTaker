@@ -62,22 +62,22 @@ describe('UserActions', () => {
 
   test('parserUserFromJwt', () => {
     const user = { _id: 'id' };
-    const message = 'message';
+    const jwtMessage = 'message';
     const expectActions = [
       { type: PARSER_USER_FROM_JWT_SUCCESS, user }
     ];
-    axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { JWT_MESSAGE: message } }).reply(200, user);
+    axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } }).reply(200, user);
     const store = mockStore();
-    return store.dispatch(UserActions.parserUserFromJwt(message)).then(() => expect(store.getActions()).toEqual(expectActions));
+    return store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() => expect(store.getActions()).toEqual(expectActions));
   });
 
   test('parserUserFromJwt with network error', () => {
-    const message = 'message';
+    const jwtMessage = 'message';
     const mockErrorFn = jest.fn();
     console.error = mockErrorFn;
 
-    axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { JWT_MESSAGE: message } }).networkError();
+    axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } }).networkError();
     const store = mockStore();
-    store.dispatch(UserActions.parserUserFromJwt(message)).then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
+    store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
 });
