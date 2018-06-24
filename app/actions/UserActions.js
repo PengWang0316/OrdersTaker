@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS } from './ActionTypes';
-import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE } from './ApiUrls';
+import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS } from './ActionTypes';
+import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
 
 
@@ -12,6 +12,11 @@ const userLogoutSuccess = () => ({
 
 const userLoginSuccess = user => ({
   type: USER_LOGIN_SUCCESS,
+  user
+});
+
+const parserUserFromJwtSuccess = user => ({
+  type: PARSER_USER_FROM_JWT_SUCCESS,
   user
 });
 
@@ -32,3 +37,7 @@ export const checkUsernameAvailable = username =>
   new Promise((resolve, reject) =>
     axios.get(API_CHECK_USERNAME_AVAILABLE, { params: { username } })
       .then(({ data }) => resolve(data)).catch(err => console.error(err)));
+
+export const parserUserFromJwt = jwtMessage => dispatch =>
+  axios.get(API_JWTMESSAGE_VERIFY, { params: { JWT_MESSAGE: jwtMessage } })
+    .then(({ data }) => dispatch(parserUserFromJwtSuccess(data))).catch(err => console.error(err));

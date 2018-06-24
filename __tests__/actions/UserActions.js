@@ -3,8 +3,8 @@ import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE } from '../../app/actions/ApiUrls';
+import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS } from '../../app/actions/ActionTypes';
+import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
 import * as UserActions from '../../app/actions/UserActions';
 
@@ -58,5 +58,26 @@ describe('UserActions', () => {
     console.error = mockErrorFn;
     axiosMock.onGet(API_CHECK_USERNAME_AVAILABLE, { params: { username: 'username' } }).networkError();
     UserActions.checkUsernameAvailable('username').then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
+  });
+
+  test('parserUserFromJwt', () => {
+    const user = { _id: 'id' };
+    const message = 'message';
+    const expectActions = [
+      { type: PARSER_USER_FROM_JWT_SUCCESS, user }
+    ];
+    axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { JWT_MESSAGE: message } }).reply(200, user);
+    const store = mockStore();
+    return store.dispatch(UserActions.parserUserFromJwt(message)).then(() => expect(store.getActions()).toEqual(expectActions));
+  });
+
+  test('parserUserFromJwt with network error', () => {
+    const message = 'message';
+    const mockErrorFn = jest.fn();
+    console.error = mockErrorFn;
+
+    axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { JWT_MESSAGE: message } }).networkError();
+    const store = mockStore();
+    store.dispatch(UserActions.parserUserFromJwt(message)).then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
 });
