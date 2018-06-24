@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
+import { JWT_MESSAGE } from '../../app/config';
 
 jest.mock('@material-ui/core/AppBar', () => 'AppBar');
 jest.mock('@material-ui/core/Toolbar', () => 'Toolbar');
@@ -21,11 +22,12 @@ jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDial
 describe('Navbar test', () => {
   const defaultProps = {
     classes: { flex: 'flex', appbar: 'appbar' },
-    logout: jest.fn()
+    logout: jest.fn(),
+    parserUserFromJwt: jest.fn()
   };
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
-  test('Initial state', () => {
+  test('Initial state and parserUserFromJwt', () => {
     const component = getShallowComponent();
     const {
       anchorEl, open, snackbarOpen, snackbarMessage
@@ -34,6 +36,14 @@ describe('Navbar test', () => {
     expect(open).toBe(false);
     expect(snackbarOpen).toBe(false);
     expect(snackbarMessage).toBe('');
+    expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+    expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+    expect(defaultProps.parserUserFromJwt).not.toHaveBeenCalled();
+
+    localStorage.__STORE__[JWT_MESSAGE] = 'message'; // Set up a fake local storage value.
+    getShallowComponent();
+    expect(defaultProps.parserUserFromJwt).toHaveBeenCalledTimes(1);
+    expect(defaultProps.parserUserFromJwt).toHaveBeenLastCalledWith('message');
   });
 
   test('handleMenuIconClick', () => {

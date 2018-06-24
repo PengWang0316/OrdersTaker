@@ -7,7 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import LoginDialog from './LoginDialog/';
 import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
-import { logout } from '../actions/UserActions';
+import { logout, parserUserFromJwt } from '../actions/UserActions';
+import { JWT_MESSAGE } from '../config';
 
 const styles = {
   flex: { flex: 1 },
@@ -28,6 +29,18 @@ export class Navbar extends Component {
   };
 
   static defaultProps = { user: null };
+
+  /**
+   * If Redux does not have user and local storage has jwt, use jwt to parser the user.
+   * @param {object} props contains the component's prop value.
+   * @return {null} No return.
+   */
+  constructor(props) {
+    super(props);
+    const jwtMessage = localStorage.getItem(JWT_MESSAGE);
+    if (!props.user && jwtMessage) props.parserUserFromJwt(jwtMessage);
+    // console.log(window.location.href);
+  }
 
   state = {
     anchorEl: null, // The indecator for the menu
@@ -139,6 +152,7 @@ const mapStateToProps = state => ({
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
+  parserUserFromJwt: jwtMessage => dispatch(parserUserFromJwt(jwtMessage))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar));
