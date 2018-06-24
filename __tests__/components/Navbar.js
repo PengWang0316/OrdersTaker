@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
-import { JWT_MESSAGE } from '../../app/config';
+import { JWT_MESSAGE, LOGIN_CALLBACK_URL } from '../../app/config';
 
 jest.mock('@material-ui/core/AppBar', () => 'AppBar');
 jest.mock('@material-ui/core/Toolbar', () => 'Toolbar');
@@ -69,6 +69,8 @@ describe('Navbar test', () => {
     expect(defaultProps.logout).not.toHaveBeenCalled();
     expect(component.state('anchorEl')).toBeNull();
     expect(component.state('open')).toBe(true);
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, 'about:blank');
 
     component.setProps({ user: {} }); // Setting a user object to props in order to test handleLoginButtonClick function.
     component.instance().handleLoginButtonClick();
