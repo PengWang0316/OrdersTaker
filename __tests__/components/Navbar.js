@@ -70,7 +70,19 @@ describe('Navbar test', () => {
     expect(component.state('anchorEl')).toBeNull();
     expect(component.state('open')).toBe(true);
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, 'about:blank');
+    expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/');
+
+    // global.window = { location: { href: { value: 'http://df:39/dd' } } };
+    // Object.defineProperty(window.location, 'href', {
+    //   writable: true,
+    //   value: 'http://df:39/dd'
+    // });
+    jsdom.reconfigure({
+      url: 'http://df:39/dd'
+    });
+    component.instance().handleLoginButtonClick();
+    expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+    expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/dd');
 
     component.setProps({ user: {} }); // Setting a user object to props in order to test handleLoginButtonClick function.
     component.instance().handleLoginButtonClick();

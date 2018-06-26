@@ -10,6 +10,8 @@ import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
 import { logout, parserUserFromJwt } from '../actions/UserActions';
 import { JWT_MESSAGE, LOGIN_CALLBACK_URL } from '../config';
 
+const URL_REGEXP = /^https?:\/\/.+?(\/.*)/; // Using this to get the relative url.
+
 const styles = {
   flex: { flex: 1 },
   appbar: { maxHeight: 55 },
@@ -39,7 +41,6 @@ export class Navbar extends Component {
     super(props);
     const jwtMessage = localStorage.getItem(JWT_MESSAGE);
     if (!props.user && jwtMessage) props.parserUserFromJwt(jwtMessage);
-    // console.log(window.location.href);
   }
 
   state = {
@@ -73,9 +74,10 @@ export class Navbar extends Component {
     if (this.props.user) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
       this.setState({ open: false });
       this.props.logout();
-    } else { 
+    } else {
       this.setState({ anchorEl: null }); // Have to make sure always close the menu.
-      localStorage.setItem(LOGIN_CALLBACK_URL, window.location.href); // Save the current url to the local storage, which can be used to redirect users to the page they are useing after login.
+      const matchUrl = window.location.href.match(URL_REGEXP);
+      localStorage.setItem(LOGIN_CALLBACK_URL, matchUrl ? matchUrl[1] : '/'); // Save the current url to the local storage, which can be used to redirect users to the page they are useing after login.
       this.handleToggleDialog();
     }
   };
