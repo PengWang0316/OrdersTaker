@@ -77,7 +77,7 @@ describe('Navbar test', () => {
     //   writable: true,
     //   value: 'http://df:39/dd'
     // });
-    jsdom.reconfigure({
+    jsdom.reconfigure({ // changing the window.location.href
       url: 'http://df:39/dd'
     });
     component.instance().handleLoginButtonClick();
