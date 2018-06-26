@@ -17,6 +17,7 @@ jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
 jest.mock('../../app/components/LoginDialog/LoginDialog', () => 'LoginDialog');
 jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDialogSnackbar');
+jest.mock('../../app/components/snackbars/LogoutSnackbar', () => 'LogoutSnackbar');
 // jest.mock('@material-ui/core/styles', () => { withStyles });
 
 describe('Navbar test', () => {
@@ -30,11 +31,12 @@ describe('Navbar test', () => {
   test('Initial state and parserUserFromJwt', () => {
     const component = getShallowComponent();
     const {
-      anchorEl, open, snackbarOpen, snackbarMessage
+      anchorEl, open, snackbarOpen, snackbarMessage, logoutSnackbarOpen
     } = component.state();
     expect(anchorEl).toBe(null);
     expect(open).toBe(false);
     expect(snackbarOpen).toBe(false);
+    expect(logoutSnackbarOpen).toBe(false);
     expect(snackbarMessage).toBe('');
     expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
@@ -88,6 +90,7 @@ describe('Navbar test', () => {
     component.instance().handleLoginButtonClick();
     expect(defaultProps.logout).toHaveBeenCalledTimes(1);
     expect(component.state('open')).toBe(false);
+    expect(component.state('logoutSnackbarOpen')).toBe(true);
     // expect(component.state('open')).toBe(false);
   });
 
@@ -101,6 +104,13 @@ describe('Navbar test', () => {
     component.instance().handleToggleSnackbar({});
     expect(component.state('snackbarOpen')).toBe(false);
     expect(component.state('snackbarMessage')).toBe('');
+  });
+
+  test('handleToggleLogoutSnackbar', () => {
+    const component = getShallowComponent();
+    expect(component.state('logoutSnackbarOpen')).toBe(false);
+    component.instance().handleToggleLogoutSnackbar();
+    expect(component.state('logoutSnackbarOpen')).toBe(true);
   });
 
   test('NavBar snapshot without user', () => expect(renderer.create(<Navbar {...defaultProps} />).toJSON()).toMatchSnapshot());

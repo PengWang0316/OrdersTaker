@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import LoginDialog from './LoginDialog/';
 import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
+import LogoutSnackbar from './snackbars/LogoutSnackbar';
 import { logout, parserUserFromJwt } from '../actions/UserActions';
 import { JWT_MESSAGE, LOGIN_CALLBACK_URL } from '../config';
 
@@ -47,7 +48,8 @@ export class Navbar extends Component {
     anchorEl: null, // The indecator for the menu
     open: false, // The indecator for the loginDialog,
     snackbarOpen: false, // For the warning snackbar.
-    snackbarMessage: ''
+    snackbarMessage: '',
+    logoutSnackbarOpen: false
   };
 
   /**
@@ -72,7 +74,7 @@ export class Navbar extends Component {
    */
   handleLoginButtonClick = () => {
     if (this.props.user) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
-      this.setState({ open: false });
+      this.setState({ open: false, logoutSnackbarOpen: true });
       this.props.logout();
     } else {
       this.setState({ anchorEl: null }); // Have to make sure always close the menu.
@@ -92,13 +94,20 @@ export class Navbar extends Component {
     ({ snackbarOpen: !snackbarOpen, snackbarMessage: typeof message === 'string' ? message : '' }));
 
   /**
+   * Set the logoutSnackbarOpen state to an opposite value.
+   * @return {null} No return.
+   */
+  handleToggleLogoutSnackbar = () => this.setState(({ logoutSnackbarOpen }) =>
+    ({ logoutSnackbarOpen: !logoutSnackbarOpen }));
+
+  /**
    * The render method to render the jsx.
    * @return {jsx} Return jsx.
    */
   render() {
     const { classes, user } = this.props;
     const {
-      anchorEl, open, snackbarOpen, snackbarMessage
+      anchorEl, open, snackbarOpen, snackbarMessage, logoutSnackbarOpen
     } = this.state;
     return (
       <Fragment>
@@ -144,6 +153,7 @@ export class Navbar extends Component {
             <LoginDialogSnackbar open={snackbarOpen} onClose={this.handleToggleSnackbar} message={snackbarMessage} />
           </Fragment>
         )}
+        <LogoutSnackbar open={logoutSnackbarOpen} onClose={this.handleToggleLogoutSnackbar} />
       </Fragment>
     );
   }
