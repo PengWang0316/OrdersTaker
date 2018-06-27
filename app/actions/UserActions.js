@@ -7,7 +7,7 @@ import { JWT_MESSAGE } from '../config';
 
 const userLogoutSuccess = () => ({
   type: USER_LOGOUT_SUCCESS,
-  user: null
+  user: {}
 });
 
 const userLoginSuccess = user => ({

@@ -14,7 +14,7 @@ const mockStore = configureMockStore(middlewares);
 
 describe('UserActions', () => {
   test('logout', () => {
-    const expectActions = [{ type: USER_LOGOUT_SUCCESS, user: null }];
+    const expectActions = [{ type: USER_LOGOUT_SUCCESS, user: {} }];
     const store = mockStore();
     store.dispatch(UserActions.logout());
     expect(store.getActions()).toEqual(expectActions);

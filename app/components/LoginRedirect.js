@@ -33,11 +33,9 @@ const styles = {
 export class LoginRedirect extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
     parserUserFromJwt: PropTypes.func.isRequired
   };
-
-  static defaultProps = { user: null };
 
   /**
    * If the Redux has not had a user state, call the auction to parser it based on the jwt message and save jwt to the local storage.
@@ -46,7 +44,7 @@ export class LoginRedirect extends Component {
   constructor(props) {
     super(props);
     const jwtMessageMatch = props.location.search.match(JWT_REGEXP);
-    if (!props.user && jwtMessageMatch) {
+    if (!props.user._id && jwtMessageMatch) {
       props.parserUserFromJwt(jwtMessageMatch[1]); // Call the action to parser the jwt to a user state.
       localStorage.setItem(JWT_MESSAGE, jwtMessageMatch[1]); // Save jwt to the local storage.
       props.history.push(localStorage.getItem(LOGIN_CALLBACK_URL) || '/'); // Redirect users to where they left or to the home page.

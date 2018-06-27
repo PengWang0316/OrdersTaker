@@ -19,7 +19,8 @@ describe('LoginRedirect', () => {
     history: {
       push: jest.fn()
     },
-    location: { search: { match: jest.fn() } }
+    location: { search: { match: jest.fn() } },
+    user: {}
   };
   const getShallowComponent = (props = defaultProps) => shallow(<LoginRedirect {...defaultProps} />);
 
@@ -33,7 +34,7 @@ describe('LoginRedirect', () => {
   });
 
   test('constructor with jwt and user', () => {
-    getShallowComponent({ ...defaultProps, user: {} });
+    getShallowComponent({ ...defaultProps, user: { _id: 'id' } });
     expect(defaultProps.location.search.match).toHaveBeenCalledTimes(2);
     expect(defaultProps.parserUserFromJwt).not.toHaveBeenCalled();
     expect(localStorage.setItem).not.toHaveBeenCalled();

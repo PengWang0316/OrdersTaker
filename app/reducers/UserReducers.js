@@ -1,6 +1,6 @@
 import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS } from '../actions/ActionTypes';
 
-const user = (state = null, action) => {
+const user = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGOUT_SUCCESS:
     case USER_LOGIN_SUCCESS:

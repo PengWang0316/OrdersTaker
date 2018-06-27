@@ -24,7 +24,8 @@ describe('Navbar test', () => {
   const defaultProps = {
     classes: { flex: 'flex', appbar: 'appbar' },
     logout: jest.fn(),
-    parserUserFromJwt: jest.fn()
+    parserUserFromJwt: jest.fn(),
+    user: {}
   };
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
@@ -86,7 +87,7 @@ describe('Navbar test', () => {
     expect(localStorage.setItem).toHaveBeenCalledTimes(2);
     expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/dd');
 
-    component.setProps({ user: {} }); // Setting a user object to props in order to test handleLoginButtonClick function.
+    component.setProps({ user: { _id: 'id' } }); // Setting a user object to props in order to test handleLoginButtonClick function.
     component.instance().handleLoginButtonClick();
     expect(defaultProps.logout).toHaveBeenCalledTimes(1);
     expect(component.state('open')).toBe(false);

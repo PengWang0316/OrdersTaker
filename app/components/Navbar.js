@@ -27,11 +27,9 @@ const styles = {
 export class Navbar extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired
   };
-
-  static defaultProps = { user: null };
 
   /**
    * If Redux does not have user and local storage has jwt, use jwt to parser the user.
@@ -41,7 +39,7 @@ export class Navbar extends Component {
   constructor(props) {
     super(props);
     const jwtMessage = localStorage.getItem(JWT_MESSAGE);
-    if (!props.user && jwtMessage) props.parserUserFromJwt(jwtMessage);
+    if (!props.user._id && jwtMessage) props.parserUserFromJwt(jwtMessage);
   }
 
   state = {
@@ -73,7 +71,7 @@ export class Navbar extends Component {
    * @return {null} No return.
    */
   handleLoginButtonClick = () => {
-    if (this.props.user) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
+    if (this.props.user._id) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
       this.setState({ open: false, logoutSnackbarOpen: true });
       this.props.logout();
     } else {
@@ -119,8 +117,9 @@ export class Navbar extends Component {
             <Hidden only="xs">
               <Button color="inherit">Order</Button>
               <Button color="inherit">Menu</Button>
-              <Button color="inherit" onClick={this.handleLoginButtonClick}>{user ?
-                (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}</Button>
+              <Button color="inherit" onClick={this.handleLoginButtonClick}>{user._id ?
+                (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
+              </Button>
             </Hidden>
             <Hidden only={['lg', 'md', 'sm']}>
               <IconButton
@@ -140,14 +139,14 @@ export class Navbar extends Component {
               >
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>My account</MenuItem>
-                <MenuItem onClick={this.handleLoginButtonClick}>{user ?
+                <MenuItem onClick={this.handleLoginButtonClick}>{user._id ?
                   (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
                 </MenuItem>
               </Menu>
             </Hidden>
           </Toolbar>
         </AppBar>
-        {!user && ( // If a user has already login, do not need to load componnets below.
+        {!user._id && ( // If a user has already login, do not need to load componnets below.
           <Fragment>
             <LoginDialog open={open} onClose={this.handleToggleDialog} onToggleSnackbar={this.handleToggleSnackbar} />
             <LoginDialogSnackbar open={snackbarOpen} onClose={this.handleToggleSnackbar} message={snackbarMessage} />
