@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogoutSnackbar Snapshot 1`] = `
+<Snackbar
+  ContentProps={
+    Object {
+      "aria-describedby": "message-id",
+    }
+  }
+  anchorOrigin={
+    Object {
+      "horizontal": "center",
+      "vertical": "bottom",
+    }
+  }
+  autoHideDuration={2000}
+  onClose={[MockFunction]}
+  open={true}
+>
+  <SnackbarContent
+    className="snackbarContent"
+    message={
+      <span
+        className="messageSpan"
+        id="message-id"
+      >
+        <CheckCircle />
+        <span
+          className="message"
+        >
+          Logout Successfully
+        </span>
+      </span>
+    }
+  />
+</Snackbar>
+`;
