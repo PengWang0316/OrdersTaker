@@ -8,6 +8,7 @@ import dialogStyles from '../../styles/DialogSytels';
 import LoginPanel from './LoginPanel';
 import RegisterPanel from './RegisterPanel';
 
+/* istanbul ignore next */
 const styles = theme => ({
   ...dialogStyles, // Extending some basic dialog styles from DialogSytels.
 });
@@ -19,7 +20,8 @@ export class LoginDialog extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    onToggleSnackbar: PropTypes.func.isRequired
   };
 
   state = {
@@ -37,13 +39,15 @@ export class LoginDialog extends Component {
    * @return {jsx} Return jsx.
    */
   render() {
-    const { classes, open, onClose } = this.props;
+    const {
+      classes, open, onClose, onToggleSnackbar
+    } = this.props;
     const { isLogin } = this.state;
     return (
       <Dialog onClose={onClose} open={open} classes={{ paper: classes.dialogPaper }}>
         <DialogContent className={classes.dialogContent}>
           <IconButton onClick={onClose} className={classes.dialogCloseButton}><Close className={classes.dialogCloseIcon} /></IconButton>
-          {isLogin ? <LoginPanel onTogglePanels={this.togglePanels} /> : <RegisterPanel />}
+          {isLogin ? <LoginPanel onTogglePanels={this.togglePanels} onToggleSnackbar={onToggleSnackbar} /> : <RegisterPanel onTogglePanels={this.togglePanels} onToggleSnackbar={onToggleSnackbar} />}
         </DialogContent>
       </Dialog>
     );

@@ -45,7 +45,9 @@ exports[`LoginDialog Snapshot isLogin false 1`] = `
         className="dialogCloseIcon"
       />
     </IconButton>
-    <RegisterPanel />
+    <RegisterPanel
+      onTogglePanels={[Function]}
+    />
   </DialogContent>
 </Dialog>
 `;

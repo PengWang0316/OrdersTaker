@@ -4,6 +4,9 @@ import { shallow } from 'enzyme';
 
 import { LoginDialog } from '../../../app/components/LoginDialog/LoginDialog';
 
+// import LoginDialogFull from '../../../app/components/LoginDialog/index'; // Cover the index.js
+
+
 jest.mock('@material-ui/core/Dialog', () => 'Dialog');
 jest.mock('@material-ui/core/DialogContent', () => 'DialogContent');
 jest.mock('@material-ui/core/IconButton', () => 'IconButton');
