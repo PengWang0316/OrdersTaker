@@ -119,4 +119,13 @@ describe('UserActions', () => {
     return store.dispatch(UserActions.loginWithPassword(user))
       .then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
+
+  test('emptyUser', () => {
+    const expectActions = [
+      { type: USER_LOGIN_SUCCESS, user: {} }
+    ];
+    const store = mockStore();
+    store.dispatch(UserActions.emptyUser());
+    expect(store.getActions()).toEqual(expectActions);
+  });
 });

@@ -20,6 +20,8 @@ const parserUserFromJwtSuccess = user => ({
   user
 });
 
+export const emptyUser = () => userLoginSuccess({});
+
 export const logout = () => dispatch => {
   localStorage.removeItem(JWT_MESSAGE);
   dispatch(userLogoutSuccess());
