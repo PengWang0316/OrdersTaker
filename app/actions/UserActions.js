@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS } from './ActionTypes';
-import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY } from './ApiUrls';
+import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY, API_LOGIN_WITH_PASSWORD } from './ApiUrls';
 import { JWT_MESSAGE } from '../config';
 
 
@@ -32,6 +32,12 @@ export const registerUser = user => dispatch =>
       dispatch(userLoginSuccess(data));
     })
     .catch(err => console.error(err));
+
+export const loginWithPassword = ({ username, password }) => dispatch =>
+  axios.get(API_LOGIN_WITH_PASSWORD, { params: { username, password } }).then(({ data }) => {
+    if (data) localStorage.setItem(JWT_MESSAGE, data.jwt);
+    dispatch(userLoginSuccess(data));
+  }).catch(err => console.error(err));
 
 export const checkUsernameAvailable = username =>
   new Promise((resolve, reject) =>

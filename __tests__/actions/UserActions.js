@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { USER_LOGOUT_SUCCESS, USER_LOGIN_SUCCESS, PARSER_USER_FROM_JWT_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY } from '../../app/actions/ApiUrls';
+import { API_REGISTER_USER, API_CHECK_USERNAME_AVAILABLE, API_JWTMESSAGE_VERIFY, API_LOGIN_WITH_PASSWORD } from '../../app/actions/ApiUrls';
 import { JWT_MESSAGE } from '../../app/config';
 import * as UserActions from '../../app/actions/UserActions';
 
@@ -68,7 +68,8 @@ describe('UserActions', () => {
     ];
     axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } }).reply(200, user);
     const store = mockStore();
-    return store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() => expect(store.getActions()).toEqual(expectActions));
+    return store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() =>
+      expect(store.getActions()).toEqual(expectActions));
   });
 
   test('parserUserFromJwt with network error', () => {
@@ -78,6 +79,44 @@ describe('UserActions', () => {
 
     axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } }).networkError();
     const store = mockStore();
-    store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
+    store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() =>
+      expect(mockErrorFn).toHaveBeenCalledTimes(1));
+  });
+
+  test('loginWithPassword has data without error', () => {
+    const user = { username: 'username', password: 'password' };
+    const expectActions = [
+      { type: USER_LOGIN_SUCCESS, user: { ...user, jwt: 'jwt' } }
+    ];
+    axiosMock.onGet(API_LOGIN_WITH_PASSWORD, { params: user }).reply(200, { ...user, jwt: 'jwt' });
+    const store = mockStore();
+    return store.dispatch(UserActions.loginWithPassword(user)).then(() => {
+      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwt');
+      expect(store.getActions()).toEqual(expectActions);
+    });
+  });
+
+  test('loginWithPassword no data without error', () => {
+    const user = { username: 'username', password: 'password' };
+    const expectActions = [
+      { type: USER_LOGIN_SUCCESS, user: null }
+    ];
+    axiosMock.onGet(API_LOGIN_WITH_PASSWORD, { params: user }).reply(200, null);
+    const store = mockStore();
+    return store.dispatch(UserActions.loginWithPassword(user)).then(() => {
+      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(store.getActions()).toEqual(expectActions);
+    });
+  });
+
+  test('loginWithPassword with network error', () => {
+    const user = { username: 'username', password: 'password' };
+    const mockErrorFn = jest.fn();
+    console.error = mockErrorFn;
+    axiosMock.onGet(API_LOGIN_WITH_PASSWORD, { params: user }).networkError();
+    const store = mockStore();
+    return store.dispatch(UserActions.loginWithPassword(user))
+      .then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
 });
