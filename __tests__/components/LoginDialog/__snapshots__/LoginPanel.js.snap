@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPanel Snapshot 1`] = `
+Array [
+  <Typography
+    className="title"
+    color="primary"
+  >
+    Social Login
+  </Typography>,
+  <div>
+    <a
+      href="https://orders-taker.glitch.me/api/v1/auth/facebookLogin"
+    >
+      <img
+        alt="Use Facebook account login"
+        className="loginBtn"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+      />
+    </a>
+  </div>,
+  <div>
+    <a
+      href="https://orders-taker.glitch.me/api/v1/auth/googleLogin"
+    >
+      <img
+        alt="Use Google account login"
+        className="loginBtn"
+        src={
+          Object {
+            "process": [Function],
+          }
+        }
+      />
+    </a>
+  </div>,
+  <div
+    className="divider"
+  >
+    <Typography
+      className="fontWeight700"
+      color="primary"
+    >
+      or
+    </Typography>
+  </div>,
+  <Typography
+    className="title"
+    color="primary"
+  >
+    UserName Login
+  </Typography>,
+  <form
+    autoComplete="off"
+    noValidate={true}
+  >
+    <div>
+      <TextField
+        autoFocus={true}
+        className="textField"
+        id="username"
+        label="Username"
+        margin="normal"
+        onChange={[Function]}
+        value=""
+      />
+    </div>
+    <div>
+      <TextField
+        autoComplete="current-password"
+        className="textField"
+        id="password"
+        label="Password"
+        margin="normal"
+        onChange={[Function]}
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      className="loginButtonDiv"
+    >
+      <Button
+        aria-label="Login"
+        color="primary"
+        disabled={true}
+        onClick={[Function]}
+        size="small"
+      >
+        Login
+      </Button>
+    </div>
+  </form>,
+  <div
+    className="loginButtonDiv"
+  >
+    <Button
+      aria-label="Login"
+      className="regesterBtn"
+      color="primary"
+      onClick={[MockFunction]}
+      size="small"
+    >
+      Do not have an account? Regester one
+    </Button>
+  </div>,
+]
+`;
