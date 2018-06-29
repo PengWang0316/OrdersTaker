@@ -4,21 +4,40 @@ exports[`ItemDetailDialog Snapshot has item 1`] = `
 <Dialog
   classes={
     Object {
-      "paper": "dialogPager",
+      "paper": Object {
+        "maxWidth": 1100,
+      },
     }
   }
   onClose={[MockFunction]}
   open={true}
 >
   <DialogContent
-    className="root"
+    className={
+      Object {
+        "padding": 40,
+      }
+    }
   >
     <IconButton
-      className="closeButton"
+      className={
+        Object {
+          "height": 30,
+          "left": "98%",
+          "position": "relative",
+          "top": -10,
+          "width": 30,
+        }
+      }
       onClick={[MockFunction]}
     >
       <Close
-        className="closeIcon"
+        className={
+          Object {
+            "height": 20,
+            "width": 20,
+          }
+        }
       />
     </IconButton>
     <div
@@ -53,7 +72,12 @@ exports[`ItemDetailDialog Snapshot has item 1`] = `
       recipes="recipes"
     />
     <div
-      className="buttonDiv"
+      className={
+        Object {
+          "marginTop": 50,
+          "textAlign": "right",
+        }
+      }
     >
       <Button
         aria-label="Close the detail page"
@@ -73,14 +97,20 @@ exports[`ItemDetailDialog Snapshot no item 1`] = `
 <Dialog
   classes={
     Object {
-      "paper": "dialogPager",
+      "paper": Object {
+        "maxWidth": 1100,
+      },
     }
   }
   onClose={[MockFunction]}
   open={true}
 >
   <DialogContent
-    className="root"
+    className={
+      Object {
+        "padding": 40,
+      }
+    }
   />
 </Dialog>
 `;

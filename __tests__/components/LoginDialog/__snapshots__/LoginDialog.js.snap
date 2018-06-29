@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginDialog Snapshot isLogin false 1`] = `
+<Dialog
+  classes={
+    Object {
+      "paper": "dialogPaper",
+    }
+  }
+  onClose={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  open={true}
+>
+  <DialogContent
+    className="dialogContent"
+  >
+    <IconButton
+      className="dialogCloseButton"
+      onClick={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "isThrow": false,
+              "value": undefined,
+            },
+          ],
+        }
+      }
+    >
+      <Close
+        className="dialogCloseIcon"
+      />
+    </IconButton>
+    <RegisterPanel
+      onTogglePanels={[Function]}
+    />
+  </DialogContent>
+</Dialog>
+`;
+
+exports[`LoginDialog Snapshot isLogin true 1`] = `
+<Dialog
+  classes={
+    Object {
+      "paper": "dialogPaper",
+    }
+  }
+  onClose={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "isThrow": false,
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  open={true}
+>
+  <DialogContent
+    className="dialogContent"
+  >
+    <IconButton
+      className="dialogCloseButton"
+      onClick={
+        [MockFunction] {
+          "calls": Array [
+            Array [],
+          ],
+          "results": Array [
+            Object {
+              "isThrow": false,
+              "value": undefined,
+            },
+          ],
+        }
+      }
+    >
+      <Close
+        className="dialogCloseIcon"
+      />
+    </IconButton>
+    <LoginPanel
+      onTogglePanels={[Function]}
+    />
+  </DialogContent>
+</Dialog>
+`;

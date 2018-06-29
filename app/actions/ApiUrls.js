@@ -7,7 +7,8 @@ export const API_GOOGLE_LOGIN = `${API_BASE_URL}/auth/googleLogin`;
 export const API_JWTMESSAGE_VERIFY = `${API_BASE_URL}/jwtMessageVerify`;
 export const API_USERNAME_PASSWORD_LOGIN = `${API_BASE_URL}/auth/usernamePasswordLogin`;
 export const API_CHECK_USERNAME_AVAILABLE = `${API_BASE_URL}/auth/checkUsernameAvailable`;
-export const API_REGISTER_NEW_USER = `${API_BASE_URL}/auth/registerNewUser`;
 
 export const API_FETCH_BASIC_INFORMATION = `${API_BASE_URL}/fetchBasicInformation`;
 export const API_FETCH_ALL_MENU = `${API_BASE_URL}/fetchAllMenu`;
+export const API_REGISTER_USER = `${API_BASE_URL}/auth/registerUser`;
+export const API_LOGIN_WITH_PASSWORD = `${API_BASE_URL}/auth/loginWithPassword`;

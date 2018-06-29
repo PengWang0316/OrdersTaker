@@ -4,9 +4,11 @@ import { combineReducers } from 'redux';
 import basicInformation from './BasicInformationReducers';
 import menus from './MenusReducers';
 import menuItems from './MenuItemsReducers';
+import user from './UserReducers';
 
 export default combineReducers({
   basicInformation,
   menus,
-  menuItems
+  menuItems,
+  user
 });

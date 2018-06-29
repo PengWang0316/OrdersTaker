@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginRedirect snapshot 1`] = `
+<div
+  className="root"
+>
+  <Typography
+    className="title"
+    color="primary"
+    variant="title"
+  >
+    Redirecting you to where you left.
+  </Typography>
+  <LinearProgress
+    className="progeress"
+  />
+</div>
+`;

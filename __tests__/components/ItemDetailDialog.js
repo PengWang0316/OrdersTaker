@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import { ItemDetailDialog } from '../../app/components/ItemDetailDialog';
+import dialogStyles from '../../app/styles/DialogSytels';
 
 jest.mock('@material-ui/core/Dialog', () => 'Dialog');
 jest.mock('@material-ui/core/Avatar', () => 'Avatar');
@@ -20,15 +21,12 @@ describe('ItemDetailDialog', () => {
     open: true,
     item: { photo: 'photo', recipes: 'recipes' },
     classes: {
+      ...dialogStyles,
       root: 'root',
-      dialogPaper: 'dialogPager',
       flexBox: 'flexBox',
       avatar: 'avatar',
       title: 'title',
-      description: 'description',
-      buttonDiv: 'buttonDiv',
-      closeButton: 'closeButton',
-      closeIcon: 'closeIcon'
+      description: 'description'
     }
   };
   const getShallowComponent = (props = defaultProps) => shallow(<ItemDetailDialog {...props} />);
