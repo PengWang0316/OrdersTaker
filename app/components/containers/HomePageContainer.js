@@ -7,6 +7,7 @@ import { fetchAllMenu } from '../../actions/MenuActions';
 import Banner from '../Banner';
 import MenuCategory from '../MenuCategory';
 import ItemDetailDialog from '../ItemDetailDialog';
+import OrderFloatingButton from '../OrderFloatingButton';
 import ShowDetailDialogContext from '../../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
 
 
@@ -91,6 +92,7 @@ export class HomePageContainer extends Component {
           {menus && menus.map(menu =>
             <MenuCategory menu={menu} key={menu._id} itemAmount={itemAmount} />)}
         </ShowDetailDialogContext.Provider>
+        <OrderFloatingButton />
         <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />
       </Fragment>
     );

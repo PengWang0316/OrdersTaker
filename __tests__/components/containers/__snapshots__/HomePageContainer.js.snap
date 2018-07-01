@@ -19,7 +19,13 @@ Array [
       }
     }
   />,
+  <OrderFloatingButton />,
 ]
 `;
 
-exports[`HomePageContainer snapshot without menu props 1`] = `<Banner />`;
+exports[`HomePageContainer snapshot without menu props 1`] = `
+Array [
+  <Banner />,
+  <OrderFloatingButton />,
+]
+`;

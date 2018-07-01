@@ -6,6 +6,7 @@ import { HomePageContainer } from '../../../app/components/containers/HomePageCo
 
 jest.mock('../../../app/components/Banner', () => 'Banner');
 jest.mock('../../../app/components/MenuCategory', () => 'MenuCategory');
+jest.mock('../../../app/components/OrderFloatingButton', () => 'OrderFloatingButton');
 
 window.innerWidth = 800;
 
