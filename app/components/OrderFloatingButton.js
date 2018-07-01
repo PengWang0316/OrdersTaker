@@ -32,7 +32,7 @@ const styles = {
 /* Showing a floating button and the total amount of order users have in their cart */
 export const OrderFloatingButton = ({ orders, classes }) => (
   <Fragment>
-    {orders && orders.qty && ( // If no order in the cart, hide the floating button.
+    {orders.qty && ( // If no order in the cart, hide the floating button.
       <div className={classes.root}>
         <Button variant="fab" className={classes.floatingButton} color="primary">
           <RoomServiceIcon />
@@ -44,9 +44,8 @@ export const OrderFloatingButton = ({ orders, classes }) => (
 );
 OrderFloatingButton.propTypes = {
   classes: PropTypes.object.isRequired,
-  orders: PropTypes.object
+  orders: PropTypes.object.isRequired
 };
-OrderFloatingButton.defaultProps = { orders: null };
 /* istanbul ignore next */
 const mapStateToProps = state => ({
   orders: state.orders
