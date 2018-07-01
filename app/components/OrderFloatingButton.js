@@ -36,7 +36,7 @@ export const OrderFloatingButton = ({ orders, classes }) => (
       <div className={classes.root}>
         <Button variant="fab" className={classes.floatingButton} color="primary">
           <RoomServiceIcon />
-          <Badge badgeContent={orders.qty} color="error" className={classes.badge} />
+          <Badge badgeContent={Object.keys(orders).length} color="error" className={classes.badge} />
         </Button>
       </div>
     )}
