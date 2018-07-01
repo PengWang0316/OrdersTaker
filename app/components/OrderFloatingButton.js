@@ -30,18 +30,16 @@ const styles = {
 };
 
 /* Showing a floating button and the total amount of order users have in their cart */
-export const OrderFloatingButton = ({ orders, classes }) => (
-  <Fragment>
-    {orders.qty && ( // If no order in the cart, hide the floating button.
-      <div className={classes.root}>
-        <Button variant="fab" className={classes.floatingButton} color="primary">
-          <RoomServiceIcon />
-          <Badge badgeContent={Object.keys(orders).length} color="error" className={classes.badge} />
-        </Button>
-      </div>
-    )}
-  </Fragment>
-);
+export const OrderFloatingButton = ({ orders, classes }) => {
+  return !orders.qty ? null : ( // If no order in the cart, hide the floating button.
+    <div className={classes.root}>
+      <Button variant="fab" className={classes.floatingButton} color="primary">
+        <RoomServiceIcon />
+        <Badge badgeContent={Object.keys(orders).length} color="error" className={classes.badge} />
+      </Button>
+    </div>
+  );
+};
 OrderFloatingButton.propTypes = {
   classes: PropTypes.object.isRequired,
   orders: PropTypes.object.isRequired

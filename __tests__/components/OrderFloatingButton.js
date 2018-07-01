@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+// import { shallow } from 'enzyme';
 
 import { OrderFloatingButton } from '../../app/components/OrderFloatingButton';
 
@@ -18,10 +18,12 @@ describe('OrderFloatingButton', () => {
     orders: {}
   };
 
-  test('The component without orders', () => {
-    const component = shallow(<OrderFloatingButton {...defaultProps} />);
-    expect(component).not.toBeUndefined();
-  });
+  // test('The component without orders', () => {
+  //   const component = shallow(<OrderFloatingButton {...defaultProps} />);
+  //   expect(component).not.toBeUndefined();
+  // });
+  test('Snapshot without orders', () =>
+    expect(renderer.create(<OrderFloatingButton {...defaultProps} />).toJSON()).toMatchSnapshot());
   test('Snapshot with orders', () =>
     expect(renderer.create(<OrderFloatingButton {...{ ...defaultProps, orders: { qty: 1 } }} />).toJSON()).toMatchSnapshot());
 });

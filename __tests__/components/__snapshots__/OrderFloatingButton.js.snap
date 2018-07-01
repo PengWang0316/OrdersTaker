@@ -18,3 +18,5 @@ exports[`OrderFloatingButton Snapshot with orders 1`] = `
   </Button>
 </div>
 `;
+
+exports[`OrderFloatingButton Snapshot without orders 1`] = `null`;
