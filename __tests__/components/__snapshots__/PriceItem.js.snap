@@ -51,6 +51,7 @@ Array [
         aria-label="Add to your order"
         className="addButton"
         color="primary"
+        onClick={[Function]}
       >
         <AddBox
           className="icon"
@@ -78,6 +79,7 @@ Array [
         aria-label="Add to your order"
         className="addButton"
         color="primary"
+        onClick={[Function]}
       >
         <AddBox
           className="icon"
@@ -105,6 +107,7 @@ Array [
         aria-label="Add to your order"
         className="addButton"
         color="primary"
+        onClick={[Function]}
       >
         <AddBox
           className="icon"
@@ -166,6 +169,7 @@ Array [
         aria-label="Add to your order"
         className="addButton"
         color="primary"
+        onClick={[Function]}
       >
         <AddBox
           className="icon"
@@ -193,6 +197,7 @@ Array [
         aria-label="Add to your order"
         className="addButton"
         color="primary"
+        onClick={[Function]}
       >
         <AddBox
           className="icon"
@@ -220,6 +225,7 @@ Array [
         aria-label="Add to your order"
         className="addButton"
         color="primary"
+        onClick={[Function]}
       >
         <AddBox
           className="icon"
@@ -249,6 +255,7 @@ exports[`PriceItem Snapshot with one price flexEnd 1`] = `
       aria-label="Add to your order"
       className="addButton"
       color="primary"
+      onClick={[Function]}
     >
       <AddBox
         className="icon"
@@ -277,6 +284,7 @@ exports[`PriceItem Snapshot with one price not flexEnd 1`] = `
       aria-label="Add to your order"
       className="addButton"
       color="primary"
+      onClick={[Function]}
     >
       <AddBox
         className="icon"

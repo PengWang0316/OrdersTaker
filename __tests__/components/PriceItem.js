@@ -23,7 +23,9 @@ describe('PriceItem', () => {
       priceDiv: 'priceDiv',
       multiplePriceDiv: 'multiplePriceDiv',
       flexEnd: 'flex-end'
-    }
+    },
+    addItemToCart: jest.fn(),
+    user: {}
   };
   const getShallowComponent = (props = defaultProps) => shallow(<PriceItem {...props} />);
 
@@ -39,6 +41,13 @@ describe('PriceItem', () => {
     expect(component.state('anchorEl')).toEqual('currentTarget');
     component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
     expect(component.state('anchorEl')).toBeNull();
+  });
+
+  test('handleAddToCartClick', () => {
+    const component = getShallowComponent();
+    component.instance().handleAddToCartClick('priceKey');
+    expect(defaultProps.addItemToCart).toHaveBeenCalledTimes(1);
+    expect(defaultProps.addItemToCart).toHaveBeenLastCalledWith({ priceKey: 'priceKey', item: defaultProps.item, user: defaultProps.user });
   });
 
   test('Snapshot with one price not flexEnd', () => expect(renderer.create(<PriceItem {...defaultProps} />).toJSON()).toMatchSnapshot());

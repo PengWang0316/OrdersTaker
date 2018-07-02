@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, IconButton, Tooltip, Menu, MenuItem } from '@material-ui/core';
 import { AddBox, KeyboardArrowDown } from '@material-ui/icons';
+
+import { addItemToCart } from '../actions/OrdersActions';
 
 const priceDiv = {
   display: 'flex',
@@ -41,7 +44,9 @@ export class PriceItem extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
-    flexEnd: PropTypes.bool
+    flexEnd: PropTypes.bool,
+    addItemToCart: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
   };
   static defaultProps = { flexEnd: false };
 
@@ -60,6 +65,14 @@ export class PriceItem extends Component {
     });
 
   /**
+   * Handle adding item to the cart click
+   * @param {string} priceKey contains the name of price
+   * @return {null} No return
+   */
+  handleAddToCartClick = priceKey =>
+    this.props.addItemToCart({ user: this.props.user, item: this.props.item, priceKey });
+
+  /**
    * Rendering the jsx for the component.
    * @return {jsx} Return jsx.
    */
@@ -71,7 +84,7 @@ export class PriceItem extends Component {
       <div className={`${classes.priceDiv} ${flexEnd ? classes.flexEnd : ''}`}>
         <Typography color="textSecondary">$ {item.prices[pricesObjectKeys[0]]}</Typography>
         <Tooltip id="tooltip-fab" title="Add to your order" placement="right-end">
-          <IconButton className={classes.addButton} aria-label="Add to your order" color="primary">
+          <IconButton onClick={() => this.handleAddToCartClick(pricesObjectKeys[0])} className={classes.addButton} aria-label="Add to your order" color="primary">
             <AddBox className={classes.icon} />
           </IconButton>
         </Tooltip>
@@ -96,7 +109,7 @@ export class PriceItem extends Component {
             <MenuItem onClick={this.handleMenuIconClick} className={classes.priceDiv} key={key}>
               <Typography color="primary" className={classes.upperCase}>{key}&nbsp;&nbsp;</Typography>
               <Typography color="primary">${item.prices[key]}</Typography>
-              <IconButton className={classes.addButton} aria-label="Add to your order" color="primary">
+              <IconButton onClick={() => this.handleAddToCartClick(key)} className={classes.addButton} aria-label="Add to your order" color="primary">
                 <AddBox className={classes.icon} />
               </IconButton>
             </MenuItem>
@@ -106,4 +119,12 @@ export class PriceItem extends Component {
     );
   }
 }
-export default withStyles(styles)(PriceItem);
+/* istanbul ignore next */
+const mapStateToProps = state => ({
+  user: state.user
+});
+/* istanbul ignore next */
+const mapDispatchToProps = dispatch => ({
+  addItemToCart: (item, user) => dispatch(addItemToCart(item, user))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceItem));
