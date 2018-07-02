@@ -14,7 +14,9 @@ exports[`OrderFloatingButton Snapshot with orders 1`] = `
       badgeContent={1}
       className="badge"
       color="error"
-    />
+    >
+      <span />
+    </Badge>
   </Button>
 </div>
 `;
