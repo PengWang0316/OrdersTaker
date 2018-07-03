@@ -7,6 +7,7 @@ exports[`OrderFloatingButton Snapshot with orders 1`] = `
   <Button
     className="floatingButton"
     color="primary"
+    id="orderFloatingButton"
     variant="fab"
   >
     <RoomService />
