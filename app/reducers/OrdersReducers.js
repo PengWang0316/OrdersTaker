@@ -1,6 +1,6 @@
 import { ADD_ORDER_SUCCESS } from '../actions/ActionTypes';
 
-const orders = (state = { qty: 0 }, { type, item, priceKey }) => {
+const orders = (/* istanbul ignore next */state = { qty: 0 }, { type, item, priceKey }) => {
   switch (type) {
     case ADD_ORDER_SUCCESS: {
       const returnState = { // Making a new object

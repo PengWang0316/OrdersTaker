@@ -50,6 +50,24 @@ describe('PriceItem', () => {
     expect(defaultProps.addItemToCart).toHaveBeenLastCalledWith({ priceKey: 'priceKey', item: defaultProps.item, user: defaultProps.user });
   });
 
+  test('IconButtons are clicked', () => {
+    let component = getShallowComponent();
+    const mockClickFn = jest.fn();
+    component.instance().handleAddToCartClick = mockClickFn;
+    component.find('IconButton').simulate('click');
+    expect(mockClickFn).toHaveBeenCalledTimes(1);
+    expect(mockClickFn).toHaveBeenLastCalledWith('small');
+
+    component = getShallowComponent({ ...defaultProps, item: { prices: { middle: 100, large: 200 } } });
+    component.instance().handleAddToCartClick = mockClickFn;
+    component.find('IconButton').at(0).simulate('click');
+    expect(mockClickFn).toHaveBeenCalledTimes(2);
+    expect(mockClickFn).toHaveBeenLastCalledWith('middle');
+    component.find('IconButton').at(1).simulate('click');
+    expect(mockClickFn).toHaveBeenCalledTimes(3);
+    expect(mockClickFn).toHaveBeenLastCalledWith('large');
+  });
+
   test('Snapshot with one price not flexEnd', () => expect(renderer.create(<PriceItem {...defaultProps} />).toJSON()).toMatchSnapshot());
   test('Snapshot with one price flexEnd', () => expect(renderer.create(<PriceItem {...{ ...defaultProps, flexEnd: true }} />).toJSON()).toMatchSnapshot());
 
