@@ -33,7 +33,7 @@ const styles = {
 export const OrderFloatingButton = ({ orders, classes }) => {
   return !orders.qty ? null : ( // If no order in the cart, hide the floating button.
     <div className={classes.root}>
-      <Button variant="fab" className={classes.floatingButton} color="primary">
+      <Button id="orderFloatingButton" variant="fab" className={classes.floatingButton} color="primary">
         <RoomServiceIcon />
         <Badge badgeContent={orders.qty} color="error" className={classes.badge}><span /></Badge>
       </Button>
