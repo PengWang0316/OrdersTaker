@@ -9,7 +9,6 @@ const styles = {
   root: { // A container is needed to push the icon to right.
     position: 'sticky',
     bottom: 20,
-    width: '100%',
     float: 'right',
     clear: 'both'
   },
