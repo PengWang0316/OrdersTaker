@@ -15,6 +15,7 @@ exports[`OrderFloatingButton Snapshot with orders 1`] = `
       badgeContent={1}
       className="badge"
       color="error"
+      id="orderNumberBadge"
     >
       <span />
     </Badge>
