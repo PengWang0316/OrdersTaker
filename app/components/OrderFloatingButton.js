@@ -14,7 +14,7 @@ const styles = {
   },
   floatingButton: {
     float: 'right',
-    right: 20,
+    right: 25,
     opacity: 0.7,
     transition: 'opacity .4s',
     '&:hover': {
