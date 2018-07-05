@@ -38,6 +38,9 @@ const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageCo
 /* istanbul ignore next */
 const LoginRedirect = importedComponent(() => import(/* webpackChunkName: "LoginRedirect" */ './LoginRedirect').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
+/* istanbul ignore next */
+const OrderPage = importedComponent(() => import(/* webpackChunkName: "OrderPageContainer" */ './containers/OrderPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+
 const App = props => (
   <MuiThemeProvider theme={theme}>
     <Router>
@@ -47,6 +50,7 @@ const App = props => (
         <main>
           <Switch>
             <Route exact path={HOME_PAGE_URL} component={HomePage} />
+            <Route exact path={ORDER_PAGE_URL} component={OrderPage} />
             <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />
             <Route render={() => <p>Not Fount!</p>} />
           </Switch>
