@@ -1,8 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-// import { shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { OrderFloatingButton } from '../../app/components/OrderFloatingButton';
+import { ORDER_PAGE_URL } from '../../app/config';
 
 jest.mock('@material-ui/core/Button', () => 'Button');
 jest.mock('@material-ui/core/Badge', () => 'Badge');
@@ -15,13 +16,16 @@ describe('OrderFloatingButton', () => {
       floatingButton: 'floatingButton',
       badge: 'badge'
     },
-    orders: {}
+    orders: {},
+    history: { push: jest.fn() }
   };
 
-  // test('The component without orders', () => {
-  //   const component = shallow(<OrderFloatingButton {...defaultProps} />);
-  //   expect(component).not.toBeUndefined();
-  // });
+  test('handleButtonClick', () => {
+    const component = shallow(<OrderFloatingButton {...{ ...defaultProps, orders: { qty: 1 } }} />);
+    component.find('Button').simulate('click');
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(ORDER_PAGE_URL);
+  });
   test('Snapshot without orders', () =>
     expect(renderer.create(<OrderFloatingButton {...defaultProps} />).toJSON()).toMatchSnapshot());
   test('Snapshot with orders', () =>

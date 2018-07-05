@@ -8,6 +8,7 @@ exports[`OrderFloatingButton Snapshot with orders 1`] = `
     className="floatingButton"
     color="primary"
     id="orderFloatingButton"
+    onClick={[Function]}
     variant="fab"
   >
     <RoomService />
