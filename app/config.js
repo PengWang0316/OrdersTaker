@@ -8,3 +8,5 @@ export const BASE_URL = 'https://orders-taker.glitch.me'; // Development server
 // export const NUMBER_PER_PAGE_JOURNAL = 5; // How many journal will be showed in all journal page.
 export const CLOUDINARY_UPLOAD_PRESET = 'OrdersTakerWebApp'; // The preset of Cloudinary.
 export const LOGIN_CALLBACK_URL = 'OrdersTaker_loginCallbackUrl';
+
+export const ORDER_PAGE_URL = '/orders';
