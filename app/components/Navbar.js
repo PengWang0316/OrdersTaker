@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MenuItem, Menu, IconButton, Hidden, Button, Typography, Toolbar, AppBar, Avatar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,19 +10,24 @@ import LoginDialog from './LoginDialog/';
 import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
 import LogoutSnackbar from './snackbars/LogoutSnackbar';
 import { logout, parserUserFromJwt } from '../actions/UserActions';
-import { JWT_MESSAGE, LOGIN_CALLBACK_URL } from '../config';
+import { JWT_MESSAGE, LOGIN_CALLBACK_URL, HOME_PAGE_URL } from '../config';
 
 const URL_REGEXP = /^https?:\/\/.+?(\/.*)/; // Using this to get the relative url.
 
-const styles = {
-  flex: { flex: 1 },
+/* istanbul ignore next */
+const styles = theme => ({
+  link: {
+    flex: 1,
+    color: theme.palette.primary.contrastText,
+    textDecoration: 'none'
+  },
   appbar: { maxHeight: 55 },
   avatar: {
     width: 30,
     height: 30,
     marginRight: 8
   }
-};
+});
 
 /** Navbar component */
 export class Navbar extends Component {
@@ -111,9 +117,11 @@ export class Navbar extends Component {
       <Fragment>
         <AppBar position="static" className={classes.appbar}>
           <Toolbar>
-            <Typography variant="title" color="inherit" className={classes.flex}>
-              Name of the restaurant
-            </Typography>
+            <Link to={HOME_PAGE_URL} className={classes.link}>
+              <Typography variant="title" color="inherit">
+                Name of the restaurant
+              </Typography>
+            </Link>
             <Hidden only="xs">
               <Button color="inherit">Order</Button>
               <Button color="inherit">Menu</Button>
