@@ -13,6 +13,8 @@ jest.mock('@material-ui/core/MenuItem', () => 'MenuItem');
 jest.mock('@material-ui/icons/AddBox', () => 'AddBox');
 jest.mock('@material-ui/icons/KeyboardArrowDown', () => 'KeyboardArrowDown');
 
+jest.mock('../../app/utils/AnimationUtil', () => ({ animateOrderNumber: jest.fn() }));
+
 describe('PriceItem', () => {
   const defaultProps = {
     item: { prices: { small: 100 } },
@@ -45,9 +47,11 @@ describe('PriceItem', () => {
 
   test('handleAddToCartClick', () => {
     const component = getShallowComponent();
+    const AnimationUtil = require('../../app/utils/AnimationUtil');
     component.instance().handleAddToCartClick('priceKey');
     expect(defaultProps.addItemToCart).toHaveBeenCalledTimes(1);
     expect(defaultProps.addItemToCart).toHaveBeenLastCalledWith({ priceKey: 'priceKey', item: defaultProps.item, user: defaultProps.user });
+    expect(AnimationUtil.animateOrderNumber).toHaveBeenCalledTimes(1);
   });
 
   test('IconButtons are clicked', () => {

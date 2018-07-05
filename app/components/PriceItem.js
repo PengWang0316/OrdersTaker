@@ -6,6 +6,7 @@ import { Typography, IconButton, Tooltip, Menu, MenuItem } from '@material-ui/co
 import { AddBox, KeyboardArrowDown } from '@material-ui/icons';
 
 import { addItemToCart } from '../actions/OrdersActions';
+import { animateOrderNumber } from '../utils/AnimationUtil';
 
 const priceDiv = {
   display: 'flex',
@@ -69,8 +70,10 @@ export class PriceItem extends Component {
    * @param {string} priceKey contains the name of price
    * @return {null} No return
    */
-  handleAddToCartClick = priceKey =>
+  handleAddToCartClick = priceKey => {
+    animateOrderNumber();
     this.props.addItemToCart({ user: this.props.user, item: this.props.item, priceKey });
+  };
 
   /**
    * Rendering the jsx for the component.
