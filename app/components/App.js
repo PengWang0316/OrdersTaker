@@ -9,6 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 // import { CSSTransitionGroup } from 'react-transition-group';
 
+import { HOME_PAGE_URL, LOGIN_REDIRECT_RUL, ORDER_PAGE_URL } from '../config';
+
 import Navbar from './Navbar';
 // import BackgroundMainPager from './BackgroundMainPager';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
@@ -44,8 +46,8 @@ const App = props => (
         <Navbar />
         <main>
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/loginRedirect" component={LoginRedirect} />
+            <Route exact path={HOME_PAGE_URL} component={HomePage} />
+            <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />
             <Route render={() => <p>Not Fount!</p>} />
           </Switch>
         </main>
