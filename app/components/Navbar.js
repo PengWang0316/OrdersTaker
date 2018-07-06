@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   appbar: {
     maxHeight: 55,
-    position: 'fixed',
+    position: 'sticky',
     top: 0
   },
   avatar: {
