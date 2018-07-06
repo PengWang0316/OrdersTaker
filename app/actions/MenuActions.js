@@ -17,7 +17,7 @@ const fetchAllMenuItemSuccess = data => {
   const menuItems = {};
   data.forEach(element =>
     element.items.forEach(item => {
-      menuItems[item._id] = { ...item, category: element.category };
+      menuItems[item._id] = item;
     }));
   return {
     type: FETCH_ALL_MENU_ITEM_SUCCESS,
