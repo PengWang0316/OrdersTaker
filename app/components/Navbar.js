@@ -21,7 +21,11 @@ const styles = theme => ({
     color: theme.palette.primary.contrastText,
     textDecoration: 'none'
   },
-  appbar: { maxHeight: 55 },
+  appbar: {
+    maxHeight: 55,
+    position: 'fixed',
+    top: 0
+  },
   avatar: {
     width: 30,
     height: 30,
