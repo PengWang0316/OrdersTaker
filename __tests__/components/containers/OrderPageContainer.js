@@ -13,7 +13,8 @@ describe('OrderPageContainer', () => {
     classes: {
       root: 'root',
       listPanel: 'listPanel',
-      summaryPanel: 'summaryPanel'
+      summaryPanel: 'summaryPanel',
+      summaryContent: 'summaryContent'
     },
     menuItems: { id: 1 },
     orders: { qty: 0 },

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,19 +12,29 @@ const styles = {
   root: {
     maxWidth: 1200,
     padding: '10px 20px',
-    margin: '15px auto'
+    margin: '15px auto',
+    display: 'grid',
+    gridTemplateColumns: '1fr 200px',
+    gridTemplateRows: '1fr',
+    gridTemplateAreas: '"listPanel summaryPanel"',
+    gridGap: '2em'
   },
   listPanel: {
-    
+    gridArea: 'listPanel'
   },
   summaryPanel: {
-    float: 'right',
+    gridArea: 'summaryPanel'
+  },
+  summaryContent: {
     position: 'sticky',
     top: 70
   },
   '@media (max-width: 600px)': {
-    summaryPanel: {
-      float: 'none'
+    root: {
+      gridTemplateColumns: '1fr',
+      gridTemplateRows: '1fr 1fr',
+      gridTemplateAreas: `"summaryPanel"
+                          "listPanel"`
     }
   }
 };
@@ -126,7 +136,7 @@ export class OrderPageContainer extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
-          <OrderSummary orders={newOrders} />
+          <div className={classes.summaryContent}><OrderSummary orders={newOrders} /></div>
         </div>
         <div className={classes.listPanel}>
           <OrderList orders={newOrders} />
