@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import OrderSummary from '../OrderSummary';
+import OrderList from '../OrderList';
+import ItemDetailDialog from '../ItemDetailDialog';
 import { fetchAllMenu } from '../../actions/MenuActions';
 
 const styles = {
@@ -31,24 +33,6 @@ const styles = {
  * Showing the customers' order detail and allow them to add number for items, remove items, clear orders, scan QR code for the table, and place orders.
  */
 export class OrderPageContainer extends Component {
-  static propTypes = {
-    menus: PropTypes.array.isRequired,
-    fetchAllMenu: PropTypes.func.isRequired
-  };
-
-  /**
-   * Call the fetchAllMenu to get Redux state for its children components if the menus is still null.
-   * @param {object} props contains the value for the componnet.
-   * @return {null} No return.
-   */
-  constructor(props) {
-    super(props);
-    if (!props.menus) props.fetchAllMenu();
-  }
-
-  state = {
-    isOpen: false
-  }
 
   /**
    * Parsing the Redux state orders to an object this component can use. Also calculate the price for the order.
@@ -57,7 +41,7 @@ export class OrderPageContainer extends Component {
    * The return object structure is like below:
    * {
    *    categories: {
-   *      categoryA: { price: xx, qty: xx },
+   *      categoryA: { price: xx, qty: xx, ids: [id1, id2, ...] },
    *      ...
    *    },
    *    totalQty: xxx,
@@ -66,7 +50,7 @@ export class OrderPageContainer extends Component {
    *    totalPrice: xxx,
    * }
    */
-  parseOrders = orders => {
+  static parseOrders = orders => {
     const newOrders = { // Initial some properties
       totalQty: 0, price: 0, tax: 0, totalPrice: 0, categories: {}
     };
@@ -79,8 +63,9 @@ export class OrderPageContainer extends Component {
         const qty = orders[key].qty[priceKey];
         // Calculating the value for a specific category
         newOrders.categories[orders[key].category] = category ?
-          { price: ((category.price * 100) + (price * 100 * qty)) / 100, qty: category.qty + qty } :
-          { price: (price * 100 * qty) / 100, qty };
+          { price: ((category.price * 100) + (price * 100 * qty)) / 100, qty: category.qty + qty, ids: category.ids } :
+          { price: (price * 100 * qty) / 100, qty, ids: [] }; // If the category is empty, initialize a empty ids array.
+        newOrders.categories[orders[key].category].ids.push(key); // Saving the id to the ids field.
         // Calculating the total value
         newOrders.totalQty += qty; // Adding the total quantity
         newOrders.price = ((newOrders.price * 100) + (price * 100 * qty)) / 100; // Adding the price up
@@ -91,30 +76,69 @@ export class OrderPageContainer extends Component {
     return newOrders;
   };
 
+  static propTypes = {
+    menuItems: PropTypes.object.isRequired,
+    orders: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
+    fetchAllMenu: PropTypes.func.isRequired
+  };
+
+  /**
+   * Call the fetchAllMenu to get Redux state for its children components if the menus is still null.
+   * @param {object} props contains the value for the componnet.
+   * @return {null} No return.
+   */
+  constructor(props) {
+    super(props);
+    if (Object.keys(props.menuItems).length === 0) props.fetchAllMenu();
+  }
+
+  state = {
+    isDialogOpen: false,
+    currentItem: null
+  }
+
+  /**
+   * Showing the item detail dialog.
+   * Making sure the currentItem has been setup before open the dialog.
+   * @param {string} itemId is the id of an item.
+   * @return {null} No return.
+   */
+  showDetailDialog = itemId => this.setState(
+    { currentItem: this.props.menuItems[itemId] },
+    () => this.handleDialogToggle()
+  );
+
+  /**
+   * Setting the isDialogOpen state to a opposite value.
+   * @return {null} Ignore tht return.
+   */
+  handleDialogToggle = () => this.setState(({ isDialogOpen }) => ({ isDialogOpen: !isDialogOpen }));
+
   /**
    * The render method
    * @return {jsx} Return the jsx for the component.
    */
   render() {
-    const { classes, menus, orders } = this.props;
-    const newOrders = this.parseOrders(orders);
+    const { classes, menuItems, orders } = this.props;
+    const { currentItem, isDialogOpen } = this.state;
+    const newOrders = OrderPageContainer.parseOrders(orders);
     return (
       <div className={classes.root}>
-        {menus && (
-          <Fragment>
-            <div className={classes.summaryPanel}>
-              <OrderSummary orders={newOrders} />
-            </div>
-            <div className={classes.listPanel}>a</div>
-          </Fragment>
-        )}
+        <div className={classes.summaryPanel}>
+          <OrderSummary orders={newOrders} />
+        </div>
+        <div className={classes.listPanel}>
+          <OrderList orders={newOrders} />
+        </div>
+        {Object.keys(menuItems).length === 0 && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
       </div>
     );
   }
 }
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  menus: state.menus,
+  menuItems: state.menuItems,
   orders: state.orders
 });
 /* istanbul ignore next */
