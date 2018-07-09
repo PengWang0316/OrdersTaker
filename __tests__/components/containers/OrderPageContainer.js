@@ -88,12 +88,12 @@ describe('OrderPageContainer', () => {
     const expectReturn = {
       categories: {
         Appetizer: {
-          ids: ['5b1c64d54345b11970bb124f', '5b1c64d54345b11970bb123d', '5b1c64d54345b11970bb123d', '5b1c64d54345b11970bb123a'],
-          price: 27.8,
-          qty: 4
+          ids: new Set(['5b1c64d54345b11970bb124f', '5b1c64d54345b11970bb123d', '5b1c64d54345b11970bb123d', '5b1c64d54345b11970bb123a']),
+          price: 32.75,
+          qty: 5
         },
         Soup: {
-          ids: ['5b1c6d634345b11970bb1250'],
+          ids: new Set(['5b1c6d634345b11970bb1250']),
           price: 8.25,
           qty: 1
         }

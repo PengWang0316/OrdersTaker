@@ -52,7 +52,7 @@ export class OrderPageContainer extends Component {
    * The return object structure is like below:
    * {
    *    categories: {
-   *      categoryA: { price: xx, qty: xx, ids: [id1, id2, ...] },
+   *      categoryA: { price: xx, qty: xx, ids: [id1, id2, ...] }, // ids is a Set
    *      ...
    *    },
    *    totalQty: xxx,
@@ -68,15 +68,15 @@ export class OrderPageContainer extends Component {
     // price and tax will use cent in order to avoid the inaccurace.
     Object.keys(orders).forEach(key => {
       if (key === 'qty') return;
-      const category = newOrders.categories[orders[key].category];
       Object.keys(orders[key].qty).forEach(priceKey => { // Adding all price
+        const category = newOrders.categories[orders[key].category];
         const price = orders[key].prices[priceKey];
         const qty = orders[key].qty[priceKey];
         // Calculating the value for a specific category
         newOrders.categories[orders[key].category] = category ?
           { price: ((category.price * 100) + (price * 100 * qty)) / 100, qty: category.qty + qty, ids: category.ids } :
-          { price: (price * 100 * qty) / 100, qty, ids: [] }; // If the category is empty, initialize a empty ids array.
-        newOrders.categories[orders[key].category].ids.push(key); // Saving the id to the ids field.
+          { price: (price * 100 * qty) / 100, qty, ids: new Set() }; // If the category is empty, initialize a empty ids set. Using Set to prevent duplicated ids.
+        newOrders.categories[orders[key].category].ids.add(key); // Saving the id to the ids field.
         // Calculating the total value
         newOrders.totalQty += qty; // Adding the total quantity
         newOrders.price = ((newOrders.price * 100) + (price * 100 * qty)) / 100; // Adding the price up

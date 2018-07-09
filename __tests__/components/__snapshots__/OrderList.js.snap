@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OrderItem Snapshot 1`] = `
+exports[`OrderList Snapshot 1`] = `
 Array [
   <div
     className="root"
@@ -20,7 +20,7 @@ Array [
         </Typography>
         <div>
             ×  
-          4
+          5
         </div>
       </div>
       <div>
@@ -30,7 +30,7 @@ Array [
           variant="subheading"
         >
           $ 
-          27.8
+          32.75
         </Typography>
       </div>
     </div>
@@ -40,16 +40,16 @@ Array [
       />
     </div>
     <OrderItem
-      itemId="5b1c64d54345b11970bb124f"
+      item={1}
     />
     <OrderItem
-      itemId="5b1c64d54345b11970bb126d"
+      item={2}
     />
     <OrderItem
-      itemId="5b1c64d54345b11970bb123d"
+      item={3}
     />
     <OrderItem
-      itemId="5b1c64d54345b11970bb123a"
+      item={4}
     />
   </div>,
   <div
@@ -90,7 +90,7 @@ Array [
       />
     </div>
     <OrderItem
-      itemId="5b1c6d634345b11970bb1250"
+      item={5}
     />
   </div>,
 ]
