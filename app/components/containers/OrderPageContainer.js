@@ -7,6 +7,7 @@ import OrderSummary from '../OrderSummary';
 import OrderList from '../OrderList';
 import ItemDetailDialog from '../ItemDetailDialog';
 import { fetchAllMenu } from '../../actions/MenuActions';
+import ShowDetailDialogContext from '../../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
 
 const styles = {
   root: {
@@ -32,7 +33,7 @@ const styles = {
   '@media (max-width: 600px)': {
     root: {
       gridTemplateColumns: '1fr',
-      gridTemplateRows: '1fr 1fr',
+      gridTemplateRows: '100% 1fr',
       gridTemplateAreas: `"summaryPanel"
                           "listPanel"`
     }
@@ -139,9 +140,11 @@ export class OrderPageContainer extends Component {
           <div className={classes.summaryContent}><OrderSummary orders={newOrders} /></div>
         </div>
         <div className={classes.listPanel}>
-          <OrderList orders={newOrders} />
+          <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
+            <OrderList orders={newOrders} />
+          </ShowDetailDialogContext.Provider>
         </div>
-        {Object.keys(menuItems).length === 0 && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
+        {Object.keys(menuItems).length !== 0 && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
       </div>
     );
   }

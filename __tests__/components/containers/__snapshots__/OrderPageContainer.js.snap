@@ -38,11 +38,6 @@ exports[`OrderPageContainer Snapshot with an empty menuItems 1`] = `
       }
     />
   </div>
-  <ItemDetailDialog
-    item={null}
-    onClose={[Function]}
-    open={false}
-  />
 </div>
 `;
 
@@ -84,5 +79,10 @@ exports[`OrderPageContainer Snapshot with menuItems 1`] = `
       }
     />
   </div>
+  <ItemDetailDialog
+    item={null}
+    onClose={[Function]}
+    open={false}
+  />
 </div>
 `;
