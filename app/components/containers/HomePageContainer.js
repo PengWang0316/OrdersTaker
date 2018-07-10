@@ -40,6 +40,13 @@ export class HomePageContainer extends Component {
     currentItem: null
   };
 
+  /**
+   * Removing the resize listener when the component unmounted.
+   * @return {null} No return.
+   */
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
 
   /**
    * Calculating the total amount of item will show.

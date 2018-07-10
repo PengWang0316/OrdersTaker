@@ -26,6 +26,14 @@ describe('HomePageContainer', () => {
     expect(component.state('itemAmount')).toBe(6);
   });
 
+  test('componentWillUnmount', () => {
+    window.removeEventListener = jest.fn();
+    const component = getShallowComponent();
+    component.instance().componentWillUnmount();
+    expect(window.removeEventListener).toHaveBeenCalledTimes(1);
+    expect(window.removeEventListener).toHaveBeenLastCalledWith('resize', component.instance().handleResize);
+  });
+
   test('handleResize', () => {
     const component = getShallowComponent();
     expect(component.state('itemAmount')).toBe(6);
