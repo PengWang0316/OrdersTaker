@@ -27,7 +27,7 @@ const styles = {
   }
 };
 
-export const OrderList = ({ orders, classes, reduxOrders }) => (
+export const OrderList = ({ orders, classes }) => (
   <Fragment>
     {Object.keys(orders.categories).map(key => (
       <div className={classes.root} key={key}>
