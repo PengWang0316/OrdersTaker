@@ -9,6 +9,8 @@ export const BASE_URL = 'https://orders-taker.glitch.me'; // Development server
 export const CLOUDINARY_UPLOAD_PRESET = 'OrdersTakerWebApp'; // The preset of Cloudinary.
 export const LOGIN_CALLBACK_URL = 'OrdersTaker_loginCallbackUrl';
 
+export const ITEM_ONE_PRICE_KEY = '_onePrice';
+
 /* URLS */
 export const HOME_PAGE_URL = '/';
 export const LOGIN_REDIRECT_RUL = '/loginRedirect';
