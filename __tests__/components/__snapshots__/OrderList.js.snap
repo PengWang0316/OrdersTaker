@@ -40,16 +40,16 @@ Array [
       />
     </div>
     <OrderItem
-      item={1}
+      itemId="5b1c64d54345b11970bb124f"
     />
     <OrderItem
-      item={2}
+      itemId="5b1c64d54345b11970bb126d"
     />
     <OrderItem
-      item={3}
+      itemId="5b1c64d54345b11970bb123d"
     />
     <OrderItem
-      item={4}
+      itemId="5b1c64d54345b11970bb123a"
     />
   </div>,
   <div
@@ -90,7 +90,7 @@ Array [
       />
     </div>
     <OrderItem
-      item={5}
+      itemId="5b1c6d634345b11970bb1250"
     />
   </div>,
 ]
