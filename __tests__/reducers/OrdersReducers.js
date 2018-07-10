@@ -1,4 +1,4 @@
-import { ADD_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
+import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
 import orders from '../../app/reducers/OrdersReducers';
 
 describe('OrdersReducers', () => {
@@ -22,5 +22,19 @@ describe('OrdersReducers', () => {
     const state = { itemId: { qty: { priceKey: 1 } }, qty: 0 };
     expect(orders(state, { type: ADD_ORDER_SUCCESS, item, priceKey: 'priceKey' }))
       .toEqual({ itemId: { qty: { priceKey: 2 } }, qty: 1 });
+  });
+
+  test('orders REMOVE_ORDER_SUCCESS with priceKey', () => {
+    const item = { _id: 'itemId', other: 'other' };
+    const state = { itemId: { qty: { priceKey: 1 } }, qty: 1 };
+    expect(orders(state, { type: REMOVE_ORDER_SUCCESS, item, priceKey: 'priceKey' }))
+      .toEqual({ itemId: { qty: { priceKey: 0 } }, qty: 0 });
+  });
+
+  test('orders REMOVE_ORDER_SUCCESS without priceKey', () => {
+    const item = { _id: 'itemId', other: 'other' };
+    const state = { itemId: { qty: { priceKeyA: 1 } }, qty: 1 };
+    expect(orders(state, { type: REMOVE_ORDER_SUCCESS, item, priceKey: 'priceKey' }))
+      .toEqual({ itemId: { qty: { priceKeyA: 1 } }, qty: 1 });
   });
 });

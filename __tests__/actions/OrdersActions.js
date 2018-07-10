@@ -3,7 +3,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { ADD_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
+import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
 // import { API_ADD_ITEM_TO_ORDER } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 
@@ -29,12 +29,22 @@ describe('OrdersActions', () => {
     const store = mockStore();
     store.dispatch(OrdersActions.addItemToCart({ item, priceKey }));
     expect(store.getActions()).toEqual(expectActions);
-    // expect(axios.put).not.toHaveBeenCalled();
+  });
 
-    // store = mockStore();
-    // store.dispatch(OrdersActions.addItemToCart({ item, priceKey, user }));
-    // expect(store.getActions()).toEqual(expectActions);
-    // expect(axios.put).toHaveBeenCalledTimes(1);
-    // expect(axios.put).toHaveBeenLastCalledWith(API_ADD_ITEM_TO_ORDER, { item, priceKey, jwtMessage: user.jwt });
+  test('removeItemToCart', () => {
+    const item = { id: '1' };
+    const priceKey = 'priceKey';
+    // const user = { jwt: 'jwt', _id: 'userId' };
+    // const axios = require('axios');
+    const expectActions = [
+      {
+        type: REMOVE_ORDER_SUCCESS,
+        priceKey,
+        item
+      }
+    ];
+    const store = mockStore();
+    store.dispatch(OrdersActions.removeItemFromCart({ item, priceKey }));
+    expect(store.getActions()).toEqual(expectActions);
   });
 });
