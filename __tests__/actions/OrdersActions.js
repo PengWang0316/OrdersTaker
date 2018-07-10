@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { ADD_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_ADD_ITEM_TO_ORDER } from '../../app/actions/ApiUrls';
+// import { API_ADD_ITEM_TO_ORDER } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 
 // const axiosMock = new MockAdapter(axios);
