@@ -48,6 +48,7 @@ export class OrderPageContainer extends Component {
   /**
    * Parsing the Redux state orders to an object this component can use. Also calculate the price for the order.
    * @param {object} orders comes from Redux's state.
+   * @param {object} menuItems has all items' information.
    * @return {object} Return an object that is sorted to use category to be the key.
    * The return object structure is like below:
    * {
@@ -61,7 +62,7 @@ export class OrderPageContainer extends Component {
    *    totalPrice: xxx,
    * }
    */
-  static parseOrders = orders => {
+  static parseOrders = (orders, menuItems) => {
     const newOrders = { // Initial some properties
       totalQty: 0, price: 0, tax: 0, totalPrice: 0, categories: {}
     };
@@ -69,18 +70,18 @@ export class OrderPageContainer extends Component {
     Object.keys(orders).forEach(key => {
       if (key === 'qty') return;
       Object.keys(orders[key].qty).forEach(priceKey => { // Adding all price
-        const category = newOrders.categories[orders[key].category];
-        const price = orders[key].prices[priceKey];
+        const category = newOrders.categories[menuItems[key].category];
+        const price = menuItems[key].prices[priceKey];
         const qty = orders[key].qty[priceKey];
         // Calculating the value for a specific category
-        newOrders.categories[orders[key].category] = category ?
+        newOrders.categories[menuItems[key].category] = category ?
           { price: ((category.price * 100) + (price * 100 * qty)) / 100, qty: category.qty + qty, ids: category.ids } :
           { price: (price * 100 * qty) / 100, qty, ids: new Set() }; // If the category is empty, initialize a empty ids set. Using Set to prevent duplicated ids.
-        newOrders.categories[orders[key].category].ids.add(key); // Saving the id to the ids field.
+        newOrders.categories[menuItems[key].category].ids.add(key); // Saving the id to the ids field.
         // Calculating the total value
         newOrders.totalQty += qty; // Adding the total quantity
         newOrders.price = ((newOrders.price * 100) + (price * 100 * qty)) / 100; // Adding the price up
-        newOrders.tax = (((newOrders.tax * 100) + (((orders[key].taxRate * 100) * (price * 100 * qty)) / 10000)) / 100).toFixed(2);
+        newOrders.tax = (((newOrders.tax * 100) + (((menuItems[key].taxRate * 100) * (price * 100 * qty)) / 10000)) / 100).toFixed(2);
       });
     });
     newOrders.totalPrice = ((newOrders.price * 100) + (newOrders.tax * 100)) / 100;
@@ -133,7 +134,7 @@ export class OrderPageContainer extends Component {
   render() {
     const { classes, menuItems, orders } = this.props;
     const { currentItem, isDialogOpen } = this.state;
-    const newOrders = OrderPageContainer.parseOrders(orders);
+    const newOrders = OrderPageContainer.parseOrders(orders, menuItems);
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>

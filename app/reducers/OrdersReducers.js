@@ -7,9 +7,8 @@ const orders = (/* istanbul ignore next */state = { qty: 0 }, { type, item, pric
         ...state, // Copy the original state
         qty: state.qty + 1 // Add one quantity
       };
-      if (!returnState[item._id]) returnState[item._id] = { ...item, qty: { [priceKey]: 1 } }; // If the orders object has not had this item, directly add it in.
+      if (!returnState[item._id]) returnState[item._id] = { qty: { [priceKey]: 1 } }; // If the orders object has not had this item, directly add it in.
       else returnState[item._id] = { // If the item has already been the orders object, copy the item and qty attribute in the item. Add one or give it a inital value.
-        ...item,
         qty: { ...returnState[item._id].qty, [priceKey]: returnState[item._id].qty[priceKey] ? returnState[item._id].qty[priceKey] + 1 : 1 }
       };
       return returnState;

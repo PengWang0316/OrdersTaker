@@ -32,18 +32,38 @@ describe('OrderPageContainer', () => {
   });
 
   test('parseOrders', () => {
-    const input = {
+    const orders = {
       qty: 6,
+      '5b1c64d54345b11970bb124f': {
+        qty: {
+          _onePrice: 2
+        }
+      },
+      '5b1c64d54345b11970bb123d': {
+        qty: {
+          small: 1,
+          Large: 1
+        }
+      },
+      '5b1c64d54345b11970bb123a': {
+        qty: {
+          small: 1
+        }
+      },
+      '5b1c6d634345b11970bb1250': {
+        qty: {
+          middle: 1
+        }
+      }
+    };
+    const menuItems = {
       '5b1c64d54345b11970bb124f': {
         _id: '5b1c64d54345b11970bb124f',
         prices: {
           _onePrice: 7.95
         },
         taxRate: 9.3,
-        category: 'Appetizer',
-        qty: {
-          _onePrice: 2
-        }
+        category: 'Appetizer'
       },
       '5b1c64d54345b11970bb123d': {
         _id: '5b1c64d54345b11970bb123d',
@@ -52,11 +72,7 @@ describe('OrderPageContainer', () => {
           Large: 6.95
         },
         taxRate: 9.3,
-        category: 'Appetizer',
-        qty: {
-          small: 1,
-          Large: 1
-        }
+        category: 'Appetizer'
       },
       '5b1c64d54345b11970bb123a': {
         _id: '5b1c64d54345b11970bb123a',
@@ -65,10 +81,7 @@ describe('OrderPageContainer', () => {
           Large: 6.95
         },
         taxRate: 9.3,
-        category: 'Appetizer',
-        qty: {
-          small: 1
-        }
+        category: 'Appetizer'
       },
       '5b1c6d634345b11970bb1250': {
         _id: '5b1c6d634345b11970bb1250',
@@ -79,10 +92,7 @@ describe('OrderPageContainer', () => {
         },
         order: 0,
         taxRate: 9.3,
-        category: 'Soup',
-        qty: {
-          middle: 1
-        }
+        category: 'Soup'
       }
     };
     const expectReturn = {
@@ -103,7 +113,7 @@ describe('OrderPageContainer', () => {
       totalPrice: 44.82,
       totalQty: 6
     };
-    expect(OrderPageContainer.parseOrders(input)).toEqual(expectReturn);
+    expect(OrderPageContainer.parseOrders(orders, menuItems)).toEqual(expectReturn);
   });
 
   test('handleDialogToggle', () => {
