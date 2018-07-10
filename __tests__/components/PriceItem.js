@@ -26,8 +26,7 @@ describe('PriceItem', () => {
       multiplePriceDiv: 'multiplePriceDiv',
       flexEnd: 'flex-end'
     },
-    addItemToCart: jest.fn(),
-    user: {}
+    addItemToCart: jest.fn()
   };
   const getShallowComponent = (props = defaultProps) => shallow(<PriceItem {...props} />);
 
@@ -50,7 +49,7 @@ describe('PriceItem', () => {
     const AnimationUtil = require('../../app/utils/AnimationUtil');
     component.instance().handleAddToCartClick('priceKey');
     expect(defaultProps.addItemToCart).toHaveBeenCalledTimes(1);
-    expect(defaultProps.addItemToCart).toHaveBeenLastCalledWith({ priceKey: 'priceKey', item: defaultProps.item, user: defaultProps.user });
+    expect(defaultProps.addItemToCart).toHaveBeenLastCalledWith({ priceKey: 'priceKey', item: defaultProps.item });
     expect(AnimationUtil.animateOrderNumber).toHaveBeenCalledTimes(1);
   });
 

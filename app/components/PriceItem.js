@@ -46,8 +46,7 @@ export class PriceItem extends Component {
     classes: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     flexEnd: PropTypes.bool,
-    addItemToCart: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    addItemToCart: PropTypes.func.isRequired
   };
   static defaultProps = { flexEnd: false };
 
@@ -72,7 +71,7 @@ export class PriceItem extends Component {
    */
   handleAddToCartClick = priceKey => {
     animateOrderNumber();
-    this.props.addItemToCart({ user: this.props.user, item: this.props.item, priceKey });
+    this.props.addItemToCart({ item: this.props.item, priceKey });
   };
 
   /**
@@ -123,11 +122,11 @@ export class PriceItem extends Component {
   }
 }
 /* istanbul ignore next */
-const mapStateToProps = state => ({
-  user: state.user
-});
+// const mapStateToProps = state => ({
+//   user: state.user
+// });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  addItemToCart: (item, user) => dispatch(addItemToCart(item, user))
+  addItemToCart: pramater => dispatch(addItemToCart(pramater))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceItem));
+export default connect(null, mapDispatchToProps)(withStyles(styles)(PriceItem));
