@@ -9,35 +9,11 @@ exports[`OrderPageContainer Snapshot with an empty menuItems 1`] = `
   >
     <div
       className="summaryContent"
-    >
-      <OrderSummary
-        orders={
-          Object {
-            "categories": Object {},
-            "price": 0,
-            "tax": 0,
-            "totalPrice": 0,
-            "totalQty": 0,
-          }
-        }
-      />
-    </div>
+    />
   </div>
   <div
     className="listPanel"
-  >
-    <OrderList
-      orders={
-        Object {
-          "categories": Object {},
-          "price": 0,
-          "tax": 0,
-          "totalPrice": 0,
-          "totalQty": 0,
-        }
-      }
-    />
-  </div>
+  />
 </div>
 `;
 

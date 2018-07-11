@@ -134,18 +134,21 @@ export class OrderPageContainer extends Component {
   render() {
     const { classes, menuItems, orders } = this.props;
     const { currentItem, isDialogOpen } = this.state;
-    const newOrders = OrderPageContainer.parseOrders(orders, menuItems);
+    const isMenuItemsReady = Object.keys(menuItems).length !== 0;
+    const newOrders = isMenuItemsReady ? OrderPageContainer.parseOrders(orders, menuItems) : {};
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
-          <div className={classes.summaryContent}><OrderSummary orders={newOrders} /></div>
+          <div className={classes.summaryContent}>{isMenuItemsReady && <OrderSummary orders={newOrders} />}</div>
         </div>
         <div className={classes.listPanel}>
-          <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
-            <OrderList orders={newOrders} />
-          </ShowDetailDialogContext.Provider>
+          {isMenuItemsReady && (
+            <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
+              <OrderList orders={newOrders} />
+            </ShowDetailDialogContext.Provider>
+          )}
         </div>
-        {Object.keys(menuItems).length !== 0 && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
+        {isMenuItemsReady && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
       </div>
     );
   }
