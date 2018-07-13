@@ -1,4 +1,4 @@
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS } from '../actions/ActionTypes';
+import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from '../actions/ActionTypes';
 
 const orders = (/* istanbul ignore next */state = { qty: 0 }, { type, item, priceKey, number }) => {
   switch (type) {
@@ -23,6 +23,8 @@ const orders = (/* istanbul ignore next */state = { qty: 0 }, { type, item, pric
     }
     case SET_TABLE_NUMBER_SUCCESS:
       return { ...state, tableNumber: number };
+    case CLEAR_ORDERS_SUCCESS:
+      return { qty: 0 };
     default:
       return state;
   }
