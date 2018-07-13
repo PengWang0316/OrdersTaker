@@ -59,6 +59,7 @@ export class QRCodeScaner extends Component {
     );
   }
 }
+/* istanbul ignore next */
 const mapStateToProps = state => ({
   orders: state.orders
 });
