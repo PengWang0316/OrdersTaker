@@ -15,7 +15,7 @@ const styles = {
     padding: '10px 20px',
     margin: '15px auto',
     display: 'grid',
-    gridTemplateColumns: '1fr 200px',
+    gridTemplateColumns: '1fr 300px',
     gridTemplateRows: '1fr',
     gridTemplateAreas: '"listPanel summaryPanel"',
     gridGap: '2em'
@@ -30,7 +30,7 @@ const styles = {
     position: 'sticky',
     top: 70
   },
-  '@media (max-width: 600px)': {
+  '@media (max-width: 668px)': {
     root: {
       gridTemplateColumns: '1fr',
       gridTemplateRows: '100% 1fr',
