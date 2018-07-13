@@ -3,7 +3,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
+import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS } from '../../app/actions/ActionTypes';
 // import { API_ADD_ITEM_TO_ORDER } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 
@@ -45,6 +45,19 @@ describe('OrdersActions', () => {
     ];
     const store = mockStore();
     store.dispatch(OrdersActions.removeItemFromCart({ item, priceKey }));
+    expect(store.getActions()).toEqual(expectActions);
+  });
+
+  test('setTableNumber', () => {
+    const number = 1;
+    const expectActions = [
+      {
+        type: SET_TABLE_NUMBER_SUCCESS,
+        number
+      }
+    ];
+    const store = mockStore();
+    store.dispatch(OrdersActions.setTableNumber(number));
     expect(store.getActions()).toEqual(expectActions);
   });
 });

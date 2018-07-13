@@ -1,4 +1,4 @@
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS } from '../../app/actions/ActionTypes';
+import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS } from '../../app/actions/ActionTypes';
 import orders from '../../app/reducers/OrdersReducers';
 
 describe('OrdersReducers', () => {
@@ -36,5 +36,11 @@ describe('OrdersReducers', () => {
     const state = { itemId: { qty: { priceKeyA: 1 } }, qty: 1 };
     expect(orders(state, { type: REMOVE_ORDER_SUCCESS, item, priceKey: 'priceKey' }))
       .toEqual({ itemId: { qty: { priceKeyA: 1 } }, qty: 1 });
+  });
+
+  test('orders SET_TABLE_NUMBER_SUCCESS', () => {
+    const state = { itemId: { qty: { priceKeyA: 1 } }, qty: 1, tableNumber: null };
+    expect(orders(state, { type: SET_TABLE_NUMBER_SUCCESS, number: 1 }))
+      .toEqual({ itemId: { qty: { priceKeyA: 1 } }, qty: 1, tableNumber: 1 });
   });
 });

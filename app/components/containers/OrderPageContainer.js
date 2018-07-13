@@ -68,7 +68,7 @@ export class OrderPageContainer extends Component {
     };
     // price and tax will use cent in order to avoid the inaccurace.
     Object.keys(orders).forEach(key => {
-      if (key === 'qty') return;
+      if (key === 'qty' || key === 'tableNumber') return;
       Object.keys(orders[key].qty).forEach(priceKey => { // Adding all price
         const category = newOrders.categories[menuItems[key].category];
         const price = menuItems[key].prices[priceKey];
