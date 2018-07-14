@@ -99,18 +99,18 @@ describe('OrderPageContainer', () => {
       categories: {
         Appetizer: {
           ids: new Set(['5b1c64d54345b11970bb124f', '5b1c64d54345b11970bb123d', '5b1c64d54345b11970bb123d', '5b1c64d54345b11970bb123a']),
-          price: 32.75,
+          price: '32.75',
           qty: 5
         },
         Soup: {
           ids: new Set(['5b1c6d634345b11970bb1250']),
-          price: 8.25,
+          price: '8.25',
           qty: 1
         }
       },
-      price: 41,
+      price: '41.00',
       tax: '3.82',
-      totalPrice: 44.82,
+      totalPrice: '44.82',
       totalQty: 6
     };
     expect(OrderPageContainer.parseOrders(orders, menuItems)).toEqual(expectReturn);

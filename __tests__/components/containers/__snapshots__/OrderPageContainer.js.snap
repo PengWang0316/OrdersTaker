@@ -33,7 +33,7 @@ exports[`OrderPageContainer Snapshot with menuItems 1`] = `
             "categories": Object {},
             "price": 0,
             "tax": 0,
-            "totalPrice": 0,
+            "totalPrice": "0.00",
             "totalQty": 0,
           }
         }
@@ -49,7 +49,7 @@ exports[`OrderPageContainer Snapshot with menuItems 1`] = `
           "categories": Object {},
           "price": 0,
           "tax": 0,
-          "totalPrice": 0,
+          "totalPrice": "0.00",
           "totalQty": 0,
         }
       }

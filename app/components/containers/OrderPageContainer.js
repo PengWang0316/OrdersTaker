@@ -75,16 +75,16 @@ export class OrderPageContainer extends Component {
         const qty = orders[key].qty[priceKey];
         // Calculating the value for a specific category
         newOrders.categories[menuItems[key].category] = category ?
-          { price: ((category.price * 100) + (price * 100 * qty)) / 100, qty: category.qty + qty, ids: category.ids } :
-          { price: (price * 100 * qty) / 100, qty, ids: new Set() }; // If the category is empty, initialize a empty ids set. Using Set to prevent duplicated ids.
+          { price: (((category.price * 100) + (price * 100 * qty)) / 100).toFixed(2), qty: category.qty + qty, ids: category.ids } :
+          { price: ((price * 100 * qty) / 100).toFixed(2), qty, ids: new Set() }; // If the category is empty, initialize a empty ids set. Using Set to prevent duplicated ids.
         newOrders.categories[menuItems[key].category].ids.add(key); // Saving the id to the ids field.
         // Calculating the total value
         newOrders.totalQty += qty; // Adding the total quantity
-        newOrders.price = ((newOrders.price * 100) + (price * 100 * qty)) / 100; // Adding the price up
+        newOrders.price = (((newOrders.price * 100) + (price * 100 * qty)) / 100).toFixed(2); // Adding the price up
         newOrders.tax = (((newOrders.tax * 100) + (((menuItems[key].taxRate * 100) * (price * 100 * qty)) / 10000)) / 100).toFixed(2);
       });
     });
-    newOrders.totalPrice = ((newOrders.price * 100) + (newOrders.tax * 100)) / 100;
+    newOrders.totalPrice = (((newOrders.price * 100) + (newOrders.tax * 100)) / 100).toFixed(2);
     return newOrders;
   };
 
