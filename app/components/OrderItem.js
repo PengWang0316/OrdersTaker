@@ -68,7 +68,7 @@ const styles = theme => ({
  * @return {jsx} Return jsx for the component.
  */
 export const OrderItem = ({
-  itemId, classes, orders, menuItems, addItemToCartProp, removeItemFromCartProp
+  itemId, classes, orderItems, menuItems, addItemToCartProp, removeItemFromCartProp
 }) => {
   const item = menuItems[itemId];
   return (
@@ -84,7 +84,7 @@ export const OrderItem = ({
               <Typography color="primary" className={classes.priceKeyWord}>{priceKey === ITEM_ONE_PRICE_KEY ? '' : priceKey}</Typography>
               <Typography color="textSecondary" className={classes.priceKeyWord}>${item.prices[priceKey]}</Typography>
               <IconButton onClick={() => addItemToCartProp({ item, priceKey })} className={classes.iconButton}><AddCircle className={classes.icon} color="primary" /></IconButton>
-              <Typography color="textSecondary">{orders[itemId].qty[priceKey] || 0}</Typography>
+              <Typography color="textSecondary">{orderItems[itemId].qty[priceKey] || 0}</Typography>
               <IconButton onClick={() => removeItemFromCartProp({ item, priceKey })} className={classes.iconButton}><RemoveCircle className={classes.icon} color="primary" /></IconButton>
             </div>
           ))}
@@ -95,7 +95,7 @@ export const OrderItem = ({
 };
 OrderItem.propTypes = {
   classes: PropTypes.object.isRequired,
-  orders: PropTypes.object.isRequired,
+  orderItems: PropTypes.object.isRequired,
   itemId: PropTypes.string.isRequired,
   menuItems: PropTypes.object.isRequired,
   addItemToCartProp: PropTypes.func.isRequired,
@@ -103,7 +103,7 @@ OrderItem.propTypes = {
 };
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  orders: state.orders,
+  orderItems: state.orders.items,
   menuItems: state.menuItems
 });
 /* istanbul ignore next */

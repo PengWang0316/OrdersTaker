@@ -62,17 +62,17 @@ export class OrderPageContainer extends Component {
    *    totalPrice: xxx,
    * }
    */
-  static parseOrders = (orders, menuItems) => {
+  static parseOrders = (orderItems, menuItems) => {
     const newOrders = { // Initial some properties
       totalQty: 0, price: 0, tax: 0, totalPrice: 0, categories: {}
     };
     // price and tax will use cent in order to avoid the inaccurace.
-    Object.keys(orders).forEach(key => {
-      if (key === 'qty' || key === 'tableNumber') return;
-      Object.keys(orders[key].qty).forEach(priceKey => { // Adding all price
+    Object.keys(orderItems).forEach(key => {
+      // if (key === 'qty' || key === 'tableNumber') return;
+      Object.keys(orderItems[key].qty).forEach(priceKey => { // Adding all price
         const category = newOrders.categories[menuItems[key].category];
         const price = menuItems[key].prices[priceKey];
-        const qty = orders[key].qty[priceKey];
+        const qty = orderItems[key].qty[priceKey];
         // Calculating the value for a specific category
         newOrders.categories[menuItems[key].category] = category ?
           { price: (((category.price * 100) + (price * 100 * qty)) / 100).toFixed(2), qty: category.qty + qty, ids: category.ids } :
@@ -90,7 +90,7 @@ export class OrderPageContainer extends Component {
 
   static propTypes = {
     menuItems: PropTypes.object.isRequired,
-    orders: PropTypes.object.isRequired,
+    orderItems: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
     fetchAllMenu: PropTypes.func.isRequired
   };
@@ -132,10 +132,10 @@ export class OrderPageContainer extends Component {
    * @return {jsx} Return the jsx for the component.
    */
   render() {
-    const { classes, menuItems, orders } = this.props;
+    const { classes, menuItems, orderItems } = this.props;
     const { currentItem, isDialogOpen } = this.state;
     const isMenuItemsReady = Object.keys(menuItems).length !== 0;
-    const newOrders = isMenuItemsReady ? OrderPageContainer.parseOrders(orders, menuItems) : {};
+    const newOrders = isMenuItemsReady ? OrderPageContainer.parseOrders(orderItems, menuItems) : {};
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
@@ -156,7 +156,7 @@ export class OrderPageContainer extends Component {
 /* istanbul ignore next */
 const mapStateToProps = state => ({
   menuItems: state.menuItems,
-  orders: state.orders
+  orderItems: state.orders.items
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({

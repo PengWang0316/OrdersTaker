@@ -17,7 +17,7 @@ describe('OrderPageContainer', () => {
       summaryContent: 'summaryContent'
     },
     menuItems: { id: 1 },
-    orders: { qty: 0 },
+    orderItems: {},
     fetchAllMenu: jest.fn()
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrderPageContainer {...props} />);
@@ -34,25 +34,27 @@ describe('OrderPageContainer', () => {
   test('parseOrders', () => {
     const orders = {
       qty: 6,
-      '5b1c64d54345b11970bb124f': {
-        qty: {
-          _onePrice: 2
-        }
-      },
-      '5b1c64d54345b11970bb123d': {
-        qty: {
-          small: 1,
-          Large: 1
-        }
-      },
-      '5b1c64d54345b11970bb123a': {
-        qty: {
-          small: 1
-        }
-      },
-      '5b1c6d634345b11970bb1250': {
-        qty: {
-          middle: 1
+      items: {
+        '5b1c64d54345b11970bb124f': {
+          qty: {
+            _onePrice: 2
+          }
+        },
+        '5b1c64d54345b11970bb123d': {
+          qty: {
+            small: 1,
+            Large: 1
+          }
+        },
+        '5b1c64d54345b11970bb123a': {
+          qty: {
+            small: 1
+          }
+        },
+        '5b1c6d634345b11970bb1250': {
+          qty: {
+            middle: 1
+          }
         }
       }
     };
@@ -113,7 +115,7 @@ describe('OrderPageContainer', () => {
       totalPrice: '44.82',
       totalQty: 6
     };
-    expect(OrderPageContainer.parseOrders(orders, menuItems)).toEqual(expectReturn);
+    expect(OrderPageContainer.parseOrders(orders.items, menuItems)).toEqual(expectReturn);
   });
 
   test('handleDialogToggle', () => {

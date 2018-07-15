@@ -28,7 +28,7 @@ describe('OrderItem', () => {
       icon: 'icon',
       iconButton: 'iconButton'
     },
-    orders: { itemId: { qty: {} } },
+    orderItems: { itemId: { qty: {} } },
     itemId: 'itemId',
     menuItems: { itemId: item },
     addItemToCartProp: jest.fn(),
@@ -38,7 +38,7 @@ describe('OrderItem', () => {
 
   test('Snapshot without orders matching', () => expect(renderer.create(<OrderItem {...defaultProps} />).toJSON()).toMatchSnapshot());
   test('Snapshot with orders matching', () =>
-    expect(renderer.create(<OrderItem {...{ ...defaultProps, orders: { itemId: { qty: { small: 2 } } } }} />)
+    expect(renderer.create(<OrderItem {...{ ...defaultProps, orderItems: { itemId: { qty: { small: 2 } } } }} />)
       .toJSON()).toMatchSnapshot());
 
   test('Clicking Avatar', () => {
