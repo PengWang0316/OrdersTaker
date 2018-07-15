@@ -1,7 +1,7 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from './ActionTypes';
-// import { API_ADD_ITEM_TO_ORDER } from './ApiUrls';
+import { API_SAVE_PLACED_ORDER } from './ApiUrls';
 
 const addOrderSuccess = (item, priceKey) => ({
   type: ADD_ORDER_SUCCESS,
@@ -31,3 +31,11 @@ export const removeItemFromCart = ({ item, priceKey }) => removeOrderSuccess(ite
 export const setTableNumber = number => setTableNumberSuccess(number);
 
 export const clearOrders = () => clearOrdersSuccess();
+
+export const placeOrder = order => new Promise((resolve, reject) =>
+  axios.post(API_SAVE_PLACED_ORDER, order)
+    .then(({ data }) => resolve(data))
+    .catch(err => {
+      console.error(err);
+      reject(err);
+    }));

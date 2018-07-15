@@ -1,13 +1,13 @@
-// import axios from 'axios';
-// import MockAdapter from 'axios-mock-adapter';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from '../../app/actions/ActionTypes';
-// import { API_ADD_ITEM_TO_ORDER } from '../../app/actions/ApiUrls';
+import { API_SAVE_PLACED_ORDER } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 
-// const axiosMock = new MockAdapter(axios);
+const axiosMock = new MockAdapter(axios);
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -68,5 +68,18 @@ describe('OrdersActions', () => {
     const store = mockStore();
     store.dispatch(OrdersActions.clearOrders());
     expect(store.getActions()).toEqual(expectActions);
+  });
+
+  test('placeOrder without error', () => {
+    const order = {};
+    axiosMock.onPost(API_SAVE_PLACED_ORDER, order).reply(200, 1);
+    OrdersActions.placeOrder(order).then(data => expect(data).toBe(1));
+  });
+
+  test('placeOrder with network error', () => {
+    const order = {};
+    window.console.error = jest.fn();
+    axiosMock.onPost(API_SAVE_PLACED_ORDER, order).networkError();
+    OrdersActions.placeOrder(order).then(() => expect(window.console.error).toHaveBeenCalledTimes(1)).catch(() => {});
   });
 });
