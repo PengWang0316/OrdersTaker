@@ -32,8 +32,8 @@ export const setTableNumber = number => setTableNumberSuccess(number);
 
 export const clearOrders = () => clearOrdersSuccess();
 
-export const placeOrder = order => new Promise((resolve, reject) =>
-  axios.post(API_SAVE_PLACED_ORDER, order)
+export const placeOrder = (order, jwtMessage) => new Promise((resolve, reject) =>
+  axios.post(API_SAVE_PLACED_ORDER, { order, jwtMessage })
     .then(({ data }) => resolve(data))
     .catch(err => {
       console.error(err);
