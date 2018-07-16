@@ -24,7 +24,7 @@ exports[`AlertDialog Snapshot 1`] = `
       color="primary"
       onClick={[MockFunction]}
     >
-      Cancel
+      firstButtonText
     </Button>
     <Button
       autoFocus={true}

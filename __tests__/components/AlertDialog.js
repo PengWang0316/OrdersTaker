@@ -17,8 +17,10 @@ describe('AlertDialog', () => {
     onClose: jest.fn(),
     title: 'title',
     content: 'content',
-    onConfirm: jest.fn(),
-    confirmButtonText: 'comfirmButtonText'
+    onFirstButton: jest.fn(),
+    onSecondButton: jest.fn(),
+    firstButtonText: 'firstButtonText',
+    secondButtonText: 'comfirmButtonText'
   };
   const getShallowComponent = (props = defalutProps) => shallow(<AlertDialog {...props} />);
 
@@ -26,10 +28,10 @@ describe('AlertDialog', () => {
 
   test('Buttons click', () => {
     const component = getShallowComponent();
-    const buttons = component.find('Button')
+    const buttons = component.find('Button');
     buttons.at(0).simulate('click');
-    expect(defalutProps.onClose).toHaveBeenCalledTimes(1);
+    expect(defalutProps.onFirstButton).toHaveBeenCalledTimes(1);
     buttons.at(1).simulate('click');
-    expect(defalutProps.onConfirm).toHaveBeenCalledTimes(1);
+    expect(defalutProps.onSecondButton).toHaveBeenCalledTimes(1);
   });
 });

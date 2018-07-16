@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@material-ui/core';
 
 export const AlertDialog = ({
-  open, onClose, title, content, onConfirm, confirmButtonText
+  open, onClose, title, content, onSecondButton, onFirstButton, firstButtonText, secondButtonText
 }) => (
   <Dialog
     open={open}
@@ -16,11 +16,11 @@ export const AlertDialog = ({
       <DialogContentText id="alert-dialog-description">{content}</DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onClose} color="primary">
-        Cancel
+      <Button onClick={onFirstButton} color="primary">
+        {firstButtonText}
       </Button>
-      <Button onClick={onConfirm} color="primary" autoFocus>
-        {confirmButtonText}
+      <Button onClick={onSecondButton} color="primary" autoFocus>
+        {secondButtonText}
       </Button>
     </DialogActions>
   </Dialog>
@@ -30,10 +30,13 @@ AlertDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  confirmButtonText: PropTypes.string
+  onFirstButton: PropTypes.func.isRequired,
+  onSecondButton: PropTypes.func.isRequired,
+  firstButtonText: PropTypes.string,
+  secondButtonText: PropTypes.string
 };
 AlertDialog.defaultProps = {
-  confirmButtonText: 'Confirm'
+  firstButtonText: 'Cancel',
+  secondButtonText: 'Confirm'
 };
 export default AlertDialog;
