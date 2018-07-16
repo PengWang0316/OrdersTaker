@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertDialog Snapshot 1`] = `
+<Dialog
+  aria-describedby="alert-dialog-description"
+  aria-labelledby="alert-dialog-title"
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogTitle
+    id="alert-dialog-title"
+  >
+    title
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText
+      id="alert-dialog-description"
+    >
+      content
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      Cancel
+    </Button>
+    <Button
+      autoFocus={true}
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      comfirmButtonText
+    </Button>
+  </DialogActions>
+</Dialog>
+`;

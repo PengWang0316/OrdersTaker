@@ -6,6 +6,7 @@ import { HomePageContainer } from '../../../app/components/containers/HomePageCo
 
 jest.mock('../../../app/components/Banner', () => 'Banner');
 jest.mock('../../../app/components/MenuCategory', () => 'MenuCategory');
+jest.mock('../../../app/components/OrderFloatingButton', () => 'OrderFloatingButton');
 
 window.innerWidth = 800;
 
@@ -23,6 +24,14 @@ describe('HomePageContainer', () => {
     expect(defaultProps.fetchAllMenu).toHaveBeenCalledTimes(1);
     expect(window.addEventListener).toHaveBeenLastCalledWith('resize', component.instance().handleResize);
     expect(component.state('itemAmount')).toBe(6);
+  });
+
+  test('componentWillUnmount', () => {
+    window.removeEventListener = jest.fn();
+    const component = getShallowComponent();
+    component.instance().componentWillUnmount();
+    expect(window.removeEventListener).toHaveBeenCalledTimes(1);
+    expect(window.removeEventListener).toHaveBeenLastCalledWith('resize', component.instance().handleResize);
   });
 
   test('handleResize', () => {

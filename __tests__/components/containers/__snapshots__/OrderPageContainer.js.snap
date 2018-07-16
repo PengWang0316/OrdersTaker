@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderPageContainer Snapshot with an empty menuItems 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="summaryPanel"
+  >
+    <div
+      className="summaryContent"
+    />
+  </div>
+  <div
+    className="listPanel"
+  />
+</div>
+`;
+
+exports[`OrderPageContainer Snapshot with menuItems 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="summaryPanel"
+  >
+    <div
+      className="summaryContent"
+    >
+      <OrderSummary
+        orders={
+          Object {
+            "categories": Object {},
+            "price": 0,
+            "tax": 0,
+            "totalPrice": "0.00",
+            "totalQty": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="listPanel"
+  >
+    <OrderList
+      orders={
+        Object {
+          "categories": Object {},
+          "price": 0,
+          "tax": 0,
+          "totalPrice": "0.00",
+          "totalQty": 0,
+        }
+      }
+    />
+  </div>
+  <ItemDetailDialog
+    item={null}
+    onClose={[Function]}
+    open={false}
+  />
+</div>
+`;

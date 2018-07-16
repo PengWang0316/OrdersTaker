@@ -13,8 +13,8 @@ const mockStore = configureMockStore(middlewares);
 
 describe('MenuActions', () => {
   test('fetchAllMenu without error', () => {
-    const menus = [{ _id: 1, items: [{ _id: 1 }, { _id: 2 }] }, { _id: 2, items: [{ _id: 3 }] }];
-    const menuItems = { 1: { _id: 1 }, 2: { _id: 2 }, 3: { _id: 3 } };
+    const menus = [{ _id: 1, category: 'category', items: [{ _id: 1, category: 'category' }, { _id: 2, category: 'category' }] }, { _id: 2, category: 'category2', items: [{ _id: 3, category: 'category2' }] }];
+    const menuItems = { 1: { _id: 1, category: 'category' }, 2: { _id: 2, category: 'category' }, 3: { _id: 3, category: 'category2' } };
     const expectedActions = [
       { type: FETCH_ALL_MENU_SUCCESS, menus },
       { type: FETCH_ALL_MENU_ITEM_SUCCESS, menuItems }

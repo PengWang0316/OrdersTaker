@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderSummary Snapshot with table number 1`] = `
+Array [
+  <Card
+    className="card"
+  >
+    <CardContent>
+      <Typography
+        className="title"
+        color="primary"
+        variant="subheading"
+      >
+        Order summary
+      </Typography>
+      <List
+        dense={true}
+        disablePadding={true}
+      >
+        <ListItem
+          button={true}
+        >
+          <ListItemText
+            className="categoryTitle"
+            primary="categoryA × 2"
+          />
+          <ListItemSecondaryAction>
+            <Typography
+              color="textSecondary"
+            >
+              $
+              100
+            </Typography>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
+      <div
+        className="hrStyle"
+      />
+      <div>
+        <QRCodeScanner />
+        <div>
+          <div
+            className="flexEndDiv"
+          >
+            <Typography
+              color="primary"
+            >
+              Order Price:  
+            </Typography>
+            <Typography
+              color="textSecondary"
+            >
+              $
+            </Typography>
+          </div>
+          <div
+            className="flexEndDiv"
+          >
+            <Typography
+              color="primary"
+            >
+              Tax:  
+            </Typography>
+            <Typography
+              color="textSecondary"
+            >
+              $
+            </Typography>
+          </div>
+          <div
+            className="flexEndDiv"
+          >
+            <Typography
+              className="fontBold"
+              color="primary"
+            >
+              Total Price:  
+            </Typography>
+            <Typography
+              className="fontBold"
+              color="textSecondary"
+            >
+              $
+            </Typography>
+          </div>
+        </div>
+      </div>
+      <div
+        className="flexEndDiv buttonDiv"
+      >
+        <Button
+          onClick={[Function]}
+          size="small"
+          variant="contained"
+        >
+          Clear
+          <RemoveShoppingCart
+            className="icon"
+          />
+        </Button>
+        <Tooltip
+          title="After place your order, the kitchen will start to cook your meal"
+        >
+          <div>
+            <Button
+              className="placeBtn"
+              color="primary"
+              disabled={false}
+              onClick={[Function]}
+              size="small"
+              variant="contained"
+            >
+              Place
+              <Send
+                className="icon"
+              />
+            </Button>
+          </div>
+        </Tooltip>
+      </div>
+    </CardContent>
+  </Card>,
+  <AlertDialog
+    confirmButtonText="Clear"
+    content="This action will clear all item you have already add in the order."
+    onClose={[Function]}
+    onConfirm={[Function]}
+    open={false}
+    title="Clear all item in the order"
+  />,
+]
+`;
+
+exports[`OrderSummary Snapshot without table number 1`] = `
+Array [
+  <Card
+    className="card"
+  >
+    <CardContent>
+      <Typography
+        className="title"
+        color="primary"
+        variant="subheading"
+      >
+        Order summary
+      </Typography>
+      <List
+        dense={true}
+        disablePadding={true}
+      >
+        <ListItem
+          button={true}
+        >
+          <ListItemText
+            className="categoryTitle"
+            primary="categoryA × 2"
+          />
+          <ListItemSecondaryAction>
+            <Typography
+              color="textSecondary"
+            >
+              $
+              100
+            </Typography>
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
+      <div
+        className="hrStyle"
+      />
+      <div>
+        <QRCodeScanner />
+        <div>
+          <div
+            className="flexEndDiv"
+          >
+            <Typography
+              color="primary"
+            >
+              Order Price:  
+            </Typography>
+            <Typography
+              color="textSecondary"
+            >
+              $
+            </Typography>
+          </div>
+          <div
+            className="flexEndDiv"
+          >
+            <Typography
+              color="primary"
+            >
+              Tax:  
+            </Typography>
+            <Typography
+              color="textSecondary"
+            >
+              $
+            </Typography>
+          </div>
+          <div
+            className="flexEndDiv"
+          >
+            <Typography
+              className="fontBold"
+              color="primary"
+            >
+              Total Price:  
+            </Typography>
+            <Typography
+              className="fontBold"
+              color="textSecondary"
+            >
+              $
+            </Typography>
+          </div>
+        </div>
+      </div>
+      <div
+        className="flexEndDiv buttonDiv"
+      >
+        <Button
+          onClick={[Function]}
+          size="small"
+          variant="contained"
+        >
+          Clear
+          <RemoveShoppingCart
+            className="icon"
+          />
+        </Button>
+        <Tooltip
+          title="Please scan the QR code ont the table first"
+        >
+          <div>
+            <Button
+              className="placeBtn"
+              color="primary"
+              disabled={true}
+              onClick={[Function]}
+              size="small"
+              variant="contained"
+            >
+              Place
+              <Send
+                className="icon"
+              />
+            </Button>
+          </div>
+        </Tooltip>
+      </div>
+    </CardContent>
+  </Card>,
+  <AlertDialog
+    confirmButtonText="Clear"
+    content="This action will clear all item you have already add in the order."
+    onClose={[Function]}
+    onConfirm={[Function]}
+    open={false}
+    title="Clear all item in the order"
+  />,
+]
+`;

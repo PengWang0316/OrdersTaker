@@ -7,13 +7,17 @@ Array [
     position="static"
   >
     <Toolbar>
-      <Typography
-        className="flex"
-        color="inherit"
-        variant="title"
+      <Link
+        className="link"
+        to="/"
       >
-        Name of the restaurant
-      </Typography>
+        <Typography
+          color="inherit"
+          variant="title"
+        >
+          Name of the restaurant
+        </Typography>
+      </Link>
       <Hidden
         only="xs"
       >
@@ -103,13 +107,17 @@ Array [
     position="static"
   >
     <Toolbar>
-      <Typography
-        className="flex"
-        color="inherit"
-        variant="title"
+      <Link
+        className="link"
+        to="/"
       >
-        Name of the restaurant
-      </Typography>
+        <Typography
+          color="inherit"
+          variant="title"
+        >
+          Name of the restaurant
+        </Typography>
+      </Link>
       <Hidden
         only="xs"
       >
@@ -191,13 +199,17 @@ Array [
     position="static"
   >
     <Toolbar>
-      <Typography
-        className="flex"
-        color="inherit"
-        variant="title"
+      <Link
+        className="link"
+        to="/"
       >
-        Name of the restaurant
-      </Typography>
+        <Typography
+          color="inherit"
+          variant="title"
+        >
+          Name of the restaurant
+        </Typography>
+      </Link>
       <Hidden
         only="xs"
       >

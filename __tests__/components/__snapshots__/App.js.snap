@@ -5,7 +5,9 @@ exports[`App component test App snapshot 1`] = `
   <Navbar />
   <main>
     &lt;Route path=/ /&gt;
+    &lt;Route path=/orders /&gt;
     &lt;Route path=/loginRedirect /&gt;
+    &lt;Route path=/orderStatus/:orderId /&gt;
     &lt;Route render=[object Object] /&gt;
   </main>
 </div>

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderFloatingButton Snapshot with orders 1`] = `
+<div
+  className="root"
+>
+  <Button
+    className="floatingButton"
+    color="primary"
+    id="orderFloatingButton"
+    onClick={[Function]}
+    variant="fab"
+  >
+    <RoomService />
+    <Badge
+      badgeContent={1}
+      className="badge"
+      color="error"
+      id="orderNumberBadge"
+    >
+      <span />
+    </Badge>
+  </Button>
+</div>
+`;
+
+exports[`OrderFloatingButton Snapshot without orders 1`] = `null`;

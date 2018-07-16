@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
+import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './components/App';
 import configureStore from './store/ConfigureStore';
 import './styles/index.global.css';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = configureStore();
+const { store, persistor } = configureStore();
 
 // ReactDOM.render(
 //   <Provider store={store}>
@@ -20,7 +21,9 @@ const render = Component => {
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <Component />
+        <PersistGate loading={null} persistor={persistor}>
+          <Component />
+        </PersistGate>
       </Provider>
     </AppContainer>,
     document.getElementById('app'),

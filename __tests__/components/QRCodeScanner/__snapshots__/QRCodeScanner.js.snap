@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QRCodeScanner Snapshot with tableNumber 1`] = `
+<div>
+  <Typography
+    color="primary"
+  >
+    Table number:
+  </Typography>
+  <Button
+    className="tableNumber"
+    color="primary"
+    onClick={[Function]}
+  >
+    1
+  </Button>
+  <QRScanerDialog
+    isOpen={false}
+    onClose={[Function]}
+  />
+</div>
+`;
+
+exports[`QRCodeScanner Snapshot without tableNumber 1`] = `
+<div>
+  <Button
+    onClick={[Function]}
+  >
+    <PhotoCamera
+      color="primary"
+    />
+  </Button>
+  <Typography
+    color="primary"
+  >
+    Scan Table QR
+  </Typography>
+  <QRScanerDialog
+    isOpen={false}
+    onClose={[Function]}
+  />
+</div>
+`;

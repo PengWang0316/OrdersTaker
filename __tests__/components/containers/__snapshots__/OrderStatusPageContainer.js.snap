@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderStatusPageContainer Snapshot 1`] = `
+<div>
+  orderId
+</div>
+`;

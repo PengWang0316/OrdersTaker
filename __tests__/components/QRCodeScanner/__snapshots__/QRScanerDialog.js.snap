@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QRScanerDialog Snapshot 1`] = `
+<Dialog
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogTitle>
+    <Typography
+      color="primary"
+    >
+      Please scan the QR code on the table
+    </Typography>
+  </DialogTitle>
+  <QrReader
+    onError={[Function]}
+    onScan={[Function]}
+  />
+  <div
+    className="buttonDiv"
+  >
+    <Button
+      onClick={[MockFunction]}
+      size="small"
+    >
+      Cancel
+    </Button>
+  </div>
+</Dialog>
+`;

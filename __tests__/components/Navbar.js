@@ -15,6 +15,7 @@ jest.mock('@material-ui/core/Menu', () => 'Menu');
 jest.mock('@material-ui/core/MenuItem', () => 'MenuItem');
 jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
+jest.mock('react-router-dom', () => ({ Link: 'Link' }));
 jest.mock('../../app/components/LoginDialog/LoginDialog', () => 'LoginDialog');
 jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDialogSnackbar');
 jest.mock('../../app/components/snackbars/LogoutSnackbar', () => 'LogoutSnackbar');
@@ -22,7 +23,7 @@ jest.mock('../../app/components/snackbars/LogoutSnackbar', () => 'LogoutSnackbar
 
 describe('Navbar test', () => {
   const defaultProps = {
-    classes: { flex: 'flex', appbar: 'appbar' },
+    classes: { link: 'link', appbar: 'appbar' },
     logout: jest.fn(),
     parserUserFromJwt: jest.fn(),
     user: {}
