@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`QRCodeScaner Snapshot with tableNumber 1`] = `
+exports[`QRCodeScanner Snapshot with tableNumber 1`] = `
 <div>
   <Typography
     color="primary"
@@ -21,7 +21,7 @@ exports[`QRCodeScaner Snapshot with tableNumber 1`] = `
 </div>
 `;
 
-exports[`QRCodeScaner Snapshot without tableNumber 1`] = `
+exports[`QRCodeScanner Snapshot without tableNumber 1`] = `
 <div>
   <Button
     onClick={[Function]}

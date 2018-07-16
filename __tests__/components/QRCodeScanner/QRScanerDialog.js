@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import { QRScanerDialog } from '../../../app/components/QRCodeScaner/QRScanerDialog';
+import { QRScanerDialog } from '../../../app/components/QRCodeScanner/QRScanerDialog';
 
 jest.mock('@material-ui/core/Dialog', () => 'Dialog');
 jest.mock('@material-ui/core/DialogTitle', () => 'DialogTitle');

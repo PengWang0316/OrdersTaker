@@ -17,7 +17,7 @@ const styles = {
 /**
  * The component that will be used to scan the QR code.
  */
-export class QRCodeScaner extends Component {
+export class QRCodeScanner extends Component {
   static propTypes = {
     orders: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
@@ -63,4 +63,4 @@ export class QRCodeScaner extends Component {
 const mapStateToProps = state => ({
   orders: state.orders
 });
-export default connect(mapStateToProps, null)(withStyles(styles)(QRCodeScaner));
+export default connect(mapStateToProps, null)(withStyles(styles)(QRCodeScanner));
