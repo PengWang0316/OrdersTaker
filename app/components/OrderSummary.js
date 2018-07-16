@@ -156,7 +156,7 @@ export class OrderSummary extends Component {
           open={isAlertDialogOpen}
           onClose={this.handleToggleAlertDialog}
           title="Clear all item in the order"
-          content="This action will clear all item you have already add in the order."
+          content="This action will clear all item you has already add in the order."
           onConfirm={this.handleClearOrders}
           confirmButtonText="Clear"
         />

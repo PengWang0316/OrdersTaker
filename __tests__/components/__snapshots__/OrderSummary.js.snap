@@ -123,7 +123,7 @@ Array [
   </Card>,
   <AlertDialog
     confirmButtonText="Clear"
-    content="This action will clear all item you have already add in the order."
+    content="This action will clear all item you has already add in the order."
     onClose={[Function]}
     onConfirm={[Function]}
     open={false}
@@ -255,7 +255,7 @@ Array [
   </Card>,
   <AlertDialog
     confirmButtonText="Clear"
-    content="This action will clear all item you have already add in the order."
+    content="This action will clear all item you has already add in the order."
     onClose={[Function]}
     onConfirm={[Function]}
     open={false}
