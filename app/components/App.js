@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 // import { CSSTransitionGroup } from 'react-transition-group';
 
-import { HOME_PAGE_URL, LOGIN_REDIRECT_RUL, ORDER_PAGE_URL } from '../config';
+import { HOME_PAGE_URL, LOGIN_REDIRECT_RUL, ORDER_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
 
 import Navbar from './Navbar';
 // import BackgroundMainPager from './BackgroundMainPager';
@@ -41,6 +41,9 @@ const LoginRedirect = importedComponent(() => import(/* webpackChunkName: "Login
 /* istanbul ignore next */
 const OrderPage = importedComponent(() => import(/* webpackChunkName: "OrderPageContainer" */ './containers/OrderPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
+/* istanbul ignore next */
+const OrderStatusPage = importedComponent(() => import(/* webpackChunkName: "OrderStatusPageContainer" */ './containers/OrderStatusPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+
 const App = props => (
   <MuiThemeProvider theme={theme}>
     <Router>
@@ -52,6 +55,7 @@ const App = props => (
             <Route exact path={HOME_PAGE_URL} component={HomePage} />
             <Route exact path={ORDER_PAGE_URL} component={OrderPage} />
             <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />
+            <Route path={`${ORDER_STATUS_PAGE_URL}/:orderId`} component={OrderStatusPage} />
             <Route render={() => <p>Not Fount!</p>} />
           </Switch>
         </main>

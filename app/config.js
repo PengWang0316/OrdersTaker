@@ -15,3 +15,4 @@ export const ITEM_ONE_PRICE_KEY = '_onePrice';
 export const HOME_PAGE_URL = '/';
 export const LOGIN_REDIRECT_RUL = '/loginRedirect';
 export const ORDER_PAGE_URL = '/orders';
+export const ORDER_STATUS_PAGE_URL = '/orderStatus';
