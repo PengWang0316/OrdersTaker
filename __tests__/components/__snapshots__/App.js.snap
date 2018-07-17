@@ -10,6 +10,10 @@ exports[`App component test App snapshot with user id 1`] = `
     &lt;Route path=/orderStatus/:orderId /&gt;
     &lt;Route render=[object Object] /&gt;
   </main>
+  <LogoutSnackbar
+    onClose={[Function]}
+    open={false}
+  />
 </div>
 `;
 
@@ -26,6 +30,15 @@ exports[`App component test App snapshot without user id 1`] = `
   <LoginDialog
     onClose={[Function]}
     onToggleSnackbar={[Function]}
+    open={false}
+  />
+  <LoginDialogSnackbar
+    message=""
+    onClose={[Function]}
+    open={false}
+  />
+  <LogoutSnackbar
+    onClose={[Function]}
     open={false}
   />
 </div>
