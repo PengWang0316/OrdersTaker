@@ -122,12 +122,23 @@ Array [
     </CardContent>
   </Card>,
   <AlertDialog
-    confirmButtonText="Clear"
     content="This action will clear all item you has already add in the order."
     onClose={[Function]}
-    onConfirm={[Function]}
+    onFirstButton={[Function]}
+    onSecondButton={[Function]}
     open={false}
+    secondButtonText="Clear"
     title="Clear all item in the order"
+  />,
+  <AlertDialog
+    content="If you login your account, the order can be tracked easier. Would you like to login first?"
+    firstButtonText="Place Order Without Login"
+    onClose={[Function]}
+    onFirstButton={[Function]}
+    onSecondButton={[Function]}
+    open={false}
+    secondButtonText="Login First"
+    title="Would you like to login?"
   />,
 ]
 `;
@@ -254,12 +265,23 @@ Array [
     </CardContent>
   </Card>,
   <AlertDialog
-    confirmButtonText="Clear"
     content="This action will clear all item you has already add in the order."
     onClose={[Function]}
-    onConfirm={[Function]}
+    onFirstButton={[Function]}
+    onSecondButton={[Function]}
     open={false}
+    secondButtonText="Clear"
     title="Clear all item in the order"
+  />,
+  <AlertDialog
+    content="If you login your account, the order can be tracked easier. Would you like to login first?"
+    firstButtonText="Place Order Without Login"
+    onClose={[Function]}
+    onFirstButton={[Function]}
+    onSecondButton={[Function]}
+    open={false}
+    secondButtonText="Login First"
+    title="Would you like to login?"
   />,
 ]
 `;
