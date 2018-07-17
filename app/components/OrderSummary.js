@@ -14,6 +14,7 @@ import QRCodeScanner from './QRCodeScanner/';
 import { clearOrders, placeOrder } from '../actions/OrdersActions';
 import AlertDialog from './AlertDialog';
 import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
+import LoginDialogContext from '../contexts/LoginDialogContext';
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -80,7 +81,8 @@ export class OrderSummary extends Component {
 
   state = {
     isBtnDisable: false,
-    isAlertDialogOpen: false,
+    isAlertDialogOpen: false, // The state for clear order alert
+    isLoginSuggestionDialogOpen: false, // The state for login suggestion dialog
     isShowProgress: false
   };
 
@@ -89,6 +91,12 @@ export class OrderSummary extends Component {
    * @return {null} No return.
    */
   handleToggleAlertDialog = () => this.setState(({ isAlertDialogOpen }) => ({ isAlertDialogOpen: !isAlertDialogOpen }));
+
+  /**
+   * Set the isLoginSuggestionDialogOpen state to the opposite value.
+   * @return {null} No return.
+   */
+  handleToggleLoginSuggestionDialog = () => this.setState(({ isLoginSuggestionDialogOpen }) => ({ isLoginSuggestionDialogOpen: !isLoginSuggestionDialogOpen }));
 
   /**
    * Calling the clearOrders action and redirect to the home page
@@ -100,10 +108,11 @@ export class OrderSummary extends Component {
   };
 
   /**
-   * Call the placeOrder action and push the page to the order status checking page.
-   * @return {null} No return.
+   * Showing the cricular progress, disable the place button, and call the placeOrder action.
+   * After placeOrder action run, clear order state in the Redux and redirect the page to the order state page.
+   * @return {Promise} Return a promise.
    */
-  handlePlaceBtnClick = () => {
+  placeOrder = () => {
     this.setState({ isShowProgress: true, isBtnDisable: true });
     return placeOrder(this.props.reduxOrders, this.props.user.jwt).then(data => {
       this.props.clearOrders();
@@ -112,12 +121,33 @@ export class OrderSummary extends Component {
   };
 
   /**
+   * If the user has already logged in, Call the placeOrder action and push the page to the order status checking page.
+   * Otherwise, show the user a suggest login dialog.
+   * @return {null} No return.
+   */
+  handlePlaceBtnClick = () => {
+    if (this.props.user._id) this.placeOrder();
+    else this.handleToggleLoginSuggestionDialog();
+  };
+
+  /**
+   * Closing the login suggestion alert dialog and call the function that retreived from context to show the login dialog.
+   * @return {null} No return.
+   */
+  handleShowLoginDialog =() => {
+    this.handleToggleLoginSuggestionDialog();
+    this.handleToggleLoginDialog();
+  };
+
+  /**
    * The render method for the component.
    * @return {jsx} Return the jsx.
    */
   render() {
     const { classes, orders, reduxOrders } = this.props;
-    const { isAlertDialogOpen, isBtnDisable, isShowProgress } = this.state;
+    const {
+      isAlertDialogOpen, isBtnDisable, isShowProgress, isLoginSuggestionDialogOpen
+    } = this.state;
     return (
       <Fragment>
         <Card className={classes.card}>
@@ -157,9 +187,26 @@ export class OrderSummary extends Component {
           onClose={this.handleToggleAlertDialog}
           title="Clear all item in the order"
           content="This action will clear all item you has already add in the order."
-          onConfirm={this.handleClearOrders}
-          confirmButtonText="Clear"
+          onFirstButton={this.handleToggleAlertDialog}
+          onSecondButton={this.handleClearOrders}
+          secondButtonText="Clear"
         />
+        <LoginDialogContext.Consumer>
+          {({ handleToggleLoginDialog }) => {
+            this.handleToggleLoginDialog = handleToggleLoginDialog;
+            return (
+              <AlertDialog
+                open={isLoginSuggestionDialogOpen}
+                onClose={this.handleToggleLoginSuggestionDialog}
+                title="Would you like to login?"
+                content="If you login your account, the order can be tracked easier. Would you like to login first?"
+                onFirstButton={this.placeOrder}
+                onSecondButton={this.handleShowLoginDialog}
+                firstButtonText="Place Order Without Login"
+                secondButtonText="Login First"
+              />);
+          }}
+        </LoginDialogContext.Consumer>
       </Fragment>
     );
   }
