@@ -1,38 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
-Array [
-  <AppBar
-    className="appbar"
-    position="static"
-  >
-    <Toolbar>
-      <Link
-        className="link"
-        to="/"
+<AppBar
+  className="appbar"
+  position="static"
+>
+  <Toolbar>
+    <Link
+      className="link"
+      to="/"
+    >
+      <Typography
+        color="inherit"
+        variant="title"
       >
+        Name of the restaurant
+      </Typography>
+    </Link>
+    <Hidden
+      only="xs"
+    >
+      <Button
+        color="inherit"
+      >
+        Order
+      </Button>
+      <Button
+        color="inherit"
+      >
+        Menu
+      </Button>
+      <Button
+        color="inherit"
+        onClick={[Function]}
+      >
+        <Avatar
+          alt="avatar"
+          src="avatar"
+        />
         <Typography
           color="inherit"
-          variant="title"
         >
-          Name of the restaurant
+          Logout
         </Typography>
-      </Link>
-      <Hidden
-        only="xs"
+      </Button>
+    </Hidden>
+    <Hidden
+      only={
+        Array [
+          "lg",
+          "md",
+          "sm",
+        ]
+      }
+    >
+      <IconButton
+        aria-haspopup="true"
+        aria-label="Menu"
+        aria-owns={null}
+        color="inherit"
+        onClick={[Function]}
       >
-        <Button
-          color="inherit"
-        >
-          Order
-        </Button>
-        <Button
-          color="inherit"
-        >
-          Menu
-        </Button>
-        <Button
-          color="inherit"
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        anchorEl={null}
+        id="simple-menu"
+        onClose={[Function]}
+        open={false}
+      >
+        <MenuItem>
+          Profile
+        </MenuItem>
+        <MenuItem>
+          My account
+        </MenuItem>
+        <MenuItem
           onClick={[Function]}
         >
           <Avatar
@@ -44,95 +87,85 @@ Array [
           >
             Logout
           </Typography>
-        </Button>
-      </Hidden>
-      <Hidden
-        only={
-          Array [
-            "lg",
-            "md",
-            "sm",
-          ]
-        }
-      >
-        <IconButton
-          aria-haspopup="true"
-          aria-label="Menu"
-          aria-owns={null}
-          color="inherit"
-          onClick={[Function]}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          anchorEl={null}
-          id="simple-menu"
-          onClose={[Function]}
-          open={false}
-        >
-          <MenuItem>
-            Profile
-          </MenuItem>
-          <MenuItem>
-            My account
-          </MenuItem>
-          <MenuItem
-            onClick={[Function]}
-          >
-            <Avatar
-              alt="avatar"
-              src="avatar"
-            />
-            <Typography
-              color="inherit"
-            >
-              Logout
-            </Typography>
-          </MenuItem>
-        </Menu>
-      </Hidden>
-    </Toolbar>
-  </AppBar>,
-  <LogoutSnackbar
-    onClose={[Function]}
-    open={false}
-  />,
-]
+        </MenuItem>
+      </Menu>
+    </Hidden>
+  </Toolbar>
+</AppBar>
 `;
 
 exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
-Array [
-  <AppBar
-    className="appbar"
-    position="static"
-  >
-    <Toolbar>
-      <Link
-        className="link"
-        to="/"
+<AppBar
+  className="appbar"
+  position="static"
+>
+  <Toolbar>
+    <Link
+      className="link"
+      to="/"
+    >
+      <Typography
+        color="inherit"
+        variant="title"
+      >
+        Name of the restaurant
+      </Typography>
+    </Link>
+    <Hidden
+      only="xs"
+    >
+      <Button
+        color="inherit"
+      >
+        Order
+      </Button>
+      <Button
+        color="inherit"
+      >
+        Menu
+      </Button>
+      <Button
+        color="inherit"
+        onClick={[Function]}
       >
         <Typography
           color="inherit"
-          variant="title"
         >
-          Name of the restaurant
+          Logout
         </Typography>
-      </Link>
-      <Hidden
-        only="xs"
+      </Button>
+    </Hidden>
+    <Hidden
+      only={
+        Array [
+          "lg",
+          "md",
+          "sm",
+        ]
+      }
+    >
+      <IconButton
+        aria-haspopup="true"
+        aria-label="Menu"
+        aria-owns={null}
+        color="inherit"
+        onClick={[Function]}
       >
-        <Button
-          color="inherit"
-        >
-          Order
-        </Button>
-        <Button
-          color="inherit"
-        >
-          Menu
-        </Button>
-        <Button
-          color="inherit"
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        anchorEl={null}
+        id="simple-menu"
+        onClose={[Function]}
+        open={false}
+      >
+        <MenuItem>
+          Profile
+        </MenuItem>
+        <MenuItem>
+          My account
+        </MenuItem>
+        <MenuItem
           onClick={[Function]}
         >
           <Typography
@@ -140,148 +173,87 @@ Array [
           >
             Logout
           </Typography>
-        </Button>
-      </Hidden>
-      <Hidden
-        only={
-          Array [
-            "lg",
-            "md",
-            "sm",
-          ]
-        }
-      >
-        <IconButton
-          aria-haspopup="true"
-          aria-label="Menu"
-          aria-owns={null}
-          color="inherit"
-          onClick={[Function]}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          anchorEl={null}
-          id="simple-menu"
-          onClose={[Function]}
-          open={false}
-        >
-          <MenuItem>
-            Profile
-          </MenuItem>
-          <MenuItem>
-            My account
-          </MenuItem>
-          <MenuItem
-            onClick={[Function]}
-          >
-            <Typography
-              color="inherit"
-            >
-              Logout
-            </Typography>
-          </MenuItem>
-        </Menu>
-      </Hidden>
-    </Toolbar>
-  </AppBar>,
-  <LogoutSnackbar
-    onClose={[Function]}
-    open={false}
-  />,
-]
+        </MenuItem>
+      </Menu>
+    </Hidden>
+  </Toolbar>
+</AppBar>
 `;
 
 exports[`Navbar test NavBar snapshot without user 1`] = `
-Array [
-  <AppBar
-    className="appbar"
-    position="static"
-  >
-    <Toolbar>
-      <Link
-        className="link"
-        to="/"
+<AppBar
+  className="appbar"
+  position="static"
+>
+  <Toolbar>
+    <Link
+      className="link"
+      to="/"
+    >
+      <Typography
+        color="inherit"
+        variant="title"
       >
-        <Typography
-          color="inherit"
-          variant="title"
-        >
-          Name of the restaurant
-        </Typography>
-      </Link>
-      <Hidden
-        only="xs"
+        Name of the restaurant
+      </Typography>
+    </Link>
+    <Hidden
+      only="xs"
+    >
+      <Button
+        color="inherit"
       >
-        <Button
-          color="inherit"
-        >
-          Order
-        </Button>
-        <Button
-          color="inherit"
-        >
-          Menu
-        </Button>
-        <Button
-          color="inherit"
+        Order
+      </Button>
+      <Button
+        color="inherit"
+      >
+        Menu
+      </Button>
+      <Button
+        color="inherit"
+        onClick={[Function]}
+      >
+        Login
+      </Button>
+    </Hidden>
+    <Hidden
+      only={
+        Array [
+          "lg",
+          "md",
+          "sm",
+        ]
+      }
+    >
+      <IconButton
+        aria-haspopup="true"
+        aria-label="Menu"
+        aria-owns={null}
+        color="inherit"
+        onClick={[Function]}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        anchorEl={null}
+        id="simple-menu"
+        onClose={[Function]}
+        open={false}
+      >
+        <MenuItem>
+          Profile
+        </MenuItem>
+        <MenuItem>
+          My account
+        </MenuItem>
+        <MenuItem
           onClick={[Function]}
         >
           Login
-        </Button>
-      </Hidden>
-      <Hidden
-        only={
-          Array [
-            "lg",
-            "md",
-            "sm",
-          ]
-        }
-      >
-        <IconButton
-          aria-haspopup="true"
-          aria-label="Menu"
-          aria-owns={null}
-          color="inherit"
-          onClick={[Function]}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          anchorEl={null}
-          id="simple-menu"
-          onClose={[Function]}
-          open={false}
-        >
-          <MenuItem>
-            Profile
-          </MenuItem>
-          <MenuItem>
-            My account
-          </MenuItem>
-          <MenuItem
-            onClick={[Function]}
-          >
-            Login
-          </MenuItem>
-        </Menu>
-      </Hidden>
-    </Toolbar>
-  </AppBar>,
-  <LoginDialog
-    onClose={[Function]}
-    onToggleSnackbar={[Function]}
-    open={false}
-  />,
-  <LoginDialogSnackbar
-    message=""
-    onClose={[Function]}
-    open={false}
-  />,
-  <LogoutSnackbar
-    onClose={[Function]}
-    open={false}
-  />,
-]
+        </MenuItem>
+      </Menu>
+    </Hidden>
+  </Toolbar>
+</AppBar>
 `;
