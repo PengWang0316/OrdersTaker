@@ -19,7 +19,7 @@ const styles = {
  */
 export class QRCodeScanner extends Component {
   static propTypes = {
-    orders: PropTypes.object.isRequired,
+    cart: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
   };
 
@@ -38,20 +38,20 @@ export class QRCodeScanner extends Component {
  * @return {jsx} Return jsx for the component.
  */
   render() {
-    const { orders, classes } = this.props;
+    const { cart, classes } = this.props;
     const { isDialogOpen } = this.state;
     return (
       <div>
-        {!orders.tableNumber && (
+        {!cart.tableNumber && (
           <Fragment>
             <Button onClick={this.toggleDialog}><PhotoCameraIcon color="primary" /></Button>
             <Typography color="primary">Scan Table QR</Typography>
           </Fragment>
         )}
-        {orders.tableNumber && (
+        {cart.tableNumber && (
           <Fragment>
             <Typography color="primary">Table number:</Typography>
-            <Button color="primary" className={classes.tableNumber} onClick={this.toggleDialog}>{orders.tableNumber}</Button>
+            <Button color="primary" className={classes.tableNumber} onClick={this.toggleDialog}>{cart.tableNumber}</Button>
           </Fragment>
         )}
         <QRScanerDialog isOpen={isDialogOpen} onClose={this.toggleDialog} />
@@ -61,6 +61,6 @@ export class QRCodeScanner extends Component {
 }
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  orders: state.orders
+  cart: state.cart
 });
 export default connect(mapStateToProps, null)(withStyles(styles)(QRCodeScanner));

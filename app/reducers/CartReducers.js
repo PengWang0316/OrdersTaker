@@ -1,10 +1,10 @@
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from '../actions/ActionTypes';
+import { ADD_ITEM_SUCCESS, REMOVE_ITEM_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_CART_SUCCESS } from '../actions/ActionTypes';
 
 const initialState = { qty: 0, items: {} };
 
-const orders = (/* istanbul ignore next */state = initialState, { type, item, priceKey, number }) => {
+const cart = (/* istanbul ignore next */state = initialState, { type, item, priceKey, number }) => {
   switch (type) {
-    case ADD_ORDER_SUCCESS: {
+    case ADD_ITEM_SUCCESS: {
       const returnState = { // Making a new object
         ...state, // Copy the original state
         items: { ...state.items },
@@ -16,7 +16,7 @@ const orders = (/* istanbul ignore next */state = initialState, { type, item, pr
       };
       return returnState;
     }
-    case REMOVE_ORDER_SUCCESS: {
+    case REMOVE_ITEM_SUCCESS: {
       const returnState = { // Making a new object
         ...state, // Copy the original state
         items: { ...state.items },
@@ -27,10 +27,10 @@ const orders = (/* istanbul ignore next */state = initialState, { type, item, pr
     }
     case SET_TABLE_NUMBER_SUCCESS:
       return { ...state, tableNumber: number };
-    case CLEAR_ORDERS_SUCCESS:
+    case CLEAR_CART_SUCCESS:
       return initialState;
     default:
       return state;
   }
 };
-export default orders;
+export default cart;

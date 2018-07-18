@@ -14,7 +14,7 @@ describe('QRCodeScanner', () => {
     classes: {
       tableNumber: 'tableNumber'
     },
-    orders: {}
+    cart: {}
   };
   const getShallowComponent = (props = defaultProps) => shallow(<QRCodeScanner {...props} />);
 
@@ -26,5 +26,5 @@ describe('QRCodeScanner', () => {
   });
 
   test('Snapshot without tableNumber', () => expect(renderer.create(<QRCodeScanner {...defaultProps} />).toJSON()).toMatchSnapshot());
-  test('Snapshot with tableNumber', () => expect(renderer.create(<QRCodeScanner {...{ ...defaultProps, orders: { tableNumber: 1 } }} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with tableNumber', () => expect(renderer.create(<QRCodeScanner {...{ ...defaultProps, cart: { tableNumber: 1 } }} />).toJSON()).toMatchSnapshot());
 });

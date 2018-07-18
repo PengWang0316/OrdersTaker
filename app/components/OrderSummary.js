@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 
 import QRCodeScanner from './QRCodeScanner/';
-import { clearOrders, placeOrder } from '../actions/OrdersActions';
+import { clearCart, placeOrder } from '../actions/CartActions';
 import AlertDialog from './AlertDialog';
 import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
@@ -74,8 +74,8 @@ export class OrderSummary extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     orders: PropTypes.object.isRequired,
-    reduxOrders: PropTypes.object.isRequired,
-    clearOrders: PropTypes.func.isRequired,
+    cart: PropTypes.object.isRequired,
+    clearCart: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired
   };
 
@@ -99,11 +99,11 @@ export class OrderSummary extends Component {
   handleToggleLoginSuggestionDialog = () => this.setState(({ isLoginSuggestionDialogOpen }) => ({ isLoginSuggestionDialogOpen: !isLoginSuggestionDialogOpen }));
 
   /**
-   * Calling the clearOrders action and redirect to the home page
+   * Calling the clearCart action and redirect to the home page
    * @return {null} No Return.
    */
-  handleClearOrders = () => {
-    this.props.clearOrders();
+  handleClearCart = () => {
+    this.props.clearCart();
     this.props.history.push(HOME_PAGE_URL);
   };
 
@@ -114,8 +114,8 @@ export class OrderSummary extends Component {
    */
   placeOrder = () => {
     this.setState({ isShowProgress: true, isBtnDisable: true });
-    return placeOrder(this.props.reduxOrders, this.props.user.jwt).then(data => {
-      this.props.clearOrders();
+    return placeOrder(this.props.cart, this.props.user.jwt).then(data => {
+      this.props.clearCart();
       this.props.history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
     }).catch(err => console.error(err));
   };
@@ -144,7 +144,7 @@ export class OrderSummary extends Component {
    * @return {jsx} Return the jsx.
    */
   render() {
-    const { classes, orders, reduxOrders } = this.props;
+    const { classes, orders, cart } = this.props;
     const {
       isAlertDialogOpen, isBtnDisable, isShowProgress, isLoginSuggestionDialogOpen
     } = this.state;
@@ -176,8 +176,8 @@ export class OrderSummary extends Component {
             <div className={`${classes.flexEndDiv} ${classes.buttonDiv}`}>
               {isShowProgress && <CircularProgress size={30} thickness={6} />}
               <Button onClick={this.handleToggleAlertDialog} variant="contained" size="small" className={classes.clearBtn}>Clear<RemoveShoppingCart className={classes.icon} /></Button>
-              <Tooltip title={reduxOrders.tableNumber ? 'After place your order, the kitchen will start to cook your meal' : 'Please scan the QR code ont the table first'}>
-                <div><Button onClick={this.handlePlaceBtnClick} variant="contained" size="small" color="primary" className={classes.placeBtn} disabled={!reduxOrders.tableNumber || isBtnDisable}>Place<Send className={classes.icon} /></Button></div>
+              <Tooltip title={cart.tableNumber ? 'After place your order, the kitchen will start to cook your meal' : 'Please scan the QR code ont the table first'}>
+                <div><Button onClick={this.handlePlaceBtnClick} variant="contained" size="small" color="primary" className={classes.placeBtn} disabled={!cart.tableNumber || isBtnDisable}>Place<Send className={classes.icon} /></Button></div>
               </Tooltip>
             </div>
           </CardContent>
@@ -188,7 +188,7 @@ export class OrderSummary extends Component {
           title="Clear all item in the order"
           content="This action will clear all item you has already add in the order."
           onFirstButton={this.handleToggleAlertDialog}
-          onSecondButton={this.handleClearOrders}
+          onSecondButton={this.handleClearCart}
           secondButtonText="Clear"
         />
         <LoginDialogContext.Consumer>
@@ -213,12 +213,12 @@ export class OrderSummary extends Component {
 }
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  reduxOrders: state.orders,
+  cart: state.cart,
   user: state.user
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  clearOrders: () => dispatch(clearOrders())
+  clearCart: () => dispatch(clearCart())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withStyles(styles)(OrderSummary))));
 // export default withStyles(styles)(OrderSummary);

@@ -35,24 +35,24 @@ let savedHistory; // Saving the history from props and use it to push the page.
 const handleButtonClick = () => savedHistory.push(ORDER_PAGE_URL);
 
 /* Showing a floating button and the total amount of order users have in their cart */
-export const OrderFloatingButton = ({ orders, classes, history }) => {
+export const OrderFloatingButton = ({ cart, classes, history }) => {
   savedHistory = history;
-  return !orders.qty ? null : ( // If no order in the cart, hide the floating button.
+  return !cart.qty ? null : ( // If no order in the cart, hide the floating button.
     <div className={classes.root}>
       <Button onClick={handleButtonClick} id="orderFloatingButton" variant="fab" className={classes.floatingButton} color="primary">
         <RoomServiceIcon />
-        <Badge id="orderNumberBadge" badgeContent={orders.qty} color="error" className={classes.badge}><span /></Badge>
+        <Badge id="orderNumberBadge" badgeContent={cart.qty} color="error" className={classes.badge}><span /></Badge>
       </Button>
     </div>
   );
 };
 OrderFloatingButton.propTypes = {
   classes: PropTypes.object.isRequired,
-  orders: PropTypes.object.isRequired,
+  cart: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  orders: state.orders
+  cart: state.cart
 });
 export default connect(mapStateToProps, null)(withRouter((withStyles(styles)(OrderFloatingButton))));

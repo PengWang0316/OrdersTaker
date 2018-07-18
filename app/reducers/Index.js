@@ -5,12 +5,12 @@ import basicInformation from './BasicInformationReducers';
 import menus from './MenusReducers';
 import menuItems from './MenuItemsReducers';
 import user from './UserReducers';
-import orders from './OrdersReducers';
+import cart from './CartReducers';
 
 export default combineReducers({
   basicInformation,
+  cart,
   menus,
   menuItems,
-  orders,
   user
 });

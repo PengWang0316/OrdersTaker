@@ -156,7 +156,7 @@ export class OrderPageContainer extends Component {
 /* istanbul ignore next */
 const mapStateToProps = state => ({
   menuItems: state.menuItems,
-  orderItems: state.orders.items
+  orderItems: state.cart.items
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({

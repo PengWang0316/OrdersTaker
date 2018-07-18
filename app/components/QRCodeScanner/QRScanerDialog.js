@@ -5,7 +5,7 @@ import { Dialog, DialogTitle, Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import QrReader from 'react-qr-reader';
 
-import { setTableNumber as setTableNumberAction } from '../../actions/OrdersActions';
+import { setTableNumber as setTableNumberAction } from '../../actions/CartActions';
 
 let handleClose;
 let handleSetTableNumber;

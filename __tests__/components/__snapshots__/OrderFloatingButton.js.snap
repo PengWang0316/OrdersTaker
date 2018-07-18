@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OrderFloatingButton Snapshot with orders 1`] = `
+exports[`OrderFloatingButton Snapshot with cart 1`] = `
 <div
   className="root"
 >
@@ -24,4 +24,4 @@ exports[`OrderFloatingButton Snapshot with orders 1`] = `
 </div>
 `;
 
-exports[`OrderFloatingButton Snapshot without orders 1`] = `null`;
+exports[`OrderFloatingButton Snapshot without cart 1`] = `null`;

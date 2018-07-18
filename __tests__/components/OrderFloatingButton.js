@@ -16,18 +16,18 @@ describe('OrderFloatingButton', () => {
       floatingButton: 'floatingButton',
       badge: 'badge'
     },
-    orders: {},
+    cart: {},
     history: { push: jest.fn() }
   };
 
   test('handleButtonClick', () => {
-    const component = shallow(<OrderFloatingButton {...{ ...defaultProps, orders: { qty: 1 } }} />);
+    const component = shallow(<OrderFloatingButton {...{ ...defaultProps, cart: { qty: 1 } }} />);
     component.find('Button').simulate('click');
     expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(ORDER_PAGE_URL);
   });
-  test('Snapshot without orders', () =>
+  test('Snapshot without cart', () =>
     expect(renderer.create(<OrderFloatingButton {...defaultProps} />).toJSON()).toMatchSnapshot());
-  test('Snapshot with orders', () =>
-    expect(renderer.create(<OrderFloatingButton {...{ ...defaultProps, orders: { qty: 1 } }} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with cart', () =>
+    expect(renderer.create(<OrderFloatingButton {...{ ...defaultProps, cart: { qty: 1 } }} />).toJSON()).toMatchSnapshot());
 });

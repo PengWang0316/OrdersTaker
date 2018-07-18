@@ -7,7 +7,7 @@ import { AddCircle, RemoveCircle } from '@material-ui/icons';
 
 import ShowDetailDialogContext from '../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
 import { ITEM_ONE_PRICE_KEY } from '../config';
-import { addItemToCart, removeItemFromCart } from '../actions/OrdersActions';
+import { addItemToCart, removeItemFromCart } from '../actions/CartActions';
 
 const flex = {
   display: 'flex',
@@ -103,7 +103,7 @@ OrderItem.propTypes = {
 };
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  orderItems: state.orders.items,
+  orderItems: state.cart.items,
   menuItems: state.menuItems
 });
 /* istanbul ignore next */
