@@ -8,3 +8,5 @@ export const ADD_ITEM_SUCCESS = 'addItemSuccess';
 export const REMOVE_ITEM_SUCCESS = 'removeItemSuccess';
 export const SET_TABLE_NUMBER_SUCCESS = 'setTableNumberSuccess';
 export const CLEAR_CART_SUCCESS = 'clearCartSuccess';
+export const ADD_ORDER_ID_SUCCESS = 'addOrderIdSuccess';
+export const REMOVE_ORDER_ID_SUCCESS = 'removeOrderIdSuccess';
