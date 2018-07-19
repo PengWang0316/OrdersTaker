@@ -118,7 +118,7 @@ export class OrderSummary extends Component {
     this.setState({ isShowProgress: true, isBtnDisable: true });
     return placeOrder(this.props.cart, this.props.user.jwt).then(data => {
       this.props.clearCart();
-      this.props.addTempOrderId(data);
+      if (!this.props.user._id) this.props.addTempOrderId(data);
       this.props.history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
     }).catch(err => console.error(err));
   };

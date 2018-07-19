@@ -83,16 +83,31 @@ describe('OrderSummary', () => {
     expect(component.state('isLoginSuggestionDialogOpen')).toBe(true);
   });
 
-  test('placeOrder without error', async () => {
+  test('placeOrder without error and user id', async () => {
     window.console.error = jest.fn();
     const CartActions = require('../../app/actions/CartActions');
-    const component = getShallowComponent();
+    const component = getShallowComponent({ ...defaultProps, user: { _id: 'id' } });
     await component.instance().placeOrder();
     expect(component.state('isBtnDisable')).toBe(true);
     expect(component.state('isShowProgress')).toBe(true);
     expect(CartActions.placeOrder).toHaveBeenCalledTimes(1);
     expect(defaultProps.clearCart).toHaveBeenCalledTimes(2);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(window.console.error).not.toHaveBeenCalled();
+    expect(defaultProps.addTempOrderId).not.toHaveBeenCalled();
+  });
+
+  test('placeOrder has user id and without error', async () => {
+    window.console.error = jest.fn();
+    const CartActions = require('../../app/actions/CartActions');
+    const component = getShallowComponent();
+    await component.instance().placeOrder();
+    expect(component.state('isBtnDisable')).toBe(true);
+    expect(component.state('isShowProgress')).toBe(true);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(2);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(3);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(3);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
     expect(window.console.error).not.toHaveBeenCalled();
     expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
@@ -107,9 +122,9 @@ describe('OrderSummary', () => {
     await component.instance().placeOrder();
     expect(component.state('isBtnDisable')).toBe(true);
     expect(component.state('isShowProgress')).toBe(true);
-    expect(CartActions.placeOrder).toHaveBeenCalledTimes(2);
-    expect(defaultProps.clearCart).toHaveBeenCalledTimes(2);
-    expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(3);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(3);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(3);
     expect(window.console.error).toHaveBeenCalledTimes(1);
   });
 
