@@ -12,6 +12,7 @@ import {
 
 import QRCodeScanner from './QRCodeScanner/';
 import { clearCart, placeOrder } from '../actions/CartActions';
+import { addTempOrderId } from '../actions/TempOrderIdsActions';
 import AlertDialog from './AlertDialog';
 import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
@@ -76,7 +77,8 @@ export class OrderSummary extends Component {
     orders: PropTypes.object.isRequired,
     cart: PropTypes.object.isRequired,
     clearCart: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    addTempOrderId: PropTypes.func.isRequired
   };
 
   state = {
@@ -116,6 +118,7 @@ export class OrderSummary extends Component {
     this.setState({ isShowProgress: true, isBtnDisable: true });
     return placeOrder(this.props.cart, this.props.user.jwt).then(data => {
       this.props.clearCart();
+      this.props.addTempOrderId(data);
       this.props.history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
     }).catch(err => console.error(err));
   };
@@ -218,7 +221,8 @@ const mapStateToProps = state => ({
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  clearCart: () => dispatch(clearCart())
+  clearCart: () => dispatch(clearCart()),
+  addTempOrderId: orderId => dispatch(addTempOrderId(orderId))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withStyles(styles)(OrderSummary))));
 // export default withStyles(styles)(OrderSummary);

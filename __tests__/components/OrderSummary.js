@@ -49,7 +49,8 @@ describe('OrderSummary', () => {
     history: {
       push: jest.fn()
     },
-    user: { jwt: 'jwt' }
+    user: { jwt: 'jwt' },
+    addTempOrderId: jest.fn()
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrderSummary {...props} />);
 
@@ -94,6 +95,8 @@ describe('OrderSummary', () => {
     expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
     expect(window.console.error).not.toHaveBeenCalled();
+    expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
+    expect(defaultProps.addTempOrderId).toHaveBeenLastCalledWith('orderId');
   });
 
   test('placeOrder with error', async () => {
@@ -124,7 +127,7 @@ describe('OrderSummary', () => {
   });
 
   test('handlePlaceBtnClick with user id ', () => {
-    const component = getShallowComponent({ ...defaultProps, user: { _id: 'id' }});
+    const component = getShallowComponent({ ...defaultProps, user: { _id: 'id' } });
     const mockPlaceOrder = jest.fn();
     const mockHandleToggleDialog = jest.fn();
     component.instance().placeOrder = mockPlaceOrder;
