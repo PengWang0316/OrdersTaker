@@ -14,3 +14,4 @@ export const API_REGISTER_USER = `${API_BASE_URL}/auth/registerUser`;
 export const API_LOGIN_WITH_PASSWORD = `${API_BASE_URL}/auth/loginWithPassword`;
 export const API_ADD_ITEM_TO_ORDER = `${API_BASE_URL}/addItemToOrder`;
 export const API_SAVE_PLACED_ORDER = `${API_BASE_URL}/savePlacedOrder`;
+export const API_FETCH_ORDER_AMOUNT = `${API_BASE_URL}/fetchOrderAmount`;

@@ -10,3 +10,5 @@ export const SET_TABLE_NUMBER_SUCCESS = 'setTableNumberSuccess';
 export const CLEAR_CART_SUCCESS = 'clearCartSuccess';
 export const ADD_ORDER_ID_SUCCESS = 'addOrderIdSuccess';
 export const REMOVE_ORDER_ID_SUCCESS = 'removeOrderIdSuccess';
+export const INCREASE_ORDER_AMOUNT_SUCCESS = 'increaseOrderAmountSuccess';
+export const FETCH_ORDER_AMOUNT_SUCCESS = 'fetchOrderAmountSuccess';

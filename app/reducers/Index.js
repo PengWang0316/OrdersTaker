@@ -7,12 +7,14 @@ import menuItems from './MenuItemsReducers';
 import user from './UserReducers';
 import cart from './CartReducers';
 import tempOrderIds from './TempOrderIdsReducers';
+import orders from './Orders';
 
 export default combineReducers({
   basicInformation,
   cart,
   menus,
   menuItems,
+  orders,
   tempOrderIds,
   user
 });
