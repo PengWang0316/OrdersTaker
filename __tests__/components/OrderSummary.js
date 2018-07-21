@@ -44,13 +44,18 @@ describe('OrderSummary', () => {
         categoryA: { price: 100, tax: 10, qty: 2 }
       }
     },
+    reduxOrders: {
+      amount: null
+    },
     cart: {},
     clearCart: jest.fn(),
     history: {
       push: jest.fn()
     },
     user: { jwt: 'jwt' },
-    addTempOrderId: jest.fn()
+    addTempOrderId: jest.fn(),
+    increaseOrderAmount: jest.fn(),
+    
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrderSummary {...props} />);
 
@@ -96,9 +101,10 @@ describe('OrderSummary', () => {
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
     expect(window.console.error).not.toHaveBeenCalled();
     expect(defaultProps.addTempOrderId).not.toHaveBeenCalled();
+    expect(defaultProps.increaseOrderAmount).not.toHaveBeenCalled();
   });
 
-  test('placeOrder has user id and without error', async () => {
+  test('placeOrder has user id, amount equal null and without error', async () => {
     window.console.error = jest.fn();
     const CartActions = require('../../app/actions/CartActions');
     const component = getShallowComponent();
@@ -111,7 +117,23 @@ describe('OrderSummary', () => {
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
     expect(window.console.error).not.toHaveBeenCalled();
     expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
-    expect(defaultProps.addTempOrderId).toHaveBeenLastCalledWith('orderId');
+    expect(defaultProps.addTempOrderId).toHaveBeenLastCalledWith('orderId');    
+  });
+
+  test('placeOrder has user id, amount equal 1 and without error', async () => {
+    window.console.error = jest.fn();
+    const CartActions = require('../../app/actions/CartActions');
+    const component = getShallowComponent({ ...defaultProps, reduxOrders: { amount: 1 }, user: { _id: 'id' } });
+    await component.instance().placeOrder();
+    expect(component.state('isBtnDisable')).toBe(true);
+    expect(component.state('isShowProgress')).toBe(true);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(3);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(4);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(4);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(window.console.error).not.toHaveBeenCalled();
+    expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
+    expect(defaultProps.increaseOrderAmount).toHaveBeenCalledTimes(1);
   });
 
   test('placeOrder with error', async () => {
@@ -122,9 +144,9 @@ describe('OrderSummary', () => {
     await component.instance().placeOrder();
     expect(component.state('isBtnDisable')).toBe(true);
     expect(component.state('isShowProgress')).toBe(true);
-    expect(CartActions.placeOrder).toHaveBeenCalledTimes(3);
-    expect(defaultProps.clearCart).toHaveBeenCalledTimes(3);
-    expect(defaultProps.history.push).toHaveBeenCalledTimes(3);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(4);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(4);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(4);
     expect(window.console.error).toHaveBeenCalledTimes(1);
   });
 

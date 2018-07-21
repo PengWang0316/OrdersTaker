@@ -13,6 +13,7 @@ import {
 import QRCodeScanner from './QRCodeScanner/';
 import { clearCart, placeOrder } from '../actions/CartActions';
 import { addTempOrderId } from '../actions/TempOrderIdsActions';
+import { increaseOrderAmount } from '../actions/OrdersActions';
 import AlertDialog from './AlertDialog';
 import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
@@ -78,7 +79,8 @@ export class OrderSummary extends Component {
     cart: PropTypes.object.isRequired,
     clearCart: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
-    addTempOrderId: PropTypes.func.isRequired
+    addTempOrderId: PropTypes.func.isRequired,
+    increaseOrderAmount: PropTypes.func.isRequired
   };
 
   state = {
@@ -118,7 +120,8 @@ export class OrderSummary extends Component {
     this.setState({ isShowProgress: true, isBtnDisable: true });
     return placeOrder(this.props.cart, this.props.user.jwt).then(data => {
       this.props.clearCart();
-      if (!this.props.user._id) this.props.addTempOrderId(data);
+      if (!this.props.user._id) this.props.addTempOrderId(data); // If the user has not logged in, call the addTempOrderId action.
+      else if (this.props.reduxOrders.amount !== null) this.props.increaseOrderAmount(); // If the user has logged in and the fetchOrderAmount action has already initialized amount, increase amount.
       this.props.history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
     }).catch(err => console.error(err));
   };
@@ -217,12 +220,14 @@ export class OrderSummary extends Component {
 /* istanbul ignore next */
 const mapStateToProps = state => ({
   cart: state.cart,
-  user: state.user
+  user: state.user,
+  reduxOrders: state.orders
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   clearCart: () => dispatch(clearCart()),
-  addTempOrderId: orderId => dispatch(addTempOrderId(orderId))
+  addTempOrderId: orderId => dispatch(addTempOrderId(orderId)),
+  increaseOrderAmount: () => dispatch(increaseOrderAmount())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withStyles(styles)(OrderSummary))));
 // export default withStyles(styles)(OrderSummary);
