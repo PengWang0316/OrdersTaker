@@ -7,9 +7,9 @@ const increaseOrderAmountSuccess = () => ({
   type: INCREASE_ORDER_AMOUNT_SUCCESS
 });
 
-const fetchOrderAmountSuccess = amount => ({
+const fetchOrderAmountSuccess = loginUserOrderAmount => ({
   type: FETCH_ORDER_AMOUNT_SUCCESS,
-  amount
+  loginUserOrderAmount
 });
 
 export const increaseOrderAmount = () => increaseOrderAmountSuccess();

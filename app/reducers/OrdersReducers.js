@@ -9,12 +9,12 @@ import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from '../ac
  * @param {object} action has action values
  * @return {object} return new state
  */
-const orders = (/* istanbul ignore next */state = { amount: null }, { type, amount }) => {
+const orders = (/* istanbul ignore next */state = { loginUserOrderAmount: null }, { type, loginUserOrderAmount }) => {
   switch (type) {
     case INCREASE_ORDER_AMOUNT_SUCCESS:
-      return { ...state, amount: state.amount + 1 };
+      return { ...state, loginUserOrderAmount: state.loginUserOrderAmount + 1 };
     case FETCH_ORDER_AMOUNT_SUCCESS:
-      return { ...state, amount };
+      return { ...state, loginUserOrderAmount };
     default:
       return state;
   }
