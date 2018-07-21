@@ -10,6 +10,7 @@ export const CLOUDINARY_UPLOAD_PRESET = 'OrdersTakerWebApp'; // The preset of Cl
 export const LOGIN_CALLBACK_URL = 'OrdersTaker_loginCallbackUrl';
 
 export const ITEM_ONE_PRICE_KEY = '_onePrice';
+export const MAX_ORDER_AMOUNT = 10; // How many orders will show in the one page
 
 /* URLS */
 export const HOME_PAGE_URL = '/';
