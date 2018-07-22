@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_FETCH_ORDER_AMOUNT } from '../../app/actions/ApiUrls';
+import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 
 const middlewares = [thunk];
@@ -24,15 +24,15 @@ describe('OrdersActions', () => {
   });
 
   test('fetchOrderAmount without error', () => {
-    const amount = 10;
+    const loginUserOrderAmount = 10;
     const user = { jwt: 'jwtMessage' };
     const expectedActions = [
       {
         type: FETCH_ORDER_AMOUNT_SUCCESS,
-        amount
+        loginUserOrderAmount
       }
     ];
-    axiosMock.onGet(API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } }).reply(200, amount);
+    axiosMock.onGet(API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } }).reply(200, loginUserOrderAmount);
     const store = mockStore();
     return store.dispatch(OrdersActions.fetchOrderAmount(user))
       .then(() => expect(store.getActions()).toEqual(expectedActions));
@@ -45,5 +45,23 @@ describe('OrdersActions', () => {
     const store = mockStore();
     return store.dispatch(OrdersActions.fetchOrderAmount(user))
       .then(() => expect(window.console.error).toHaveBeenCalledTimes(1));
+  });
+
+  test('fetchLoginUserOrders without error', () => {
+    window.console.error = jest.fn();
+    const user = { jwt: 'jwtMessage' };
+    const resultData = [1, 2];
+    axiosMock.onGet(API_FETCH_ORDERS, { params: { offset: 10, amount: 20, jwtMessage: user.jwt } }).reply(200, resultData);
+    return OrdersActions.fetchLoginUserOrders(10, 20, user).then(data => {
+      expect(data).toBe(resultData);
+      expect(window.console.error).not.toHaveBeenCalled();
+    });
+  });
+
+  test('fetchLoginUserOrders with error', () => {
+    console.error = jest.fn();
+    const user = { jwt: 'jwtMessage' };
+    axiosMock.onGet(API_FETCH_ORDERS, { params: { offset: 10, amount: 20, jwtMessage: user.jwt } }).networkError();
+    return OrdersActions.fetchLoginUserOrders(10, 20, user).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
   });
 });
