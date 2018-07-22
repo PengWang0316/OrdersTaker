@@ -16,3 +16,4 @@ export const API_ADD_ITEM_TO_ORDER = `${API_BASE_URL}/addItemToOrder`;
 export const API_SAVE_PLACED_ORDER = `${API_BASE_URL}/savePlacedOrder`;
 export const API_FETCH_ORDER_AMOUNT = `${API_BASE_URL}/fetchOrderAmount`;
 export const API_FETCH_ORDERS = `${API_BASE_URL}/fetchOrders`;
+export const API_FETCH_UNLOGIN_ORDERS = `${API_BASE_URL}/fetchUnloginOrders`;
