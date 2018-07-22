@@ -73,13 +73,13 @@ describe('CartActions', () => {
   test('placeOrder without error', () => {
     const body = { order: {}, jwtMessage: 'jwtMessage' };
     axiosMock.onPost(API_SAVE_PLACED_ORDER, body).reply(200, 1);
-    CartActions.placeOrder(body.order, body.jwtMessage).then(data => expect(data).toBe(1)).catch(() => {});
+    return CartActions.placeOrder(body.order, body.jwtMessage).then(data => expect(data).toBe(1));
   });
 
   test('placeOrder with network error', () => {
     const body = { order: {}, jwtMessage: 'jwtMessage' };
     console.error = jest.fn();
     axiosMock.onPost(API_SAVE_PLACED_ORDER, body).networkError();
-    CartActions.placeOrder(body.order, body.jwtMessage).then(() => expect(console.error).toHaveBeenCalledTimes(1)).catch(() => {});
+    return CartActions.placeOrder(body.order, body.jwtMessage).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
   });
 });
