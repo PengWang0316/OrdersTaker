@@ -16,7 +16,7 @@ import Navbar from './Navbar';
 import { parserUserFromJwt } from '../actions/UserActions';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
-import { JWT_MESSAGE, HOME_PAGE_URL, LOGIN_REDIRECT_RUL, ORDER_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
+import { JWT_MESSAGE, HOME_PAGE_URL, LOGIN_REDIRECT_RUL, ORDER_PAGE_URL, ORDER_STATUS_PAGE_URL, ORDERS_PAGE_URL } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 // import { CSSTransitionGroup } from 'react-transition-group';
@@ -51,6 +51,9 @@ const OrderPage = importedComponent(() => import(/* webpackChunkName: "OrderPage
 
 /* istanbul ignore next */
 const OrderStatusPage = importedComponent(() => import(/* webpackChunkName: "OrderStatusPageContainer" */ './containers/OrderStatusPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+
+/* istanbul ignore next */
+const OrdersPage = importedComponent(() => import(/* webpackChunkName: "OrdersPageContainer" */ './containers/OrdersPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
 /**
  * The root component that contains the theme, routers, navbar, and login dialog
@@ -132,6 +135,7 @@ export class App extends Component {
                   <Route exact path={ORDER_PAGE_URL} component={OrderPage} />
                   <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />
                   <Route path={`${ORDER_STATUS_PAGE_URL}/:orderId`} component={OrderStatusPage} />
+                  <Route path={ORDERS_PAGE_URL} component={OrdersPage} />
                   <Route render={() => <p>Not Fount!</p>} />
                 </Switch>
               </main>
