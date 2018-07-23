@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
 // import LogoutSnackbar from './snackbars/LogoutSnackbar';
 import { logout } from '../actions/UserActions';
-import { LOGIN_CALLBACK_URL, HOME_PAGE_URL } from '../config';
+import { LOGIN_CALLBACK_URL, HOME_PAGE_URL, ORDERS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
 const URL_REGEXP = /^https?:\/\/.+?(\/.*)/; // Using this to get the relative url.
@@ -18,9 +18,11 @@ const URL_REGEXP = /^https?:\/\/.+?(\/.*)/; // Using this to get the relative ur
 /* istanbul ignore next */
 const styles = theme => ({
   link: {
-    flex: 1,
     color: theme.palette.primary.contrastText,
     textDecoration: 'none'
+  },
+  flex1: {
+    flex: 1
   },
   appbar: {
     maxHeight: 55,
@@ -94,13 +96,13 @@ export class Navbar extends Component {
             return (
               <AppBar position="static" className={classes.appbar}>
                 <Toolbar>
-                  <Link to={HOME_PAGE_URL} className={classes.link}>
+                  <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`}>
                     <Typography variant="title" color="inherit">
                       Name of the restaurant
                     </Typography>
                   </Link>
                   <Hidden only="xs">
-                    <Button color="inherit">Order</Button>
+                    <Link to={ORDERS_PAGE_URL} className={classes.link}><Button color="inherit">Order</Button></Link>
                     <Button color="inherit">Menu</Button>
                     <Button color="inherit" onClick={this.handleLoginButtonClick}>{user._id ?
                       (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
