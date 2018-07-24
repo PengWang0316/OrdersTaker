@@ -6,7 +6,7 @@ import { Button, Badge } from '@material-ui/core';
 import { RoomService as RoomServiceIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 
-import { ORDER_PAGE_URL } from '../config';
+import { CART_PAGE_URL } from '../config';
 
 const styles = {
   root: { // A container is needed to push the icon to right.
@@ -32,7 +32,7 @@ const styles = {
 };
 
 let savedHistory; // Saving the history from props and use it to push the page.
-const handleButtonClick = () => savedHistory.push(ORDER_PAGE_URL);
+const handleButtonClick = () => savedHistory.push(CART_PAGE_URL);
 
 /* Showing a floating button and the total amount of order users have in their cart */
 export const OrderFloatingButton = ({ cart, classes, history }) => {

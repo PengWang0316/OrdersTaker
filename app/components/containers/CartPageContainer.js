@@ -43,8 +43,7 @@ const styles = {
 /**
  * Showing the customers' order detail and allow them to add number for items, remove items, clear orders, scan QR code for the table, and place orders.
  */
-export class OrderPageContainer extends Component {
-
+export class CartPageContainer extends Component {
   /**
    * Parsing the Redux state orders to an object this component can use. Also calculate the price for the order.
    * @param {object} orders comes from Redux's state.
@@ -135,7 +134,7 @@ export class OrderPageContainer extends Component {
     const { classes, menuItems, orderItems } = this.props;
     const { currentItem, isDialogOpen } = this.state;
     const isMenuItemsReady = Object.keys(menuItems).length !== 0;
-    const newOrders = isMenuItemsReady ? OrderPageContainer.parseOrders(orderItems, menuItems) : {};
+    const newOrders = isMenuItemsReady ? CartPageContainer.parseOrders(orderItems, menuItems) : {};
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
@@ -162,4 +161,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchAllMenu: () => dispatch(fetchAllMenu())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(OrderPageContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CartPageContainer));
