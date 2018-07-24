@@ -117,13 +117,15 @@ export class OrderSummary extends Component {
    * @return {Promise} Return a promise.
    */
   placeOrder = () => {
+    const { cart, orders, user, reduxOrders, history } = this.props;
     this.setState({ isShowProgress: true, isBtnDisable: true });
-    return placeOrder(this.props.cart, this.props.user.jwt).then(data => {
-      this.props.clearCart();
-      if (!this.props.user._id) this.props.addTempOrderId(data); // If the user has not logged in, call the addTempOrderId action.
-      else if (this.props.reduxOrders.amount !== null) this.props.increaseOrderAmount(); // If the user has logged in and the fetchOrderAmount action has already initialized amount, increase amount.
-      this.props.history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
-    }).catch(err => console.error(err));
+    return placeOrder({ ...cart, price: orders.price, tax: orders.tax, totalPrice: orders.totalPrice }, user.jwt)
+      .then(data => {
+        this.props.clearCart();
+        if (!user._id) this.props.addTempOrderId(data); // If the user has not logged in, call the addTempOrderId action.
+        else if (reduxOrders.amount !== null) this.props.increaseOrderAmount(); // If the user has logged in and the fetchOrderAmount action has already initialized amount, increase amount.
+        history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
+      }).catch(err => console.error(err));
   };
 
   /**
