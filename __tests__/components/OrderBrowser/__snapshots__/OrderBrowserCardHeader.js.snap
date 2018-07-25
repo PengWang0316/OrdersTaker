@@ -3,47 +3,67 @@
 exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_FINISHED 1`] = `
 <CardHeader
   avatar={
-    <CheckCircle
-      className="checkCircle"
-    />
+    <Tooltip
+      placement="right-end"
+      title="Finished"
+    >
+      <CheckCircle
+        className="checkCircle"
+      />
+    </Tooltip>
   }
-  subheader="Mon Jul 23 2018"
-  title="This order has already finished"
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
 />
 `;
 
 exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_PREPARING 1`] = `
 <CardHeader
   avatar={
-    <WatchLater
-      className="watchLater"
-    />
+    <Tooltip
+      placement="right-end"
+      title="Preparing"
+    >
+      <WatchLater
+        className="watchLater"
+      />
+    </Tooltip>
   }
-  subheader="Mon Jul 23 2018"
-  title="This order is beening prepared"
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
 />
 `;
 
 exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_RECEIVED 1`] = `
 <CardHeader
   avatar={
-    <OfflinePin
-      className="offlinPin"
-    />
+    <Tooltip
+      placement="right-end"
+      title="Received"
+    >
+      <OfflinePin
+        className="offlinPin"
+      />
+    </Tooltip>
   }
-  subheader="Mon Jul 23 2018"
-  title="This order has been received"
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
 />
 `;
 
 exports[`OrderBrowserCardHeader Snapshot unknow status 1`] = `
 <CardHeader
   avatar={
-    <Help
-      className="unkonw"
-    />
+    <Tooltip
+      placement="right-end"
+      title="Unknow Status"
+    >
+      <Help
+        className="unkonw"
+      />
+    </Tooltip>
   }
-  subheader="Mon Jul 23 2018"
-  title="Unknow status"
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
 />
 `;

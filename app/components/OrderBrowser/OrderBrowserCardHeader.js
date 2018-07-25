@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { CardHeader } from '@material-ui/core';
+import { CardHeader, Tooltip } from '@material-ui/core';
 import { lightGreen, yellow, grey, red } from '@material-ui/core/colors';
 import { CheckCircle, OfflinePin, WatchLater, Help } from '@material-ui/icons';
 
@@ -32,30 +32,26 @@ const styles = {
 };
 
 export const OrderBrowserCardHeader = ({ order, classes }) => {
+  const orderDate = new Date(order.dateStamp);
   let avatarElement;
-  let content;
   switch (order.status) {
     case ORDER_STATUS_FINISHED:
-      avatarElement = <CheckCircle className={classes.checkCircle} />;
-      content = 'This order has already finished';
+      avatarElement = <Tooltip title="Finished" placement="right-end"><CheckCircle className={classes.checkCircle} /></Tooltip>;
       break;
     case ORDER_STATUS_RECEIVED:
-      avatarElement = <OfflinePin className={classes.offlinPin} />;
-      content = 'This order has been received';
+      avatarElement = <Tooltip title="Received" placement="right-end"><OfflinePin className={classes.offlinPin} /></Tooltip>;
       break;
     case ORDER_STATUS_PREPARING:
-      avatarElement = <WatchLater className={classes.watchLater} />;
-      content = 'This order is beening prepared';
+      avatarElement = <Tooltip title="Preparing" placement="right-end"><WatchLater className={classes.watchLater} /></Tooltip>;
       break;
     default:
-      avatarElement = <Help className={classes.unknow} />;
-      content = 'Unknow status';
+      avatarElement = <Tooltip title="Unknow Status" placement="right-end"><Help className={classes.unknow} /></Tooltip>;
       break;
   }
   return (<CardHeader
     avatar={avatarElement}
-    title={content}
-    subheader={new Date(order.dateStamp).toDateString()}
+    title={orderDate.toDateString()}
+    subheader={orderDate.toLocaleTimeString()}
   />);
 };
 OrderBrowserCardHeader.propTypes = {

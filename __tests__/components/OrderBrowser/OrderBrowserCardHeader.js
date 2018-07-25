@@ -5,6 +5,7 @@ import { OrderBrowserCardHeader } from '../../../app/components/OrderBrowser/Ord
 import { ORDER_STATUS_FINISHED, ORDER_STATUS_RECEIVED, ORDER_STATUS_PREPARING } from '../../../app/config';
 
 jest.mock('@material-ui/core/CardHeader', () => 'CardHeader');
+jest.mock('@material-ui/core/Tooltip', () => 'Tooltip');
 jest.mock('@material-ui/icons/CheckCircle', () => 'CheckCircle');
 jest.mock('@material-ui/icons/OfflinePin', () => 'OfflinePin');
 jest.mock('@material-ui/icons/WatchLater', () => 'WatchLater');
