@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_FINISHED 1`] = `
+<CardHeader
+  avatar={
+    <CheckCircle
+      className="checkCircle"
+    />
+  }
+  subheader="Mon Jul 23 2018"
+  title="This order has already finished"
+/>
+`;
+
+exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_PREPARING 1`] = `
+<CardHeader
+  avatar={
+    <WatchLater
+      className="watchLater"
+    />
+  }
+  subheader="Mon Jul 23 2018"
+  title="This order is beening prepared"
+/>
+`;
+
+exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_RECEIVED 1`] = `
+<CardHeader
+  avatar={
+    <OfflinePin
+      className="offlinPin"
+    />
+  }
+  subheader="Mon Jul 23 2018"
+  title="This order has been received"
+/>
+`;
+
+exports[`OrderBrowserCardHeader Snapshot unknow status 1`] = `
+<CardHeader
+  avatar={
+    <Help
+      className="unkonw"
+    />
+  }
+  subheader="Mon Jul 23 2018"
+  title="Unknow status"
+/>
+`;

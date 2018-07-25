@@ -11,6 +11,9 @@ export const LOGIN_CALLBACK_URL = 'OrdersTaker_loginCallbackUrl';
 
 export const ITEM_ONE_PRICE_KEY = '_onePrice';
 export const MAX_ORDER_AMOUNT = 10; // How many orders will show in the one page
+export const ORDER_STATUS_FINISHED = 'Finished';
+export const ORDER_STATUS_RECEIVED = 'Received';
+export const ORDER_STATUS_PREPARING = 'Preparing';
 
 /* URLS */
 export const HOME_PAGE_URL = '/';
