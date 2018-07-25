@@ -31,7 +31,7 @@ const styles = {
   }
 };
 
-export const OrderBrowserCardHeader = ({ order, classes }) => {
+export const OrderBrowserCardHeader = ({ order, classes, ...rest }) => {
   const orderDate = new Date(order.dateStamp);
   let avatarElement;
   switch (order.status) {
@@ -52,6 +52,7 @@ export const OrderBrowserCardHeader = ({ order, classes }) => {
     avatar={avatarElement}
     title={orderDate.toDateString()}
     subheader={orderDate.toLocaleTimeString()}
+    {...rest}
   />);
 };
 OrderBrowserCardHeader.propTypes = {

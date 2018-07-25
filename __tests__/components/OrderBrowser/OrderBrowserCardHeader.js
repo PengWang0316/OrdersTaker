@@ -22,7 +22,8 @@ describe('OrderBrowserCardHeader', () => {
     order: {
       dateStamp: '2018-07-24T00:20:48.033Z',
       status: ORDER_STATUS_FINISHED
-    }
+    },
+    onClick: jest.fn()
   };
 
   test('Snapshot ORDER_STATUS_FINISHED', () => expect(renderer.create(<OrderBrowserCardHeader {...defaultProps} />).toJSON()).toMatchSnapshot());

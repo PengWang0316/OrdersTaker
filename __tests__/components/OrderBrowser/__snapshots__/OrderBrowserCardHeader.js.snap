@@ -12,6 +12,7 @@ exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_FINISHED 1`] = `
       />
     </Tooltip>
   }
+  onClick={[MockFunction]}
   subheader="17:20:48"
   title="Mon Jul 23 2018"
 />
@@ -29,6 +30,7 @@ exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_PREPARING 1`] = `
       />
     </Tooltip>
   }
+  onClick={[MockFunction]}
   subheader="17:20:48"
   title="Mon Jul 23 2018"
 />
@@ -46,6 +48,7 @@ exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_RECEIVED 1`] = `
       />
     </Tooltip>
   }
+  onClick={[MockFunction]}
   subheader="17:20:48"
   title="Mon Jul 23 2018"
 />
@@ -63,6 +66,7 @@ exports[`OrderBrowserCardHeader Snapshot unknow status 1`] = `
       />
     </Tooltip>
   }
+  onClick={[MockFunction]}
   subheader="17:20:48"
   title="Mon Jul 23 2018"
 />
