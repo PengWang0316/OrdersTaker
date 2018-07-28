@@ -49,19 +49,18 @@ export class Pagination extends Component {
    */
   constructor(props) {
     super(props);
-    const { offset, limit, total, classes } = props;
+    const { offset, limit, total } = props;
     this.totalShowingNumber = 9; // The total amount page number will be showed.
     this.totalPageNumber = Math.ceil(total / limit); // The total amount pages a user has.
-    const currentPage = Pagination.calculateCurrentPage(offset, limit);
-    let buttons = [];
+    this.currentPage = Pagination.calculateCurrentPage(offset, limit);
+    let buttons;
     if (this.totalPageNumber <= this.totalShowingNumber) { // If the total page equal or less than showing number, show all page number without any ellipsis.
       this.isShowAllNumber = true; // Setting up a indicator for two different showing methods.
-      for (let i = 0; i < this.totalPageNumber; i++)
-        buttons.push(Pagination.getButton(i + 1 === this.state.currentPage ? classes.focusBtn : classes.button, this.handleClick, i + 1));
+      buttons = this.assembleAllButtons(this.currentPage);
     } else // If the total page number greater than the showing number, the ellipsis will be showed based on the current page.
-      buttons = this.assembleButtons(currentPage);
+      buttons = this.assembleButtons(this.currentPage);
 
-    this.state = { currentPage, buttons };
+    this.state = { buttons };
   }
 
   /**
@@ -72,6 +71,18 @@ export class Pagination extends Component {
    * @return {object} Return a Button element.
    */
   static getButton = (className, onClick, number) => <Button classes={{ root: className }} onClick={onClick} key={number} color="primary">{number}</Button>;
+
+  /**
+   * Assebling all page number button based on total page number and current page number.
+   * @param {number} currentPage is the current page number.
+   * @return {array} Return a buttons element array.
+   */
+  assembleAllButtons(currentPage) {
+    const buttons = [];
+    for (let i = 0; i < this.totalPageNumber; i++)
+      buttons.push(Pagination.getButton(i + 1 === currentPage ? this.props.classes.focusBtn : this.props.classes.button, this.handleClick, i + 1));
+    return buttons;
+  }
 
   /**
    * Assembling a button array with the ellipsis based on the current page number.
@@ -136,12 +147,12 @@ export class Pagination extends Component {
     event.preventDefault(); // Stopping event bubbling
     // If the target has two child nodes, it is the button. If it has one child node, it is the span element.
     const pageNumber = event.target.childNodes.length === 2 ? event.target.childNodes[0].innerText : event.target.innerText;
-    if (pageNumber * 1 !== this.state.currentPage) { // Just run the code when a different page number was clicked.
-      this.setState({ currentPage: pageNumber * 1 }, () => {
-        if (!this.isShowAllNumber) // If the page number more than showing number, the buttons need to be recalculated
-          this.setState({ buttons: this.assembleButtons(this.state.currentPage) });
-        this.props.onClick((this.state.currentPage - 1) * this.props.limit); // Sending back the offset number.
-      });
+    if (pageNumber * 1 !== this.currentPage) { // Just run the code when a different page number was clicked.
+      this.currentPage = pageNumber * 1;
+      if (!this.isShowAllNumber) // If the page number more than showing number, the buttons need to be recalculated
+        this.setState({ buttons: this.assembleButtons(this.currentPage) });
+      else this.setState({ buttons: this.assembleAllButtons(this.currentPage) }); // If the page number does not more than showing number, assembling all page number button.
+      this.props.onClick((this.currentPage - 1) * this.props.limit); // Sending back the offset number.
     }
   };
 
