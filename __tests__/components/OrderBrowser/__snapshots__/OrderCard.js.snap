@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderCard Snapshot with user id 1`] = `
+<Card
+  className="card"
+>
+  <OrderBrowserCardHeader
+    onClick={[Function]}
+    order={
+      Object {
+        "_id": "ordersId",
+        "items": Object {
+          "orderIdA": Object {},
+          "orderIdB": Object {},
+        },
+        "userId": "userId",
+      }
+    }
+  />
+  <CardMedia
+    className="media"
+    image="orderA photo"
+    onClick={[Function]}
+    title="orderA name"
+  />
+  <CardContent
+    className="cardContent"
+  >
+    <div>
+      <Typography
+        color="textSecondary"
+      >
+        This order has 
+        2
+         items
+      </Typography>
+      <Typography
+        color="textSecondary"
+      >
+        Total Price: $
+      </Typography>
+    </div>
+  </CardContent>
+</Card>
+`;
+
+exports[`OrderCard Snapshot without user id 1`] = `
+<Card
+  className="card"
+>
+  <OrderBrowserCardHeader
+    onClick={[Function]}
+    order={
+      Object {
+        "_id": "ordersId",
+        "items": Object {
+          "orderIdA": Object {},
+          "orderIdB": Object {},
+        },
+        "userId": null,
+      }
+    }
+  />
+  <CardMedia
+    className="media"
+    image="orderA photo"
+    onClick={[Function]}
+    title="orderA name"
+  />
+  <CardContent
+    className="cardContent"
+  >
+    <div>
+      <Typography
+        color="textSecondary"
+      >
+        This order has 
+        2
+         items
+      </Typography>
+      <Typography
+        color="textSecondary"
+      >
+        Total Price: $
+      </Typography>
+    </div>
+    <div>
+      <Tooltip
+        title="Remove this order from this device"
+      >
+        <IconButton
+          className="iconButton deleteButton"
+          onClick={[Function]}
+        >
+          <DeleteForever
+            className="icon"
+          />
+        </IconButton>
+      </Tooltip>
+      <Tooltip
+        title="Link this order to your account"
+      >
+        <IconButton
+          className="iconButton"
+          color="primary"
+          onClick={[Function]}
+        >
+          <Link
+            className="icon"
+          />
+        </IconButton>
+      </Tooltip>
+    </div>
+  </CardContent>
+</Card>
+`;
