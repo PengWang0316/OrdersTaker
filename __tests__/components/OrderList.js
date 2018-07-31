@@ -33,6 +33,7 @@ describe('OrderList', () => {
       totalPrice: 44.82,
       totalQty: 6
     },
+    orderItems: {}
     // reduxOrders: {
     //   '5b1c64d54345b11970bb124f': 1, '5b1c64d54345b11970bb126d': 2, '5b1c64d54345b11970bb123d': 3, '5b1c64d54345b11970bb123a': 4, '5b1c6d634345b11970bb1250': 5
     // }

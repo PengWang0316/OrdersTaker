@@ -45,7 +45,8 @@ const styles = theme => ({
     border: `1px solid ${theme.palette.primary.light}`,
     borderLeft: `4px solid ${theme.palette.primary.main}`,
     paddingLeft: 10,
-    marginTop: 8
+    marginTop: 8,
+    minHeight: 35
   },
   priceKeyWord: {
     fontWeight: 'bold',
@@ -59,6 +60,9 @@ const styles = theme => ({
   iconButton: {
     width: 40,
     height: 40
+  },
+  amount: {
+    marginRight: 10
   }
 });
 
@@ -68,7 +72,7 @@ const styles = theme => ({
  * @return {jsx} Return jsx for the component.
  */
 export const OrderItem = ({
-  itemId, classes, orderItems, menuItems, addItemToCartProp, removeItemFromCartProp
+  itemId, classes, orderItems, menuItems, addItemToCartProp, removeItemFromCartProp, isHistoryOrder
 }) => {
   const item = menuItems[itemId];
   return (
@@ -79,13 +83,20 @@ export const OrderItem = ({
       <div>
         <Typography color="primary" variant="subheading" className={classes.itemTitle}>{item.name}</Typography>
         <div className={classes.priceDiv}>
-          {Object.keys(item.prices).map(priceKey => (
+          {!isHistoryOrder && Object.keys(item.prices).map(priceKey => (
             <div className={classes.priceNumberDiv} key={priceKey}>
               <Typography color="primary" className={classes.priceKeyWord}>{priceKey === ITEM_ONE_PRICE_KEY ? '' : priceKey}</Typography>
               <Typography color="textSecondary" className={classes.priceKeyWord}>${item.prices[priceKey]}</Typography>
               <IconButton onClick={() => addItemToCartProp({ item, priceKey })} className={classes.iconButton}><AddCircle className={classes.icon} color="primary" /></IconButton>
               <Typography color="textSecondary">{orderItems[itemId].qty[priceKey] || 0}</Typography>
               <IconButton onClick={() => removeItemFromCartProp({ item, priceKey })} className={classes.iconButton}><RemoveCircle className={classes.icon} color="primary" /></IconButton>
+            </div>
+          ))}
+          {isHistoryOrder && Object.keys(orderItems[itemId].qty).map(priceKey => (
+            <div className={classes.priceNumberDiv} key={priceKey}>
+              <Typography color="primary" className={classes.priceKeyWord}>{priceKey === ITEM_ONE_PRICE_KEY ? '' : priceKey}</Typography>
+              <Typography color="textSecondary" className={classes.priceKeyWord}>${item.prices[priceKey]}</Typography>
+              <Typography color="textSecondary" className={classes.amount}>{` × ${orderItems[itemId].qty[priceKey]}`}</Typography>
             </div>
           ))}
         </div>
@@ -99,11 +110,15 @@ OrderItem.propTypes = {
   itemId: PropTypes.string.isRequired,
   menuItems: PropTypes.object.isRequired,
   addItemToCartProp: PropTypes.func.isRequired,
-  removeItemFromCartProp: PropTypes.func.isRequired
+  removeItemFromCartProp: PropTypes.func.isRequired,
+  isHistoryOrder: PropTypes.bool
+};
+OrderItem.defaultProps = {
+  isHistoryOrder: false
 };
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  orderItems: state.cart.items,
+  // orderItems: state.cart.items,
   menuItems: state.menuItems
 });
 /* istanbul ignore next */

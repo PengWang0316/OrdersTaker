@@ -143,7 +143,7 @@ export class CartPageContainer extends Component {
         <div className={classes.listPanel}>
           {isMenuItemsReady && (
             <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
-              <OrderList orders={newOrders} />
+              <OrderList orders={newOrders} orderItems={orderItems} />
             </ShowDetailDialogContext.Provider>
           )}
         </div>

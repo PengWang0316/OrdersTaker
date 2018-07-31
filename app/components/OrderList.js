@@ -27,7 +27,7 @@ const styles = {
   }
 };
 
-export const OrderList = ({ orders, classes }) => (
+export const OrderList = ({ orders, classes, orderItems, isHistoryOrder }) => (
   <Fragment>
     {Object.keys(orders.categories).map(key => (
       <div className={classes.root} key={key}>
@@ -36,14 +36,18 @@ export const OrderList = ({ orders, classes }) => (
           <div><Typography className={classes.boldFont} color="textSecondary" variant="subheading">$ {orders.categories[key].price}</Typography></div>
         </div>
         <div><hr className={classes.line} /></div>
-        {[...orders.categories[key].ids].map(itemId => <OrderItem key={itemId} itemId={itemId} />)}
+        {[...orders.categories[key].ids].map(itemId => <OrderItem key={itemId} itemId={itemId} orderItems={orderItems} isHistoryOrder={isHistoryOrder} />)}
       </div>
     ))}
   </Fragment>
 );
 OrderList.propTypes = {
   classes: PropTypes.object.isRequired,
-  orders: PropTypes.object.isRequired
+  orders: PropTypes.object.isRequired,
+  orderItems: PropTypes.object.isRequired,
+  isHistoryOrder: PropTypes.bool
 };
-
+OrderList.defaultProps = {
+  isHistoryOrder: false
+};
 export default withStyles(styles)(OrderList);

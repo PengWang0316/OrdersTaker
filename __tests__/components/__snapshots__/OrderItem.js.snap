@@ -1,6 +1,96 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OrderItem Snapshot with orders matching 1`] = `
+exports[`OrderItem Snapshot history order with orders matching 1`] = `
+<div
+  className="root"
+>
+  <Avatar
+    className="avatar"
+    onClick={[Function]}
+    src="photo"
+  />
+  <div>
+    <Typography
+      className="itemTitle"
+      color="primary"
+      variant="subheading"
+    />
+    <div
+      className="priceDiv"
+    >
+      <div
+        className="priceNumberDiv"
+      >
+        <Typography
+          className="priceKeyWord"
+          color="primary"
+        >
+          small
+        </Typography>
+        <Typography
+          className="priceKeyWord"
+          color="textSecondary"
+        >
+          $
+          2.33
+        </Typography>
+        <Typography
+          color="textSecondary"
+        >
+           × 2
+        </Typography>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OrderItem Snapshot not history order with one price 1`] = `
+<div
+  className="root"
+>
+  <Avatar
+    className="avatar"
+    onClick={[Function]}
+    src="photo"
+  />
+  <div>
+    <Typography
+      className="itemTitle"
+      color="primary"
+      variant="subheading"
+    />
+    <div
+      className="priceDiv"
+    >
+      <div
+        className="priceNumberDiv"
+      >
+        <Typography
+          className="priceKeyWord"
+          color="primary"
+        >
+          
+        </Typography>
+        <Typography
+          className="priceKeyWord"
+          color="textSecondary"
+        >
+          $
+          1.22
+        </Typography>
+        <Typography
+          color="textSecondary"
+        >
+           × 2
+        </Typography>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OrderItem Snapshot not history order with orders matching 1`] = `
 <div
   className="root"
 >
@@ -143,7 +233,7 @@ exports[`OrderItem Snapshot with orders matching 1`] = `
 </div>
 `;
 
-exports[`OrderItem Snapshot without orders matching 1`] = `
+exports[`OrderItem Snapshot not history order without orders matching 1`] = `
 <div
   className="root"
 >
