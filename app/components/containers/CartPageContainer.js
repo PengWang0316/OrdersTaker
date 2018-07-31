@@ -62,6 +62,7 @@ export class CartPageContainer extends Component {
    * }
    */
   static parseOrders = (orderItems, menuItems) => {
+    if (!(orderItems && Object.keys(menuItems).length !== 0)) return null; // Return null if either order or menuItems is null.
     const newOrders = { // Initial some properties
       totalQty: 0, price: 0, tax: 0, totalPrice: 0, categories: {}
     };
@@ -133,21 +134,22 @@ export class CartPageContainer extends Component {
   render() {
     const { classes, menuItems, orderItems } = this.props;
     const { currentItem, isDialogOpen } = this.state;
-    const isMenuItemsReady = Object.keys(menuItems).length !== 0;
-    const newOrders = isMenuItemsReady ? CartPageContainer.parseOrders(orderItems, menuItems) : {};
+
+    const newOrder = CartPageContainer.parseOrders(orderItems, menuItems);
+
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
-          <div className={classes.summaryContent}>{isMenuItemsReady && <OrderSummary orders={newOrders} />}</div>
+          <div className={classes.summaryContent}>{newOrder && <OrderSummary orders={newOrder} />}</div>
         </div>
         <div className={classes.listPanel}>
-          {isMenuItemsReady && (
+          {newOrder && (
             <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
-              <OrderList orders={newOrders} orderItems={orderItems} />
+              <OrderList orders={newOrder} orderItems={orderItems} />
             </ShowDetailDialogContext.Provider>
           )}
         </div>
-        {isMenuItemsReady && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
+        {newOrder && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
       </div>
     );
   }

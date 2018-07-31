@@ -118,6 +118,11 @@ describe('CartPageContainer', () => {
     expect(CartPageContainer.parseOrders(orders.items, menuItems)).toEqual(expectReturn);
   });
 
+  test('parseOrders with null orderTimes or menuItems.length equal 0', () => {
+    expect(CartPageContainer.parseOrders(null, { key: 1 })).toEqual(null);
+    expect(CartPageContainer.parseOrders({}, {})).toEqual(null);
+  });
+
   test('handleDialogToggle', () => {
     const component = getShallowComponent();
     expect(component.state('isDialogOpen')).toBe(false);
