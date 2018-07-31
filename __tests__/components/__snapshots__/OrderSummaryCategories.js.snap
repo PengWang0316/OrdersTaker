@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderSummaryCategories Snapshot 1`] = `
+Array [
+  <Typography
+    className="title"
+    color="primary"
+    variant="subheading"
+  >
+    Order summary
+  </Typography>,
+  <List
+    dense={true}
+    disablePadding={true}
+  >
+    <ListItem
+      button={true}
+    >
+      <ListItemText
+        className="categoryTitle"
+        primary="categoryA × 2"
+      />
+      <ListItemSecondaryAction>
+        <Typography
+          color="textSecondary"
+        >
+          $
+          100
+        </Typography>
+      </ListItemSecondaryAction>
+    </ListItem>
+  </List>,
+  <div
+    className="hrStyle"
+  />,
+]
+`;

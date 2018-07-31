@@ -6,85 +6,34 @@ Array [
     className="card"
   >
     <CardContent>
-      <Typography
-        className="title"
-        color="primary"
-        variant="subheading"
-      >
-        Order summary
-      </Typography>
-      <List
-        dense={true}
-        disablePadding={true}
-      >
-        <ListItem
-          button={true}
-        >
-          <ListItemText
-            className="categoryTitle"
-            primary="categoryA × 2"
-          />
-          <ListItemSecondaryAction>
-            <Typography
-              color="textSecondary"
-            >
-              $
-              100
-            </Typography>
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
-      <div
-        className="hrStyle"
+      <OrderSummaryCategories
+        orders={
+          Object {
+            "categories": Object {
+              "categoryA": Object {
+                "price": 100,
+                "qty": 2,
+                "tax": 10,
+              },
+            },
+          }
+        }
       />
       <div>
         <QRCodeScanner />
-        <div>
-          <div
-            className="flexEndDiv"
-          >
-            <Typography
-              color="primary"
-            >
-              Order Price:  
-            </Typography>
-            <Typography
-              color="textSecondary"
-            >
-              $
-            </Typography>
-          </div>
-          <div
-            className="flexEndDiv"
-          >
-            <Typography
-              color="primary"
-            >
-              Tax:  
-            </Typography>
-            <Typography
-              color="textSecondary"
-            >
-              $
-            </Typography>
-          </div>
-          <div
-            className="flexEndDiv"
-          >
-            <Typography
-              className="fontBold"
-              color="primary"
-            >
-              Total Price:  
-            </Typography>
-            <Typography
-              className="fontBold"
-              color="textSecondary"
-            >
-              $
-            </Typography>
-          </div>
-        </div>
+        <OrderSummaryPrice
+          orders={
+            Object {
+              "categories": Object {
+                "categoryA": Object {
+                  "price": 100,
+                  "qty": 2,
+                  "tax": 10,
+                },
+              },
+            }
+          }
+        />
       </div>
       <div
         className="flexEndDiv buttonDiv"
@@ -149,85 +98,34 @@ Array [
     className="card"
   >
     <CardContent>
-      <Typography
-        className="title"
-        color="primary"
-        variant="subheading"
-      >
-        Order summary
-      </Typography>
-      <List
-        dense={true}
-        disablePadding={true}
-      >
-        <ListItem
-          button={true}
-        >
-          <ListItemText
-            className="categoryTitle"
-            primary="categoryA × 2"
-          />
-          <ListItemSecondaryAction>
-            <Typography
-              color="textSecondary"
-            >
-              $
-              100
-            </Typography>
-          </ListItemSecondaryAction>
-        </ListItem>
-      </List>
-      <div
-        className="hrStyle"
+      <OrderSummaryCategories
+        orders={
+          Object {
+            "categories": Object {
+              "categoryA": Object {
+                "price": 100,
+                "qty": 2,
+                "tax": 10,
+              },
+            },
+          }
+        }
       />
       <div>
         <QRCodeScanner />
-        <div>
-          <div
-            className="flexEndDiv"
-          >
-            <Typography
-              color="primary"
-            >
-              Order Price:  
-            </Typography>
-            <Typography
-              color="textSecondary"
-            >
-              $
-            </Typography>
-          </div>
-          <div
-            className="flexEndDiv"
-          >
-            <Typography
-              color="primary"
-            >
-              Tax:  
-            </Typography>
-            <Typography
-              color="textSecondary"
-            >
-              $
-            </Typography>
-          </div>
-          <div
-            className="flexEndDiv"
-          >
-            <Typography
-              className="fontBold"
-              color="primary"
-            >
-              Total Price:  
-            </Typography>
-            <Typography
-              className="fontBold"
-              color="textSecondary"
-            >
-              $
-            </Typography>
-          </div>
-        </div>
+        <OrderSummaryPrice
+          orders={
+            Object {
+              "categories": Object {
+                "categoryA": Object {
+                  "price": 100,
+                  "qty": 2,
+                  "tax": 10,
+                },
+              },
+            }
+          }
+        />
       </div>
       <div
         className="flexEndDiv buttonDiv"

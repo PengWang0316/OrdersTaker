@@ -23,6 +23,8 @@ jest.mock('../../app/components/AlertDialog', () => 'AlertDialog');
 jest.mock('../../app/contexts/LoginDialogContext'); // The __mocks__/LoginDialogContext.js will be used automatically.
 
 jest.mock('../../app/actions/CartActions', () => ({ placeOrder: jest.fn().mockReturnValue(Promise.resolve('orderId')) }));
+jest.mock('../../app/components/OrderSummaryCategories', () => 'OrderSummaryCategories');
+jest.mock('../../app/components/OrderSummaryPrice', () => 'OrderSummaryPrice');
 
 describe('OrderSummary', () => {
   const defaultProps = {
@@ -55,7 +57,6 @@ describe('OrderSummary', () => {
     user: { jwt: 'jwt' },
     addTempOrderId: jest.fn(),
     increaseOrderAmount: jest.fn(),
-    
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrderSummary {...props} />);
 

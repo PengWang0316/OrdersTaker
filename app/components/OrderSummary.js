@@ -5,10 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import { RemoveShoppingCart, Send } from '@material-ui/icons';
-import {
-  Card, CardContent, Button, Typography, List, CircularProgress,
-  ListItem, ListItemText, ListItemSecondaryAction, Tooltip
-} from '@material-ui/core';
+import { Card, CardContent, Button, CircularProgress, Tooltip } from '@material-ui/core';
 
 import QRCodeScanner from './QRCodeScanner/';
 import { clearCart, placeOrder } from '../actions/CartActions';
@@ -17,32 +14,17 @@ import { increaseOrderAmount } from '../actions/OrdersActions';
 import AlertDialog from './AlertDialog';
 import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
+import OrderSummaryCategories from './OrderSummaryCategories';
+import OrderSummaryPrice from './OrderSummaryPrice';
 
 /* istanbul ignore next */
 const styles = theme => ({
   card: {
     padding: '10px 5px'
   },
-  title: {
-    fontWeight: 'bold',
-    maringBottom: 20
-  },
-  categoryTitle: {
-    fontSize: 14
-  },
   flexEndDiv: {
     display: 'flex',
     justifyContent: 'flex-end'
-  },
-  fontBold: {
-    fontWeight: 'bold',
-    textDecoration: 'underline'
-  },
-  hrStyle: {
-    border: 0,
-    borderBottom: '1px dotted #ccc',
-    background: '#999',
-    margin: '10px 0'
   },
   placeBtn: {
     fontSize: 12
@@ -160,25 +142,10 @@ export class OrderSummary extends Component {
       <Fragment>
         <Card className={classes.card}>
           <CardContent>
-            <Typography className={classes.title} variant="subheading" color="primary">Order summary</Typography>
-            <List disablePadding dense>
-              {Object.keys(orders.categories).map(category => (
-                <ListItem button key={category}>
-                  <ListItemText className={classes.categoryTitle} primary={`${category} × ${orders.categories[category].qty}`} />
-                  <ListItemSecondaryAction>
-                    <Typography color="textSecondary" className={classes.categoryPrice}>${orders.categories[category].price}</Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-            <div className={classes.hrStyle} />
+            <OrderSummaryCategories orders={orders} />
             <div className={classes.flexBetweenDiv}>
               <QRCodeScanner />
-              <div>
-                <div className={classes.flexEndDiv}><Typography color="primary">Order Price:&nbsp;&nbsp;</Typography><Typography color="textSecondary">${orders.price}</Typography></div>
-                <div className={classes.flexEndDiv}><Typography color="primary">Tax:&nbsp;&nbsp;</Typography><Typography color="textSecondary">${orders.tax}</Typography></div>
-                <div className={classes.flexEndDiv}><Typography className={classes.fontBold} color="primary">Total Price:&nbsp;&nbsp;</Typography><Typography className={classes.fontBold} color="textSecondary">${orders.totalPrice}</Typography></div>
-              </div>
+              <OrderSummaryPrice orders={orders} />
             </div>
 
             <div className={`${classes.flexEndDiv} ${classes.buttonDiv}`}>
