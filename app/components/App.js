@@ -11,7 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import LoginDialog from './LoginDialog/';
 import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
-import LogoutSnackbar from './snackbars/LogoutSnackbar';
+import CheckCircleIconSnackbar from './snackbars/CheckCircleIconSnackbar';
 import Navbar from './Navbar';
 import { parserUserFromJwt } from '../actions/UserActions';
 import LoginDialogContext from '../contexts/LoginDialogContext';
@@ -145,7 +145,7 @@ export class App extends Component {
                   <LoginDialogSnackbar open={isLoginSnackbarOpen} onClose={this.handleToggleSnackbar} message={snackbarMessage} />
                 </Fragment>
               )}
-              <LogoutSnackbar open={isLogoutSnackBarOpen} onClose={this.handleToggleLogoutSnackbar} />
+              <CheckCircleIconSnackbar open={isLogoutSnackBarOpen} onClose={this.handleToggleLogoutSnackbar} message="Logou Successfully" />
             </div>
           </LoginDialogContext.Provider>
         </Router>

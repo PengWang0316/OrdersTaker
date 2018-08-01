@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LogoutSnackbar Snapshot 1`] = `
+exports[`CheckCircleIconSnackbar Snapshot 1`] = `
 <Snackbar
   ContentProps={
     Object {
@@ -28,7 +28,7 @@ exports[`LogoutSnackbar Snapshot 1`] = `
         <span
           className="message"
         >
-          Logout Successfully
+          message
         </span>
       </span>
     }

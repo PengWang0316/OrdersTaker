@@ -18,8 +18,8 @@ const styles = theme => ({
   }
 });
 
-export const LogoutSnackbar = ({
-  open, classes, onClose
+export const CheckCircleIconSnackbar = ({
+  open, classes, onClose, message
 }) => (
   <Snackbar
     anchorOrigin={{
@@ -38,14 +38,15 @@ export const LogoutSnackbar = ({
       message={
         <span id="message-id" className={classes.messageSpan}>
           <CheckCircle />
-          <span className={classes.message}>Logout Successfully</span>
+          <span className={classes.message}>{message}</span>
         </span>
       }
     />
   </Snackbar>
 );
-LogoutSnackbar.propTypes = {
+CheckCircleIconSnackbar.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired
 };
-export default withStyles(styles)(LogoutSnackbar);
+export default withStyles(styles)(CheckCircleIconSnackbar);

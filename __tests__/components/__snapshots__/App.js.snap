@@ -11,7 +11,8 @@ exports[`App component test App snapshot with user id 1`] = `
     &lt;Route path=/ordersPage /&gt;
     &lt;Route render=[object Object] /&gt;
   </main>
-  <LogoutSnackbar
+  <CheckCircleIconSnackbar
+    message="Logou Successfully"
     onClose={[Function]}
     open={false}
   />
@@ -39,7 +40,8 @@ exports[`App component test App snapshot without user id 1`] = `
     onClose={[Function]}
     open={false}
   />
-  <LogoutSnackbar
+  <CheckCircleIconSnackbar
+    message="Logou Successfully"
     onClose={[Function]}
     open={false}
   />

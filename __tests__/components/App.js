@@ -17,7 +17,7 @@ jest.mock('../../app/components/Navbar', () => 'Navbar');
 jest.mock('../../app/components/containers/HomePageContainer', () => 'HomePageContainer');
 jest.mock('../../app/components/LoginDialog', () => 'LoginDialog');
 jest.mock('../../app/components/snackbars/LoginDialogSnackbar', () => 'LoginDialogSnackbar');
-jest.mock('../../app/components/snackbars/LogoutSnackbar', () => 'LogoutSnackbar');
+jest.mock('../../app/components/snackbars/CheckCircleIconSnackbar', () => 'CheckCircleIconSnackbar');
 
 window.console.log = jest.fn(); // Silencing the console log.
 
