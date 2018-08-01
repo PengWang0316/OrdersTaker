@@ -23,7 +23,6 @@ export const fetchOrderAmount = user => dispatch =>
 /**
  * Fetching the orders from database based on offset, amount and user's jwt information.
  * @param {int} offset is the number will be skipped.
- * @param {int} amount is the total number will be returned.
  * @param {object} user has all user information.
  * @return {Promise} Return a promise with the orders' information.
  */
