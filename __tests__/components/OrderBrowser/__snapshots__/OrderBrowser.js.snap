@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderBrowser Snapshot 1`] = `
+<div
+  className="root"
+>
+  <Typography
+    className="title"
+    color="primary"
+  >
+    titel
+  </Typography>
+  <div
+    className="cardDiv"
+  >
+    <OrderCard
+      menuItems={
+        Object {
+          "orderIdA": Object {
+            "name": "orderA name",
+            "photo": "orderA photo",
+          },
+        }
+      }
+      order={
+        Object {
+          "_id": "ordersId",
+          "items": Object {
+            "orderIdA": Object {},
+            "orderIdB": Object {},
+          },
+          "userId": "userId",
+        }
+      }
+    />
+  </div>
+  <Pagination
+    limit={6}
+    offset={0}
+    onClick={[MockFunction]}
+    total={100}
+  />
+</div>
+`;

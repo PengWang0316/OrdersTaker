@@ -5,42 +5,26 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import { RemoveShoppingCart, Send } from '@material-ui/icons';
-import {
-  Card, CardContent, Button, Typography, List, CircularProgress,
-  ListItem, ListItemText, ListItemSecondaryAction, Tooltip
-} from '@material-ui/core';
+import { Card, CardContent, Button, CircularProgress, Tooltip } from '@material-ui/core';
 
 import QRCodeScanner from './QRCodeScanner/';
-import { clearOrders, placeOrder } from '../actions/OrdersActions';
+import { clearCart, placeOrder } from '../actions/CartActions';
+import { addTempOrderId } from '../actions/TempOrderIdsActions';
+import { increaseOrderAmount } from '../actions/OrdersActions';
 import AlertDialog from './AlertDialog';
 import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
+import OrderSummaryCategories from './OrderSummaryCategories';
+import OrderSummaryPrice from './OrderSummaryPrice';
 
 /* istanbul ignore next */
 const styles = theme => ({
   card: {
     padding: '10px 5px'
   },
-  title: {
-    fontWeight: 'bold',
-    maringBottom: 20
-  },
-  categoryTitle: {
-    fontSize: 14
-  },
   flexEndDiv: {
     display: 'flex',
     justifyContent: 'flex-end'
-  },
-  fontBold: {
-    fontWeight: 'bold',
-    textDecoration: 'underline'
-  },
-  hrStyle: {
-    border: 0,
-    borderBottom: '1px dotted #ccc',
-    background: '#999',
-    margin: '10px 0'
   },
   placeBtn: {
     fontSize: 12
@@ -74,9 +58,11 @@ export class OrderSummary extends Component {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     orders: PropTypes.object.isRequired,
-    reduxOrders: PropTypes.object.isRequired,
-    clearOrders: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    cart: PropTypes.object.isRequired,
+    clearCart: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    addTempOrderId: PropTypes.func.isRequired,
+    increaseOrderAmount: PropTypes.func.isRequired
   };
 
   state = {
@@ -99,11 +85,11 @@ export class OrderSummary extends Component {
   handleToggleLoginSuggestionDialog = () => this.setState(({ isLoginSuggestionDialogOpen }) => ({ isLoginSuggestionDialogOpen: !isLoginSuggestionDialogOpen }));
 
   /**
-   * Calling the clearOrders action and redirect to the home page
+   * Calling the clearCart action and redirect to the home page
    * @return {null} No Return.
    */
-  handleClearOrders = () => {
-    this.props.clearOrders();
+  handleClearCart = () => {
+    this.props.clearCart();
     this.props.history.push(HOME_PAGE_URL);
   };
 
@@ -113,11 +99,15 @@ export class OrderSummary extends Component {
    * @return {Promise} Return a promise.
    */
   placeOrder = () => {
+    const { cart, orders, user, reduxOrders, history } = this.props;
     this.setState({ isShowProgress: true, isBtnDisable: true });
-    return placeOrder(this.props.reduxOrders, this.props.user.jwt).then(data => {
-      this.props.clearOrders();
-      this.props.history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
-    }).catch(err => console.error(err));
+    return placeOrder({ ...cart, price: orders.price, tax: orders.tax, totalPrice: orders.totalPrice }, user.jwt)
+      .then(data => {
+        this.props.clearCart();
+        if (!user._id) this.props.addTempOrderId(data); // If the user has not logged in, call the addTempOrderId action.
+        else if (reduxOrders.amount !== null) this.props.increaseOrderAmount(); // If the user has logged in and the fetchOrderAmount action has already initialized amount, increase amount.
+        history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
+      }).catch(err => console.error(err));
   };
 
   /**
@@ -144,7 +134,7 @@ export class OrderSummary extends Component {
    * @return {jsx} Return the jsx.
    */
   render() {
-    const { classes, orders, reduxOrders } = this.props;
+    const { classes, orders, cart } = this.props;
     const {
       isAlertDialogOpen, isBtnDisable, isShowProgress, isLoginSuggestionDialogOpen
     } = this.state;
@@ -152,32 +142,17 @@ export class OrderSummary extends Component {
       <Fragment>
         <Card className={classes.card}>
           <CardContent>
-            <Typography className={classes.title} variant="subheading" color="primary">Order summary</Typography>
-            <List disablePadding dense>
-              {Object.keys(orders.categories).map(category => (
-                <ListItem button key={category}>
-                  <ListItemText className={classes.categoryTitle} primary={`${category} × ${orders.categories[category].qty}`} />
-                  <ListItemSecondaryAction>
-                    <Typography color="textSecondary" className={classes.categoryPrice}>${orders.categories[category].price}</Typography>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-            <div className={classes.hrStyle} />
+            <OrderSummaryCategories orders={orders} />
             <div className={classes.flexBetweenDiv}>
               <QRCodeScanner />
-              <div>
-                <div className={classes.flexEndDiv}><Typography color="primary">Order Price:&nbsp;&nbsp;</Typography><Typography color="textSecondary">${orders.price}</Typography></div>
-                <div className={classes.flexEndDiv}><Typography color="primary">Tax:&nbsp;&nbsp;</Typography><Typography color="textSecondary">${orders.tax}</Typography></div>
-                <div className={classes.flexEndDiv}><Typography className={classes.fontBold} color="primary">Total Price:&nbsp;&nbsp;</Typography><Typography className={classes.fontBold} color="textSecondary">${orders.totalPrice}</Typography></div>
-              </div>
+              <OrderSummaryPrice orders={orders} />
             </div>
 
             <div className={`${classes.flexEndDiv} ${classes.buttonDiv}`}>
               {isShowProgress && <CircularProgress size={30} thickness={6} />}
               <Button onClick={this.handleToggleAlertDialog} variant="contained" size="small" className={classes.clearBtn}>Clear<RemoveShoppingCart className={classes.icon} /></Button>
-              <Tooltip title={reduxOrders.tableNumber ? 'After place your order, the kitchen will start to cook your meal' : 'Please scan the QR code ont the table first'}>
-                <div><Button onClick={this.handlePlaceBtnClick} variant="contained" size="small" color="primary" className={classes.placeBtn} disabled={!reduxOrders.tableNumber || isBtnDisable}>Place<Send className={classes.icon} /></Button></div>
+              <Tooltip title={cart.tableNumber ? 'After place your order, the kitchen will start to cook your meal' : 'Please scan the QR code ont the table first'}>
+                <div><Button onClick={this.handlePlaceBtnClick} variant="contained" size="small" color="primary" className={classes.placeBtn} disabled={!cart.tableNumber || isBtnDisable}>Place<Send className={classes.icon} /></Button></div>
               </Tooltip>
             </div>
           </CardContent>
@@ -188,7 +163,7 @@ export class OrderSummary extends Component {
           title="Clear all item in the order"
           content="This action will clear all item you has already add in the order."
           onFirstButton={this.handleToggleAlertDialog}
-          onSecondButton={this.handleClearOrders}
+          onSecondButton={this.handleClearCart}
           secondButtonText="Clear"
         />
         <LoginDialogContext.Consumer>
@@ -213,12 +188,15 @@ export class OrderSummary extends Component {
 }
 /* istanbul ignore next */
 const mapStateToProps = state => ({
-  reduxOrders: state.orders,
-  user: state.user
+  cart: state.cart,
+  user: state.user,
+  reduxOrders: state.orders
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  clearOrders: () => dispatch(clearOrders())
+  clearCart: () => dispatch(clearCart()),
+  addTempOrderId: orderId => dispatch(addTempOrderId(orderId)),
+  increaseOrderAmount: () => dispatch(increaseOrderAmount())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withStyles(styles)(OrderSummary))));
 // export default withStyles(styles)(OrderSummary);

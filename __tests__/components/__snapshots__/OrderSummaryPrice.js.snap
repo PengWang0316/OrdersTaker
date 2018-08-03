@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderSummaryPrice Snapshot 1`] = `
+<div>
+  <div
+    className="flexEndDiv"
+  >
+    <Typography
+      color="primary"
+    >
+      Order Price:  
+    </Typography>
+    <Typography
+      color="textSecondary"
+    >
+      $
+    </Typography>
+  </div>
+  <div
+    className="flexEndDiv"
+  >
+    <Typography
+      color="primary"
+    >
+      Tax:  
+    </Typography>
+    <Typography
+      color="textSecondary"
+    >
+      $
+    </Typography>
+  </div>
+  <div
+    className="flexEndDiv"
+  >
+    <Typography
+      className="fontBold"
+      color="primary"
+    >
+      Total Price:  
+    </Typography>
+    <Typography
+      className="fontBold"
+      color="textSecondary"
+    >
+      $
+    </Typography>
+  </div>
+</div>
+`;

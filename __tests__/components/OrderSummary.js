@@ -22,7 +22,9 @@ jest.mock('../../app/components/QRCodeScanner', () => 'QRCodeScanner');
 jest.mock('../../app/components/AlertDialog', () => 'AlertDialog');
 jest.mock('../../app/contexts/LoginDialogContext'); // The __mocks__/LoginDialogContext.js will be used automatically.
 
-jest.mock('../../app/actions/OrdersActions', () => ({ placeOrder: jest.fn().mockReturnValue(Promise.resolve('orderId')) }));
+jest.mock('../../app/actions/CartActions', () => ({ placeOrder: jest.fn().mockReturnValue(Promise.resolve('orderId')) }));
+jest.mock('../../app/components/OrderSummaryCategories', () => 'OrderSummaryCategories');
+jest.mock('../../app/components/OrderSummaryPrice', () => 'OrderSummaryPrice');
 
 describe('OrderSummary', () => {
   const defaultProps = {
@@ -44,12 +46,17 @@ describe('OrderSummary', () => {
         categoryA: { price: 100, tax: 10, qty: 2 }
       }
     },
-    reduxOrders: {},
-    clearOrders: jest.fn(),
+    reduxOrders: {
+      amount: null
+    },
+    cart: {},
+    clearCart: jest.fn(),
     history: {
       push: jest.fn()
     },
-    user: { jwt: 'jwt' }
+    user: { jwt: 'jwt' },
+    addTempOrderId: jest.fn(),
+    increaseOrderAmount: jest.fn(),
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrderSummary {...props} />);
 
@@ -68,9 +75,9 @@ describe('OrderSummary', () => {
     expect(component.state('isAlertDialogOpen')).toBe(true);
   });
 
-  test('handleClearOrders', () => {
-    getShallowComponent().instance().handleClearOrders();
-    expect(defaultProps.clearOrders).toHaveBeenCalledTimes(1);
+  test('handleClearCart', () => {
+    getShallowComponent().instance().handleClearCart();
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
   });
@@ -82,31 +89,65 @@ describe('OrderSummary', () => {
     expect(component.state('isLoginSuggestionDialogOpen')).toBe(true);
   });
 
-  test('placeOrder without error', async () => {
+  test('placeOrder without error and user id', async () => {
     window.console.error = jest.fn();
-    const OrdersActions = require('../../app/actions/OrdersActions');
+    const CartActions = require('../../app/actions/CartActions');
+    const component = getShallowComponent({ ...defaultProps, user: { _id: 'id' } });
+    await component.instance().placeOrder();
+    expect(component.state('isBtnDisable')).toBe(true);
+    expect(component.state('isShowProgress')).toBe(true);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(1);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(2);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(window.console.error).not.toHaveBeenCalled();
+    expect(defaultProps.addTempOrderId).not.toHaveBeenCalled();
+    expect(defaultProps.increaseOrderAmount).not.toHaveBeenCalled();
+  });
+
+  test('placeOrder has user id, amount equal null and without error', async () => {
+    window.console.error = jest.fn();
+    const CartActions = require('../../app/actions/CartActions');
     const component = getShallowComponent();
     await component.instance().placeOrder();
     expect(component.state('isBtnDisable')).toBe(true);
     expect(component.state('isShowProgress')).toBe(true);
-    expect(OrdersActions.placeOrder).toHaveBeenCalledTimes(1);
-    expect(defaultProps.clearOrders).toHaveBeenCalledTimes(2);
-    expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(2);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(3);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(3);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
     expect(window.console.error).not.toHaveBeenCalled();
+    expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
+    expect(defaultProps.addTempOrderId).toHaveBeenLastCalledWith('orderId');    
+  });
+
+  test('placeOrder has user id, amount equal 1 and without error', async () => {
+    window.console.error = jest.fn();
+    const CartActions = require('../../app/actions/CartActions');
+    const component = getShallowComponent({ ...defaultProps, reduxOrders: { amount: 1 }, user: { _id: 'id' } });
+    await component.instance().placeOrder();
+    expect(component.state('isBtnDisable')).toBe(true);
+    expect(component.state('isShowProgress')).toBe(true);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(3);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(4);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(4);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(window.console.error).not.toHaveBeenCalled();
+    expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
+    expect(defaultProps.increaseOrderAmount).toHaveBeenCalledTimes(1);
   });
 
   test('placeOrder with error', async () => {
     window.console.error = jest.fn();
-    const OrdersActions = require('../../app/actions/OrdersActions');
-    OrdersActions.placeOrder.mockReturnValue(Promise.reject());
+    const CartActions = require('../../app/actions/CartActions');
+    CartActions.placeOrder.mockReturnValue(Promise.reject());
     const component = getShallowComponent();
     await component.instance().placeOrder();
     expect(component.state('isBtnDisable')).toBe(true);
     expect(component.state('isShowProgress')).toBe(true);
-    expect(OrdersActions.placeOrder).toHaveBeenCalledTimes(2);
-    expect(defaultProps.clearOrders).toHaveBeenCalledTimes(2);
-    expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
+    expect(CartActions.placeOrder).toHaveBeenCalledTimes(4);
+    expect(defaultProps.clearCart).toHaveBeenCalledTimes(4);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(4);
     expect(window.console.error).toHaveBeenCalledTimes(1);
   });
 
@@ -124,7 +165,7 @@ describe('OrderSummary', () => {
   });
 
   test('handlePlaceBtnClick with user id ', () => {
-    const component = getShallowComponent({ ...defaultProps, user: { _id: 'id' }});
+    const component = getShallowComponent({ ...defaultProps, user: { _id: 'id' } });
     const mockPlaceOrder = jest.fn();
     const mockHandleToggleDialog = jest.fn();
     component.instance().placeOrder = mockPlaceOrder;
@@ -148,5 +189,5 @@ describe('OrderSummary', () => {
   });
 
   test('Snapshot without table number', () => expect(renderer.create(<OrderSummary {...defaultProps} />).toJSON()).toMatchSnapshot());
-  test('Snapshot with table number', () => expect(renderer.create(<OrderSummary {...{ ...defaultProps, reduxOrders: { tableNumber: 1 } }} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with table number', () => expect(renderer.create(<OrderSummary {...{ ...defaultProps, cart: { tableNumber: 1 } }} />).toJSON()).toMatchSnapshot());
 });

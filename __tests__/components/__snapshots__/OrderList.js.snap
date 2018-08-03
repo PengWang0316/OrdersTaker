@@ -40,16 +40,24 @@ Array [
       />
     </div>
     <OrderItem
+      isHistoryOrder={false}
       itemId="5b1c64d54345b11970bb124f"
+      orderItems={Object {}}
     />
     <OrderItem
+      isHistoryOrder={false}
       itemId="5b1c64d54345b11970bb126d"
+      orderItems={Object {}}
     />
     <OrderItem
+      isHistoryOrder={false}
       itemId="5b1c64d54345b11970bb123d"
+      orderItems={Object {}}
     />
     <OrderItem
+      isHistoryOrder={false}
       itemId="5b1c64d54345b11970bb123a"
+      orderItems={Object {}}
     />
   </div>,
   <div
@@ -90,7 +98,9 @@ Array [
       />
     </div>
     <OrderItem
+      isHistoryOrder={false}
       itemId="5b1c6d634345b11970bb1250"
+      orderItems={Object {}}
     />
   </div>,
 ]

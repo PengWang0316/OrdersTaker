@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, IconButton, Tooltip, Menu, MenuItem } from '@material-ui/core';
 import { AddBox, KeyboardArrowDown } from '@material-ui/icons';
 
-import { addItemToCart } from '../actions/OrdersActions';
+import { addItemToCart } from '../actions/CartActions';
 import { animateOrderNumber } from '../utils/AnimationUtil';
 
 const priceDiv = {

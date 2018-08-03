@@ -36,10 +36,13 @@ describe('OrderItem', () => {
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrderItem {...defaultProps} />);
 
-  test('Snapshot without orders matching', () => expect(renderer.create(<OrderItem {...defaultProps} />).toJSON()).toMatchSnapshot());
-  test('Snapshot with orders matching', () =>
+  test('Snapshot not history order without orders matching', () => expect(renderer.create(<OrderItem {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('Snapshot not history order with orders matching', () =>
     expect(renderer.create(<OrderItem {...{ ...defaultProps, orderItems: { itemId: { qty: { small: 2 } } } }} />)
       .toJSON()).toMatchSnapshot());
+  test('Snapshot not history order with one price', () => expect(renderer.create(<OrderItem {...{ ...defaultProps, isHistoryOrder: true, orderItems: { itemId: { qty: { [ITEM_ONE_PRICE_KEY]: 2 } } } }} />).toJSON()).toMatchSnapshot());
+  test('Snapshot history order with orders matching', () => expect(renderer.create(<OrderItem {...{ ...defaultProps, isHistoryOrder: true, orderItems: { itemId: { qty: { small: 2 } } } }} />)
+    .toJSON()).toMatchSnapshot());
 
   test('Clicking Avatar', () => {
     mount(<OrderItem {...defaultProps} />).find('Avatar').simulate('click');

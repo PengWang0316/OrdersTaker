@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderDetailDialog Snapshot with newOrder 1`] = `
+Array [
+  <Dialog
+    classes={
+      Object {
+        "paper": undefined,
+      }
+    }
+    onClose={[MockFunction]}
+    open={true}
+  >
+    <DialogContent>
+      <IconButton
+        onClick={[MockFunction]}
+      >
+        <Close />
+      </IconButton>
+      <div
+        className="hearderDiv"
+      >
+        <OrderBrowserCardHeader
+          order={
+            Object {
+              "items": "orderItems",
+            }
+          }
+        />
+      </div>
+      <div
+        className="contentDiv"
+      >
+        <div
+          className="contentPanel"
+        >
+          <OrderList
+            isHistoryOrder={true}
+            orderItems="orderItems"
+            orders="returnOrders"
+          />
+        </div>
+        <div
+          className="summayPanel"
+        >
+          <div>
+            <OrderSummaryCategories
+              orders="returnOrders"
+            />
+            <div
+              classes="priceDiv"
+            >
+              <OrderSummaryPrice
+                orders="returnOrders"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <Button
+          aria-label="Close the detail page"
+          color="primary"
+          onClick={[MockFunction]}
+          size="small"
+          variant="contained"
+        >
+          Close
+        </Button>
+      </div>
+    </DialogContent>
+  </Dialog>,
+  <ItemDetailDialog
+    item={null}
+    onClose={[Function]}
+    open={false}
+  />,
+]
+`;
+
+exports[`OrderDetailDialog Snapshot without newOrder 1`] = `
+<Dialog
+  classes={
+    Object {
+      "paper": undefined,
+    }
+  }
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogContent />
+</Dialog>
+`;

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_FINISHED 1`] = `
+<CardHeader
+  avatar={
+    <Tooltip
+      placement="right-end"
+      title="Finished"
+    >
+      <CheckCircle
+        className="checkCircle"
+      />
+    </Tooltip>
+  }
+  onClick={[MockFunction]}
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
+/>
+`;
+
+exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_PREPARING 1`] = `
+<CardHeader
+  avatar={
+    <Tooltip
+      placement="right-end"
+      title="Preparing"
+    >
+      <WatchLater
+        className="watchLater"
+      />
+    </Tooltip>
+  }
+  onClick={[MockFunction]}
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
+/>
+`;
+
+exports[`OrderBrowserCardHeader Snapshot ORDER_STATUS_RECEIVED 1`] = `
+<CardHeader
+  avatar={
+    <Tooltip
+      placement="right-end"
+      title="Received"
+    >
+      <OfflinePin
+        className="offlinPin"
+      />
+    </Tooltip>
+  }
+  onClick={[MockFunction]}
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
+/>
+`;
+
+exports[`OrderBrowserCardHeader Snapshot unknow status 1`] = `
+<CardHeader
+  avatar={
+    <Tooltip
+      placement="right-end"
+      title="Unknow Status"
+    >
+      <Help
+        className="unkonw"
+      />
+    </Tooltip>
+  }
+  onClick={[MockFunction]}
+  subheader="17:20:48"
+  title="Mon Jul 23 2018"
+/>
+`;

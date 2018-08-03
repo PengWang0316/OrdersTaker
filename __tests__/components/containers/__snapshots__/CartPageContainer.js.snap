@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OrderPageContainer Snapshot with an empty menuItems 1`] = `
+exports[`CartPageContainer Snapshot with an empty menuItems 1`] = `
 <div
   className="root"
 >
@@ -17,7 +17,7 @@ exports[`OrderPageContainer Snapshot with an empty menuItems 1`] = `
 </div>
 `;
 
-exports[`OrderPageContainer Snapshot with menuItems 1`] = `
+exports[`CartPageContainer Snapshot with menuItems 1`] = `
 <div
   className="root"
 >
@@ -44,6 +44,7 @@ exports[`OrderPageContainer Snapshot with menuItems 1`] = `
     className="listPanel"
   >
     <OrderList
+      orderItems={Object {}}
       orders={
         Object {
           "categories": Object {},

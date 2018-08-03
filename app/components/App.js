@@ -11,12 +11,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import LoginDialog from './LoginDialog/';
 import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
-import LogoutSnackbar from './snackbars/LogoutSnackbar';
+import CheckCircleIconSnackbar from './snackbars/CheckCircleIconSnackbar';
 import Navbar from './Navbar';
 import { parserUserFromJwt } from '../actions/UserActions';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
-import { JWT_MESSAGE, HOME_PAGE_URL, LOGIN_REDIRECT_RUL, ORDER_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
+import { JWT_MESSAGE, HOME_PAGE_URL, LOGIN_REDIRECT_RUL, CART_PAGE_URL, ORDER_STATUS_PAGE_URL, ORDERS_PAGE_URL } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 // import { CSSTransitionGroup } from 'react-transition-group';
@@ -47,10 +47,13 @@ const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageCo
 const LoginRedirect = importedComponent(() => import(/* webpackChunkName: "LoginRedirect" */ './LoginRedirect').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
 /* istanbul ignore next */
-const OrderPage = importedComponent(() => import(/* webpackChunkName: "OrderPageContainer" */ './containers/OrderPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+const CartPage = importedComponent(() => import(/* webpackChunkName: "CartPageContainer" */ './containers/CartPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
 /* istanbul ignore next */
 const OrderStatusPage = importedComponent(() => import(/* webpackChunkName: "OrderStatusPageContainer" */ './containers/OrderStatusPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+
+/* istanbul ignore next */
+const OrdersPage = importedComponent(() => import(/* webpackChunkName: "OrdersPageContainer" */ './containers/OrdersPageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
 /**
  * The root component that contains the theme, routers, navbar, and login dialog
@@ -129,9 +132,10 @@ export class App extends Component {
               <main>
                 <Switch>
                   <Route exact path={HOME_PAGE_URL} component={HomePage} />
-                  <Route exact path={ORDER_PAGE_URL} component={OrderPage} />
+                  <Route exact path={CART_PAGE_URL} component={CartPage} />
                   <Route exact path={LOGIN_REDIRECT_RUL} component={LoginRedirect} />
                   <Route path={`${ORDER_STATUS_PAGE_URL}/:orderId`} component={OrderStatusPage} />
+                  <Route path={ORDERS_PAGE_URL} component={OrdersPage} />
                   <Route render={() => <p>Not Fount!</p>} />
                 </Switch>
               </main>
@@ -141,7 +145,7 @@ export class App extends Component {
                   <LoginDialogSnackbar open={isLoginSnackbarOpen} onClose={this.handleToggleSnackbar} message={snackbarMessage} />
                 </Fragment>
               )}
-              <LogoutSnackbar open={isLogoutSnackBarOpen} onClose={this.handleToggleLogoutSnackbar} />
+              <CheckCircleIconSnackbar open={isLogoutSnackBarOpen} onClose={this.handleToggleLogoutSnackbar} message="Logou Successfully" />
             </div>
           </LoginDialogContext.Provider>
         </Router>

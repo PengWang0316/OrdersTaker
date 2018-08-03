@@ -43,8 +43,7 @@ const styles = {
 /**
  * Showing the customers' order detail and allow them to add number for items, remove items, clear orders, scan QR code for the table, and place orders.
  */
-export class OrderPageContainer extends Component {
-
+export class CartPageContainer extends Component {
   /**
    * Parsing the Redux state orders to an object this component can use. Also calculate the price for the order.
    * @param {object} orders comes from Redux's state.
@@ -63,6 +62,7 @@ export class OrderPageContainer extends Component {
    * }
    */
   static parseOrders = (orderItems, menuItems) => {
+    if (!(orderItems && Object.keys(menuItems).length !== 0)) return null; // Return null if either order or menuItems is null.
     const newOrders = { // Initial some properties
       totalQty: 0, price: 0, tax: 0, totalPrice: 0, categories: {}
     };
@@ -134,21 +134,22 @@ export class OrderPageContainer extends Component {
   render() {
     const { classes, menuItems, orderItems } = this.props;
     const { currentItem, isDialogOpen } = this.state;
-    const isMenuItemsReady = Object.keys(menuItems).length !== 0;
-    const newOrders = isMenuItemsReady ? OrderPageContainer.parseOrders(orderItems, menuItems) : {};
+
+    const newOrder = CartPageContainer.parseOrders(orderItems, menuItems);
+
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
-          <div className={classes.summaryContent}>{isMenuItemsReady && <OrderSummary orders={newOrders} />}</div>
+          <div className={classes.summaryContent}>{newOrder && <OrderSummary orders={newOrder} />}</div>
         </div>
         <div className={classes.listPanel}>
-          {isMenuItemsReady && (
+          {newOrder && (
             <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
-              <OrderList orders={newOrders} />
+              <OrderList orders={newOrder} orderItems={orderItems} />
             </ShowDetailDialogContext.Provider>
           )}
         </div>
-        {isMenuItemsReady && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
+        {newOrder && <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />}
       </div>
     );
   }
@@ -156,10 +157,10 @@ export class OrderPageContainer extends Component {
 /* istanbul ignore next */
 const mapStateToProps = state => ({
   menuItems: state.menuItems,
-  orderItems: state.orders.items
+  orderItems: state.cart.items
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   fetchAllMenu: () => dispatch(fetchAllMenu())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(OrderPageContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CartPageContainer));

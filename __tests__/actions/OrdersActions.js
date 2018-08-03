@@ -3,83 +3,84 @@ import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_SAVE_PLACED_ORDER } from '../../app/actions/ApiUrls';
+import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
+import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
+import { MAX_ORDER_AMOUNT } from '../../app/config';
 
-const axiosMock = new MockAdapter(axios);
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-// jest.mock('axios', () => ({ put: jest.fn() }));
+const axiosMock = new MockAdapter(axios);
 
 describe('OrdersActions', () => {
-  test('addItemToCart', () => {
-    const item = { id: '1' };
-    const priceKey = 'priceKey';
-    // const user = { jwt: 'jwt', _id: 'userId' };
-    // const axios = require('axios');
-    const expectActions = [
+  test('increaseOrderAmountSuccess', () => {
+    const expectedActions = [
       {
-        type: ADD_ORDER_SUCCESS,
-        priceKey,
-        item
+        type: INCREASE_ORDER_AMOUNT_SUCCESS
       }
     ];
     const store = mockStore();
-    store.dispatch(OrdersActions.addItemToCart({ item, priceKey }));
-    expect(store.getActions()).toEqual(expectActions);
+    store.dispatch(OrdersActions.increaseOrderAmount());
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test('removeItemToCart', () => {
-    const item = { id: '1' };
-    const priceKey = 'priceKey';
-    // const user = { jwt: 'jwt', _id: 'userId' };
-    // const axios = require('axios');
-    const expectActions = [
+  test('fetchOrderAmount without error', () => {
+    const loginUserOrderAmount = 10;
+    const user = { jwt: 'jwtMessage' };
+    const expectedActions = [
       {
-        type: REMOVE_ORDER_SUCCESS,
-        priceKey,
-        item
+        type: FETCH_ORDER_AMOUNT_SUCCESS,
+        loginUserOrderAmount
       }
     ];
+    axiosMock.onGet(API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } }).reply(200, loginUserOrderAmount);
     const store = mockStore();
-    store.dispatch(OrdersActions.removeItemFromCart({ item, priceKey }));
-    expect(store.getActions()).toEqual(expectActions);
+    return store.dispatch(OrdersActions.fetchOrderAmount(user))
+      .then(() => expect(store.getActions()).toEqual(expectedActions));
   });
 
-  test('setTableNumber', () => {
-    const number = 1;
-    const expectActions = [
-      {
-        type: SET_TABLE_NUMBER_SUCCESS,
-        number
-      }
-    ];
+  test('fetchOrderAmount with network error', () => {
+    window.console.error = jest.fn();
+    const user = { jwt: 'jwtMessage' };
+    axiosMock.onGet(API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } }).networkError();
     const store = mockStore();
-    store.dispatch(OrdersActions.setTableNumber(number));
-    expect(store.getActions()).toEqual(expectActions);
+    return store.dispatch(OrdersActions.fetchOrderAmount(user))
+      .then(() => expect(window.console.error).toHaveBeenCalledTimes(1));
   });
 
-  test('clearOrders', () => {
-    const expectActions = [
-      { type: CLEAR_ORDERS_SUCCESS }
-    ];
-    const store = mockStore();
-    store.dispatch(OrdersActions.clearOrders());
-    expect(store.getActions()).toEqual(expectActions);
+  test('fetchLoginUserOrders without error', () => {
+    window.console.error = jest.fn();
+    const user = { jwt: 'jwtMessage' };
+    const resultData = [1, 2];
+    axiosMock.onGet(API_FETCH_ORDERS, { params: { offset: 10, amount: MAX_ORDER_AMOUNT, jwtMessage: user.jwt } }).reply(200, resultData);
+    return OrdersActions.fetchLoginUserOrders(10, user).then(data => {
+      expect(data).toBe(resultData);
+      expect(window.console.error).not.toHaveBeenCalled();
+    });
   });
 
-  test('placeOrder without error', () => {
-    const body = { order: {}, jwtMessage: 'jwtMessage' };
-    axiosMock.onPost(API_SAVE_PLACED_ORDER, body).reply(200, 1);
-    OrdersActions.placeOrder(body.order, body.jwtMessage).then(data => expect(data).toBe(1)).catch(() => {});
-  });
-
-  test('placeOrder with network error', () => {
-    const body = { order: {}, jwtMessage: 'jwtMessage' };
+  test('fetchLoginUserOrders with error', () => {
     console.error = jest.fn();
-    axiosMock.onPost(API_SAVE_PLACED_ORDER, body).networkError();
-    OrdersActions.placeOrder(body.order, body.jwtMessage).then(() => expect(console.error).toHaveBeenCalledTimes(1)).catch(() => {});
+    const user = { jwt: 'jwtMessage' };
+    axiosMock.onGet(API_FETCH_ORDERS, { params: { offset: 10, amount: MAX_ORDER_AMOUNT, jwtMessage: user.jwt } }).networkError();
+    return OrdersActions.fetchLoginUserOrders(10, user).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
+  });
+
+  test('fetchUnloginUserOrders without error', () => {
+    console.error = jest.fn();
+    const orderIds = ['id1', 'id2'];
+    const resultData = ['orderA', 'orderB'];
+    axiosMock.onGet(API_FETCH_UNLOGIN_ORDERS, { params: { offset: 10, orderIds, amount: MAX_ORDER_AMOUNT } }).reply(200, resultData);
+    return OrdersActions.fetchUnloginUserOrders(10, orderIds).then(data => {
+      expect(data).toBe(resultData);
+      expect(console.error).not.toBeCalled();
+    });
+  });
+
+  test('fetchUnloginUserOrders with error', () => {
+    console.error = jest.fn();
+    const orderIds = ['id1', 'id2'];
+    axiosMock.onGet(API_FETCH_UNLOGIN_ORDERS, { params: { offset: 10, orderIds, amount: MAX_ORDER_AMOUNT } }).networkError();
+    return OrdersActions.fetchUnloginUserOrders(10, orderIds).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
   });
 });

@@ -1,39 +1,41 @@
 import axios from 'axios';
 
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from './ActionTypes';
-import { API_SAVE_PLACED_ORDER } from './ApiUrls';
+import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from './ActionTypes';
+import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS } from './ApiUrls';
+import { MAX_ORDER_AMOUNT } from '../config';
 
-const addOrderSuccess = (item, priceKey) => ({
-  type: ADD_ORDER_SUCCESS,
-  item,
-  priceKey
+const increaseOrderAmountSuccess = () => ({
+  type: INCREASE_ORDER_AMOUNT_SUCCESS
 });
 
-const removeOrderSuccess = (item, priceKey) => ({
-  type: REMOVE_ORDER_SUCCESS,
-  item,
-  priceKey
+const fetchOrderAmountSuccess = loginUserOrderAmount => ({
+  type: FETCH_ORDER_AMOUNT_SUCCESS,
+  loginUserOrderAmount
 });
 
-const setTableNumberSuccess = number => ({
-  type: SET_TABLE_NUMBER_SUCCESS,
-  number
-});
+export const increaseOrderAmount = () => increaseOrderAmountSuccess();
 
-const clearOrdersSuccess = () => ({
-  type: CLEAR_ORDERS_SUCCESS
-});
+export const fetchOrderAmount = user => dispatch =>
+  axios.get(API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } })
+    .then(({ data }) => dispatch(fetchOrderAmountSuccess(data)))
+    .catch(err => console.error(err));
 
-export const addItemToCart = ({ item, priceKey }) => addOrderSuccess(item, priceKey);
+/**
+ * Fetching the orders from database based on offset, amount and user's jwt information.
+ * @param {int} offset is the number will be skipped.
+ * @param {object} user has all user information.
+ * @return {Promise} Return a promise with the orders' information.
+ */
+export const fetchLoginUserOrders = (offset, user) => new Promise((resolve, reject) =>
+  axios.get(API_FETCH_ORDERS, { params: { offset, amount: MAX_ORDER_AMOUNT, jwtMessage: user.jwt } })
+    .then(({ data }) => resolve(data))
+    .catch(err => {
+      console.error(err);
+      reject(err);
+    }));
 
-export const removeItemFromCart = ({ item, priceKey }) => removeOrderSuccess(item, priceKey);
-
-export const setTableNumber = number => setTableNumberSuccess(number);
-
-export const clearOrders = () => clearOrdersSuccess();
-
-export const placeOrder = (order, jwtMessage) => new Promise((resolve, reject) =>
-  axios.post(API_SAVE_PLACED_ORDER, { order, jwtMessage })
+export const fetchUnloginUserOrders = (offset, orderIds) => new Promise((resolve, reject) =>
+  axios.get(API_FETCH_UNLOGIN_ORDERS, { params: { offset, orderIds, amount: MAX_ORDER_AMOUNT } })
     .then(({ data }) => resolve(data))
     .catch(err => {
       console.error(err);

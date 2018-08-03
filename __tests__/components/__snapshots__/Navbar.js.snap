@@ -7,7 +7,7 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
 >
   <Toolbar>
     <Link
-      className="link"
+      className="link undefined"
       to="/"
     >
       <Typography
@@ -20,11 +20,16 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
     <Hidden
       only="xs"
     >
-      <Button
-        color="inherit"
+      <Link
+        className="link"
+        to="/ordersPage"
       >
-        Order
-      </Button>
+        <Button
+          color="inherit"
+        >
+          Order
+        </Button>
+      </Link>
       <Button
         color="inherit"
       >
@@ -101,7 +106,7 @@ exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
 >
   <Toolbar>
     <Link
-      className="link"
+      className="link undefined"
       to="/"
     >
       <Typography
@@ -114,11 +119,16 @@ exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
     <Hidden
       only="xs"
     >
-      <Button
-        color="inherit"
+      <Link
+        className="link"
+        to="/ordersPage"
       >
-        Order
-      </Button>
+        <Button
+          color="inherit"
+        >
+          Order
+        </Button>
+      </Link>
       <Button
         color="inherit"
       >
@@ -187,7 +197,7 @@ exports[`Navbar test NavBar snapshot without user 1`] = `
 >
   <Toolbar>
     <Link
-      className="link"
+      className="link undefined"
       to="/"
     >
       <Typography
@@ -200,11 +210,16 @@ exports[`Navbar test NavBar snapshot without user 1`] = `
     <Hidden
       only="xs"
     >
-      <Button
-        color="inherit"
+      <Link
+        className="link"
+        to="/ordersPage"
       >
-        Order
-      </Button>
+        <Button
+          color="inherit"
+        >
+          Order
+        </Button>
+      </Link>
       <Button
         color="inherit"
       >

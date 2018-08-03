@@ -2,13 +2,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
-import { OrderPageContainer } from '../../../app/components/containers/OrderPageContainer';
+import { CartPageContainer } from '../../../app/components/containers/CartPageContainer';
 
 jest.mock('../../../app/components/OrderSummary', () => 'OrderSummary');
 jest.mock('../../../app/components/OrderList', () => 'OrderList');
 jest.mock('../../../app/components/ItemDetailDialog', () => 'ItemDetailDialog');
 
-describe('OrderPageContainer', () => {
+describe('CartPageContainer', () => {
   const defaultProps = {
     classes: {
       root: 'root',
@@ -20,7 +20,7 @@ describe('OrderPageContainer', () => {
     orderItems: {},
     fetchAllMenu: jest.fn()
   };
-  const getShallowComponent = (props = defaultProps) => shallow(<OrderPageContainer {...props} />);
+  const getShallowComponent = (props = defaultProps) => shallow(<CartPageContainer {...props} />);
   test('Initial state and constructor function', () => {
     const component = getShallowComponent();
     expect(component.state('isDialogOpen')).toBe(false);
@@ -115,7 +115,12 @@ describe('OrderPageContainer', () => {
       totalPrice: '44.82',
       totalQty: 6
     };
-    expect(OrderPageContainer.parseOrders(orders.items, menuItems)).toEqual(expectReturn);
+    expect(CartPageContainer.parseOrders(orders.items, menuItems)).toEqual(expectReturn);
+  });
+
+  test('parseOrders with null orderTimes or menuItems.length equal 0', () => {
+    expect(CartPageContainer.parseOrders(null, { key: 1 })).toEqual(null);
+    expect(CartPageContainer.parseOrders({}, {})).toEqual(null);
   });
 
   test('handleDialogToggle', () => {
@@ -133,6 +138,6 @@ describe('OrderPageContainer', () => {
     expect(component.state('currentItem')).toBe(1);
   });
 
-  test('Snapshot with menuItems', () => expect(renderer.create(<OrderPageContainer {...defaultProps} />).toJSON()).toMatchSnapshot());
-  test('Snapshot with an empty menuItems', () => expect(renderer.create(<OrderPageContainer {...{ ...defaultProps, menuItems: {} }} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with menuItems', () => expect(renderer.create(<CartPageContainer {...defaultProps} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with an empty menuItems', () => expect(renderer.create(<CartPageContainer {...{ ...defaultProps, menuItems: {} }} />).toJSON()).toMatchSnapshot());
 });

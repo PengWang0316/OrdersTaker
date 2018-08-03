@@ -1,36 +1,23 @@
-import { ADD_ORDER_SUCCESS, REMOVE_ORDER_SUCCESS, SET_TABLE_NUMBER_SUCCESS, CLEAR_ORDERS_SUCCESS } from '../actions/ActionTypes';
+import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from '../actions/ActionTypes';
 
-const initialState = { qty: 0, items: {} };
-
-const orders = (/* istanbul ignore next */state = initialState, { type, item, priceKey, number }) => {
+/**
+ * The Redux state.
+ * For right now, just amount is needed. But in the future we can put more information if we need to optimize the database call.
+ * This state can be used as a cache. So, I keep it as an object.
+ * The amount is setting to null in order to check whether the fetchOrderAmount has already been called.
+ * @param {object} state contain all value
+ * @param {object} action has action values
+ * @return {object} return new state
+ */
+const orders = (/* istanbul ignore next */state = { loginUserOrderAmount: null }, { type, loginUserOrderAmount }) => {
   switch (type) {
-    case ADD_ORDER_SUCCESS: {
-      const returnState = { // Making a new object
-        ...state, // Copy the original state
-        items: { ...state.items },
-        qty: state.qty + 1 // Add one quantity
-      };
-      if (!returnState.items[item._id]) returnState.items[item._id] = { qty: { [priceKey]: 1 } }; // If the orders object has not had this item, directly add it in.
-      else returnState.items[item._id] = { // If the item has already been the orders object, copy the item and qty attribute in the item. Add one or give it a inital value.
-        qty: { ...returnState.items[item._id].qty, [priceKey]: returnState.items[item._id].qty[priceKey] ? returnState.items[item._id].qty[priceKey] + 1 : 1 }
-      };
-      return returnState;
-    }
-    case REMOVE_ORDER_SUCCESS: {
-      const returnState = { // Making a new object
-        ...state, // Copy the original state
-        items: { ...state.items },
-        qty: state.items[item._id].qty[priceKey] ? state.qty - 1 : state.qty // If the price key is not exsit or eaqul zero, do not change the total quantity.
-      };
-      if (state.items[item._id].qty[priceKey]) --returnState.items[item._id].qty[priceKey];
-      return returnState;
-    }
-    case SET_TABLE_NUMBER_SUCCESS:
-      return { ...state, tableNumber: number };
-    case CLEAR_ORDERS_SUCCESS:
-      return initialState;
+    case INCREASE_ORDER_AMOUNT_SUCCESS:
+      return { ...state, loginUserOrderAmount: state.loginUserOrderAmount + 1 };
+    case FETCH_ORDER_AMOUNT_SUCCESS:
+      return { ...state, loginUserOrderAmount };
     default:
       return state;
   }
 };
+
 export default orders;
