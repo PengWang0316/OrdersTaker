@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrdersPageContainer Snapshot 1`] = `
+Array [
+  <OrderBrowser
+    offset={0}
+    onPageNumberClick={[Function]}
+    orders={
+      Array [
+        Object {},
+      ]
+    }
+    title="Orders for undefined"
+    totalOrder={2}
+  />,
+  <OrderBrowser
+    offset={0}
+    onPageNumberClick={[Function]}
+    orders={
+      Array [
+        Object {},
+      ]
+    }
+    title="Unsaved Orders"
+    totalOrder={2}
+  />,
+  <OrderDetailDialog
+    menuItems={
+      Object {
+        "1": Object {},
+        "2": Object {},
+      }
+    }
+    onClose={[Function]}
+    open={false}
+  />,
+  <AlertDialog
+    content="After remove this order, you will no longer see it in this device."
+    firstButtonText="Remove"
+    onClose={[Function]}
+    onFirstButton={[Function]}
+    onSecondButton={[Function]}
+    open={false}
+    secondButtonText="Cancel"
+    title="Remove this order from this device?"
+  />,
+  <AlertDialog
+    content="Link this order to your account."
+    firstButtonText="Link"
+    onClose={[Function]}
+    onFirstButton={[Function]}
+    onSecondButton={[Function]}
+    open={false}
+    secondButtonText="Cancel"
+    title="Is it your order?"
+  />,
+  <CheckCircleIconSnackbar
+    message=""
+    onClose={[Function]}
+    open={false}
+  />,
+]
+`;
