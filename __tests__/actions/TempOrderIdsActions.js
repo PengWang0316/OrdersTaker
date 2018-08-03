@@ -7,7 +7,7 @@ import { ADD_ORDER_ID_SUCCESS, REMOVE_ORDER_ID_SUCCESS } from '../../app/actions
 import * as TempOrderIdsActions from '../../app/actions/TempOrderIdsActions';
 import { API_LINK_ORDER_TO_ACCOUNT } from '../../app/actions/ApiUrls';
 
-jest.mock('axios', () => ({ update: jest.fn().mockReturnValue(Promise.resolve()) }));
+jest.mock('axios', () => ({ put: jest.fn().mockReturnValue(Promise.resolve()) }));
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -40,20 +40,20 @@ describe('TempOrderIdsActions', () => {
     const paramters = { orderId: 'id', jwt: 'jwt' };
 
     await TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt);
-    expect(axios.update).toHaveBeenCalledTimes(1);
-    expect(axios.update).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
+    expect(axios.put).toHaveBeenCalledTimes(1);
+    expect(axios.put).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
     expect(console.error).not.toHaveBeenCalled();
   });
 
   test('linkOrderToAccount with error', async () => {
     console.error = jest.fn();
     const axios = require('axios');
-    axios.update.mockReturnValue(Promise.reject());
+    axios.put.mockReturnValue(Promise.reject());
     const paramters = { orderId: 'id', jwt: 'jwt' };
 
     await TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt);
-    expect(axios.update).toHaveBeenCalledTimes(2);
-    expect(axios.update).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
+    expect(axios.put).toHaveBeenCalledTimes(2);
+    expect(axios.put).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
     expect(console.error).toHaveBeenCalledTimes(1);
   });
 });

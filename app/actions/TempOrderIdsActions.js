@@ -17,5 +17,6 @@ export const addTempOrderId = id => addOrderIdSuccess(id);
 
 export const removeTempOrderId = id => removeOrderIdSuccess(id);
 
-export const linkOrderToAccount = (orderId, jwt) =>
-  axios.update(API_LINK_ORDER_TO_ACCOUNT, { orderId, jwt }).catch(err => console.error(err));
+export const linkOrderToAccount = (orderId, jwt) => axios
+  .put(API_LINK_ORDER_TO_ACCOUNT, { orderId, jwt })
+  .catch(err => console.error(err));
