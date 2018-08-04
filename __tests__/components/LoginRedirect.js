@@ -28,18 +28,18 @@ describe('LoginRedirect', () => {
     getShallowComponent();
     expect(defaultProps.location.search.match).toHaveBeenCalledTimes(1);
     expect(defaultProps.parserUserFromJwt).not.toHaveBeenCalled();
-    expect(localStorage.setItem).not.toHaveBeenCalled();
-    expect(localStorage.getItem).not.toHaveBeenCalled();
+    // expect(localStorage.setItem).not.toHaveBeenCalled();
+    // expect(localStorage.getItem).not.toHaveBeenCalled();
     expect(defaultProps.history.push).not.toHaveBeenCalled();
+    expect(localStorage.getItem(JWT_MESSAGE)).toBeNull();
   });
 
   test('constructor with jwt and user', () => {
     getShallowComponent({ ...defaultProps, user: { _id: 'id' } });
     expect(defaultProps.location.search.match).toHaveBeenCalledTimes(2);
     expect(defaultProps.parserUserFromJwt).not.toHaveBeenCalled();
-    expect(localStorage.setItem).not.toHaveBeenCalled();
-    expect(localStorage.getItem).not.toHaveBeenCalled();
     expect(defaultProps.history.push).not.toHaveBeenCalled();
+    expect(localStorage.getItem(JWT_MESSAGE)).toBeNull();
   });
 
   test('constructor with jwt and  without user', () => {
@@ -48,25 +48,28 @@ describe('LoginRedirect', () => {
     expect(defaultProps.location.search.match).toHaveBeenCalledTimes(3);
     expect(defaultProps.parserUserFromJwt).toHaveBeenCalledTimes(1);
     expect(defaultProps.parserUserFromJwt).toHaveBeenLastCalledWith('jwtMessage');
-    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwtMessage');
-    expect(localStorage.getItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.getItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL);
+    // expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    // expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwtMessage');
+    // expect(localStorage.getItem).toHaveBeenCalledTimes(1);
+    // expect(localStorage.getItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL);
+    expect(localStorage.getItem(JWT_MESSAGE)).toEqual('jwtMessage');
     expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith('/');
   });
 
   test('constructor with jwt and  without user', () => {
+    localStorage.removeItem(JWT_MESSAGE);
+    localStorage.setItem(LOGIN_CALLBACK_URL, 'callbackUrl');
     defaultProps.location.search.match.mockReturnValueOnce(['', 'jwtMessage']);
-    localStorage.__STORE__[LOGIN_CALLBACK_URL] = 'callbackUrl'; // Set up a fake local storage value.
+    // localStorage.__STORE__[LOGIN_CALLBACK_URL] = 'callbackUrl'; // Set up a fake local storage value.
     getShallowComponent();
     expect(defaultProps.location.search.match).toHaveBeenCalledTimes(4);
     expect(defaultProps.parserUserFromJwt).toHaveBeenCalledTimes(2);
     expect(defaultProps.parserUserFromJwt).toHaveBeenLastCalledWith('jwtMessage');
-    expect(localStorage.setItem).toHaveBeenCalledTimes(2);
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwtMessage');
-    expect(localStorage.getItem).toHaveBeenCalledTimes(2);
-    expect(localStorage.getItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL);
+    // expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+    // expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwtMessage');
+    // expect(localStorage.getItem).toHaveBeenCalledTimes(2);
+    // expect(localStorage.getItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith('callbackUrl');
   });

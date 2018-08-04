@@ -14,15 +14,18 @@ const mockStore = configureMockStore(middlewares);
 
 describe('UserActions', () => {
   test('logout', () => {
+    localStorage.setItem(JWT_MESSAGE, 'message');
     const expectActions = [{ type: USER_LOGOUT_SUCCESS, user: {} }];
     const store = mockStore();
     store.dispatch(UserActions.logout());
     expect(store.getActions()).toEqual(expectActions);
-    expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.removeItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+    // expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
+    // expect(localStorage.removeItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
+    expect(localStorage.getItem(JWT_MESSAGE)).toBeNull();
   });
 
   test('login', () => {
+    localStorage.removeItem(JWT_MESSAGE);
     const user = { id: 'id' };
     const returnUser = { ...user, role: 1, jwt: 'jwt' };
     const expectActions = [
@@ -33,8 +36,7 @@ describe('UserActions', () => {
     return store.dispatch(UserActions.registerUser(user))
       .then(() => {
         expect(store.getActions()).toEqual(expectActions);
-        expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-        expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, returnUser.jwt);
+        expect(localStorage.getItem(JWT_MESSAGE)).toBe(returnUser.jwt);
       });
   });
 
@@ -68,8 +70,7 @@ describe('UserActions', () => {
     ];
     axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } }).reply(200, user);
     const store = mockStore();
-    return store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() =>
-      expect(store.getActions()).toEqual(expectActions));
+    return store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() => expect(store.getActions()).toEqual(expectActions));
   });
 
   test('parserUserFromJwt with network error', () => {
@@ -79,11 +80,11 @@ describe('UserActions', () => {
 
     axiosMock.onGet(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } }).networkError();
     const store = mockStore();
-    store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() =>
-      expect(mockErrorFn).toHaveBeenCalledTimes(1));
+    store.dispatch(UserActions.parserUserFromJwt(jwtMessage)).then(() => expect(mockErrorFn).toHaveBeenCalledTimes(1));
   });
 
   test('loginWithPassword has data without error', () => {
+    localStorage.removeItem(JWT_MESSAGE);
     const user = { username: 'username', password: 'password' };
     const expectActions = [
       { type: USER_LOGIN_SUCCESS, user: { ...user, jwt: 'jwt' } }
@@ -91,13 +92,13 @@ describe('UserActions', () => {
     axiosMock.onGet(API_LOGIN_WITH_PASSWORD, { params: user }).reply(200, { ...user, jwt: 'jwt' });
     const store = mockStore();
     return store.dispatch(UserActions.loginWithPassword(user)).then(() => {
-      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
-      expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwt');
+      expect(localStorage.getItem(JWT_MESSAGE)).toBe('jwt');
       expect(store.getActions()).toEqual(expectActions);
     });
   });
 
   test('loginWithPassword no data without error', () => {
+    localStorage.removeItem(JWT_MESSAGE);
     const user = { username: 'username', password: 'password' };
     const expectActions = [
       { type: USER_LOGIN_SUCCESS, user: null }
@@ -105,7 +106,7 @@ describe('UserActions', () => {
     axiosMock.onGet(API_LOGIN_WITH_PASSWORD, { params: user }).reply(200, null);
     const store = mockStore();
     return store.dispatch(UserActions.loginWithPassword(user)).then(() => {
-      expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+      expect(localStorage.getItem(JWT_MESSAGE)).toBeNull();
       expect(store.getActions()).toEqual(expectActions);
     });
   });

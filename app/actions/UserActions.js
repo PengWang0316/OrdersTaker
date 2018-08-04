@@ -27,25 +27,20 @@ export const logout = () => dispatch => {
   dispatch(userLogoutSuccess());
 };
 
-export const registerUser = user => dispatch =>
-  axios.post(API_REGISTER_USER, user)
-    .then(({ data }) => { // After get user back, write it to localStorage and dispatch it to redux.
-      localStorage.setItem(JWT_MESSAGE, data.jwt);
-      dispatch(userLoginSuccess(data));
-    })
-    .catch(err => console.error(err));
-
-export const loginWithPassword = ({ username, password }) => dispatch =>
-  axios.get(API_LOGIN_WITH_PASSWORD, { params: { username, password } }).then(({ data }) => {
-    if (data) localStorage.setItem(JWT_MESSAGE, data.jwt);
+export const registerUser = user => dispatch => axios.post(API_REGISTER_USER, user)
+  .then(({ data }) => { // After get user back, write it to localStorage and dispatch it to redux.
+    localStorage.setItem(JWT_MESSAGE, data.jwt);
     dispatch(userLoginSuccess(data));
-  }).catch(err => console.error(err));
+  })
+  .catch(err => console.error(err));
 
-export const checkUsernameAvailable = username =>
-  new Promise((resolve, reject) =>
-    axios.get(API_CHECK_USERNAME_AVAILABLE, { params: { username } })
-      .then(({ data }) => resolve(data)).catch(err => console.error(err)));
+export const loginWithPassword = ({ username, password }) => dispatch => axios.get(API_LOGIN_WITH_PASSWORD, { params: { username, password } }).then(({ data }) => {
+  if (data) localStorage.setItem(JWT_MESSAGE, data.jwt);
+  dispatch(userLoginSuccess(data));
+}).catch(err => console.error(err));
 
-export const parserUserFromJwt = jwtMessage => dispatch =>
-  axios.get(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } })
-    .then(({ data }) => dispatch(parserUserFromJwtSuccess(data))).catch(err => console.error(err));
+export const checkUsernameAvailable = username => new Promise((resolve, reject) => axios.get(API_CHECK_USERNAME_AVAILABLE, { params: { username } })
+  .then(({ data }) => resolve(data)).catch(err => console.error(err)));
+
+export const parserUserFromJwt = jwtMessage => dispatch => axios.get(API_JWTMESSAGE_VERIFY, { params: { jwtMessage } })
+  .then(({ data }) => dispatch(parserUserFromJwtSuccess(data))).catch(err => console.error(err));

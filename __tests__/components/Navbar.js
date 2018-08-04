@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
-import { LOGIN_CALLBACK_URL } from '../../app/config';
+import { LOGIN_CALLBACK_URL, JWT_MESSAGE } from '../../app/config';
 import context from '../../app/contexts/LoginDialogContextTestHelper';
 
 jest.mock('@material-ui/core/AppBar', () => 'AppBar');
@@ -55,8 +55,9 @@ describe('Navbar test', () => {
     component.instance().handleLoginButtonClick();
     expect(defaultProps.logout).not.toHaveBeenCalled();
     expect(component.state('anchorEl')).toBeNull();
-    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/');
+    // expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    // expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/');
+    expect(localStorage.getItem(LOGIN_CALLBACK_URL)).toEqual('/');
     expect(context.handleLogoutAction).not.toHaveBeenCalled();
     expect(context.handleToggleLoginDialog).toHaveBeenCalledTimes(1);
 
@@ -69,9 +70,9 @@ describe('Navbar test', () => {
       url: 'http://df:39/dd'
     });
     component.instance().handleLoginButtonClick();
-    expect(localStorage.setItem).toHaveBeenCalledTimes(2);
-    expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/dd');
-
+    // expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+    // expect(localStorage.setItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL, '/dd');
+    expect(localStorage.getItem(LOGIN_CALLBACK_URL)).toEqual('/dd');
     component.setProps({ user: { _id: 'id' } }); // Setting a user object to props in order to test handleLoginButtonClick function.
     component.instance().handleLoginButtonClick();
     expect(defaultProps.logout).toHaveBeenCalledTimes(1);

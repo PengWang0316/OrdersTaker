@@ -29,24 +29,22 @@ describe('App component test', () => {
   const getShallowComponent = (props = defaultProps) => shallow(<App {...props} />);
 
   test('Constructor and initial states', () => {
+    localStorage.removeItem(JWT_MESSAGE);
     const { isLoginDialogOpen, isLogoutSnackBarOpen, isLoginSnackbarOpen, snackbarMessage } = getShallowComponent().state();
     expect(isLoginDialogOpen).toBe(false);
     expect(isLogoutSnackBarOpen).toBe(false);
     expect(isLoginSnackbarOpen).toBe(false);
     expect(snackbarMessage).toBe('');
-    expect(localStorage.getItem).not.toHaveBeenCalled();
     expect(defaultProps.parserUserFromJwt).not.toHaveBeenCalled();
 
     getShallowComponent({ ...defaultProps, user: {} });
-    expect(localStorage.getItem).toHaveBeenCalledTimes(1);
-    expect(localStorage.getItem).toHaveBeenLastCalledWith(JWT_MESSAGE);
     expect(defaultProps.parserUserFromJwt).not.toHaveBeenCalled();
 
-    localStorage.__STORE__[JWT_MESSAGE] = 'message'; // Set up a fake local storage value.
+    localStorage.setItem(JWT_MESSAGE, 'message');
     getShallowComponent({ ...defaultProps, user: {} });
-    expect(localStorage.getItem).toHaveBeenCalledTimes(2);
     expect(defaultProps.parserUserFromJwt).toHaveBeenCalledTimes(1);
     expect(defaultProps.parserUserFromJwt).toHaveBeenLastCalledWith('message');
+    localStorage.removeItem(JWT_MESSAGE);
   });
 
   test('handleToggleDialog', () => {

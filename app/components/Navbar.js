@@ -74,6 +74,7 @@ export class Navbar extends Component {
     } else {
       this.setState({ anchorEl: null }); // Have to make sure always close the menu.
       const matchUrl = window.location.href.match(URL_REGEXP);
+      /* istanbul ignore next */
       localStorage.setItem(LOGIN_CALLBACK_URL, matchUrl ? matchUrl[1] : '/'); // Save the current url to the local storage, which can be used to redirect users to the page they are useing after login.
       // this.handleToggleDialog();
       this.handleToggleLoginDialog();
