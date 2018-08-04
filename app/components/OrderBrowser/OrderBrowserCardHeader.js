@@ -68,7 +68,7 @@ export const OrderBrowserCardHeader = ({ order, classes, ...rest }) => {
     <CardHeader
       avatar={avatarElement}
       title={orderDate.toDateString()}
-      subheader={orderDate.toLocaleTimeString()}
+      subheader={orderDate.toLocaleTimeString('en-US')}
       {...rest}
     />
   );
