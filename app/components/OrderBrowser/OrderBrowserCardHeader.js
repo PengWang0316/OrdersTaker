@@ -36,24 +36,42 @@ export const OrderBrowserCardHeader = ({ order, classes, ...rest }) => {
   let avatarElement;
   switch (order.status) {
     case ORDER_STATUS_FINISHED:
-      avatarElement = <Tooltip title="Finished" placement="right-end"><CheckCircle className={classes.checkCircle} /></Tooltip>;
+      avatarElement = (
+        <Tooltip title="Finished" placement="right-end">
+          <CheckCircle className={classes.checkCircle} />
+        </Tooltip>
+      );
       break;
     case ORDER_STATUS_RECEIVED:
-      avatarElement = <Tooltip title="Received" placement="right-end"><OfflinePin className={classes.offlinPin} /></Tooltip>;
+      avatarElement = (
+        <Tooltip title="Received" placement="right-end">
+          <OfflinePin className={classes.offlinPin} />
+        </Tooltip>
+      );
       break;
     case ORDER_STATUS_PREPARING:
-      avatarElement = <Tooltip title="Preparing" placement="right-end"><WatchLater className={classes.watchLater} /></Tooltip>;
+      avatarElement = (
+        <Tooltip title="Preparing" placement="right-end">
+          <WatchLater className={classes.watchLater} />
+        </Tooltip>
+      );
       break;
     default:
-      avatarElement = <Tooltip title="Unknow Status" placement="right-end"><Help className={classes.unknow} /></Tooltip>;
+      avatarElement = (
+        <Tooltip title="Unknow Status" placement="right-end">
+          <Help className={classes.unknow} />
+        </Tooltip>
+      );
       break;
   }
-  return (<CardHeader
-    avatar={avatarElement}
-    title={orderDate.toDateString()}
-    subheader={orderDate.toLocaleTimeString()}
-    {...rest}
-  />);
+  return (
+    <CardHeader
+      avatar={avatarElement}
+      title={orderDate.toDateString()}
+      subheader={orderDate.toLocaleTimeString()}
+      {...rest}
+    />
+  );
 };
 OrderBrowserCardHeader.propTypes = {
   order: PropTypes.object.isRequired,
