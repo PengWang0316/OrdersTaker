@@ -1,5 +1,7 @@
 language: node_js
 node_js:
   - "6"
+before_install:
+  - export TZ=Canada/Pacific
 script: npm run testCoverage
 after_success: 'npm run coveralls'
