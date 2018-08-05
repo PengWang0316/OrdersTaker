@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
-import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../../app/config';
+import { HOME_PAGE_URL, ORDERS_PAGE_URL } from '../../app/config';
 import { OrderSummary } from '../../app/components/OrderSummary';
 import context from '../../app/contexts/LoginDialogContextTestHelper';
 
@@ -99,7 +99,7 @@ describe('OrderSummary', () => {
     expect(CartActions.placeOrder).toHaveBeenCalledTimes(1);
     expect(defaultProps.clearCart).toHaveBeenCalledTimes(2);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
-    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(ORDERS_PAGE_URL);
     expect(window.console.error).not.toHaveBeenCalled();
     expect(defaultProps.addTempOrderId).not.toHaveBeenCalled();
     expect(defaultProps.increaseOrderAmount).not.toHaveBeenCalled();
@@ -115,7 +115,7 @@ describe('OrderSummary', () => {
     expect(CartActions.placeOrder).toHaveBeenCalledTimes(2);
     expect(defaultProps.clearCart).toHaveBeenCalledTimes(3);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(3);
-    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(ORDERS_PAGE_URL);
     expect(window.console.error).not.toHaveBeenCalled();
     expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
     expect(defaultProps.addTempOrderId).toHaveBeenLastCalledWith('orderId');    
@@ -131,7 +131,7 @@ describe('OrderSummary', () => {
     expect(CartActions.placeOrder).toHaveBeenCalledTimes(3);
     expect(defaultProps.clearCart).toHaveBeenCalledTimes(4);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(4);
-    expect(defaultProps.history.push).toHaveBeenLastCalledWith(`${ORDER_STATUS_PAGE_URL}/orderId`);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(ORDERS_PAGE_URL);
     expect(window.console.error).not.toHaveBeenCalled();
     expect(defaultProps.addTempOrderId).toHaveBeenCalledTimes(1);
     expect(defaultProps.increaseOrderAmount).toHaveBeenCalledTimes(1);

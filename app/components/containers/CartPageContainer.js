@@ -46,7 +46,7 @@ const styles = {
 export class CartPageContainer extends Component {
   /**
    * Parsing the Redux state orders to an object this component can use. Also calculate the price for the order.
-   * @param {object} orders comes from Redux's state.
+   * @param {object} orderItems comes from Redux's state.
    * @param {object} menuItems has all items' information.
    * @return {object} Return an object that is sorted to use category to be the key.
    * The return object structure is like below:
@@ -140,7 +140,9 @@ export class CartPageContainer extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.summaryPanel}>
-          <div className={classes.summaryContent}>{newOrder && <OrderSummary orders={newOrder} />}</div>
+          <div className={classes.summaryContent}>
+            {newOrder && <OrderSummary orders={newOrder} />}
+          </div>
         </div>
         <div className={classes.listPanel}>
           {newOrder && (

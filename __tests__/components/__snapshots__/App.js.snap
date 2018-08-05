@@ -7,7 +7,6 @@ exports[`App component test App snapshot with user id 1`] = `
     &lt;Route path=/ /&gt;
     &lt;Route path=/cartPage /&gt;
     &lt;Route path=/loginRedirect /&gt;
-    &lt;Route path=/orderStatus/:orderId /&gt;
     &lt;Route path=/ordersPage /&gt;
     &lt;Route render=[object Object] /&gt;
   </main>
@@ -26,7 +25,6 @@ exports[`App component test App snapshot without user id 1`] = `
     &lt;Route path=/ /&gt;
     &lt;Route path=/cartPage /&gt;
     &lt;Route path=/loginRedirect /&gt;
-    &lt;Route path=/orderStatus/:orderId /&gt;
     &lt;Route path=/ordersPage /&gt;
     &lt;Route render=[object Object] /&gt;
   </main>

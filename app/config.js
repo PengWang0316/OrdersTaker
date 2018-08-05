@@ -19,5 +19,4 @@ export const ORDER_STATUS_PREPARING = 'Preparing';
 export const HOME_PAGE_URL = '/';
 export const LOGIN_REDIRECT_RUL = '/loginRedirect';
 export const CART_PAGE_URL = '/cartPage';
-export const ORDER_STATUS_PAGE_URL = '/orderStatus';
 export const ORDERS_PAGE_URL = '/ordersPage';

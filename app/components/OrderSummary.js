@@ -7,12 +7,12 @@ import { red } from '@material-ui/core/colors';
 import { RemoveShoppingCart, Send } from '@material-ui/icons';
 import { Card, CardContent, Button, CircularProgress, Tooltip } from '@material-ui/core';
 
-import QRCodeScanner from './QRCodeScanner/';
+import QRCodeScanner from './QRCodeScanner';
 import { clearCart, placeOrder } from '../actions/CartActions';
 import { addTempOrderId } from '../actions/TempOrderIdsActions';
 import { increaseOrderAmount } from '../actions/OrdersActions';
 import AlertDialog from './AlertDialog';
-import { HOME_PAGE_URL, ORDER_STATUS_PAGE_URL } from '../config';
+import { HOME_PAGE_URL, ORDERS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 import OrderSummaryCategories from './OrderSummaryCategories';
 import OrderSummaryPrice from './OrderSummaryPrice';
@@ -106,7 +106,7 @@ export class OrderSummary extends Component {
         this.props.clearCart();
         if (!user._id) this.props.addTempOrderId(data); // If the user has not logged in, call the addTempOrderId action.
         else if (reduxOrders.amount !== null) this.props.increaseOrderAmount(); // If the user has logged in and the fetchOrderAmount action has already initialized amount, increase amount.
-        history.push(`${ORDER_STATUS_PAGE_URL}/${data}`);
+        history.push(ORDERS_PAGE_URL);
       }).catch(err => console.error(err));
   };
 
