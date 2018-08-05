@@ -75,10 +75,15 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
         open={false}
       >
         <MenuItem>
-          Profile
+          <Link
+            className="link"
+            to="/ordersPage"
+          >
+            Order
+          </Link>
         </MenuItem>
         <MenuItem>
-          My account
+          Menu
         </MenuItem>
         <MenuItem
           onClick={[Function]}
@@ -170,10 +175,15 @@ exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
         open={false}
       >
         <MenuItem>
-          Profile
+          <Link
+            className="link"
+            to="/ordersPage"
+          >
+            Order
+          </Link>
         </MenuItem>
         <MenuItem>
-          My account
+          Menu
         </MenuItem>
         <MenuItem
           onClick={[Function]}
@@ -257,10 +267,15 @@ exports[`Navbar test NavBar snapshot without user 1`] = `
         open={false}
       >
         <MenuItem>
-          Profile
+          <Link
+            className="link"
+            to="/ordersPage"
+          >
+            Order
+          </Link>
         </MenuItem>
         <MenuItem>
-          My account
+          Menu
         </MenuItem>
         <MenuItem
           onClick={[Function]}

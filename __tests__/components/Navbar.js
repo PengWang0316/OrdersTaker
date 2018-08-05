@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
-import { LOGIN_CALLBACK_URL, JWT_MESSAGE } from '../../app/config';
+import { LOGIN_CALLBACK_URL, JWT_MESSAGE, HOME_PAGE_URL } from '../../app/config';
 import context from '../../app/contexts/LoginDialogContextTestHelper';
 
 jest.mock('@material-ui/core/AppBar', () => 'AppBar');
@@ -16,7 +16,10 @@ jest.mock('@material-ui/core/Menu', () => 'Menu');
 jest.mock('@material-ui/core/MenuItem', () => 'MenuItem');
 jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('@material-ui/icons/Menu', () => 'MenuIcon');
-jest.mock('react-router-dom', () => ({ Link: 'Link' }));
+// jest.mock('react-router-dom/Link', () => 'Link');
+jest.mock('react-router-dom', () => ({ Link: 'Link', withRouter: jest.fn() }));
+// jest.mock('react-redux', () => ({ connect: jest.fn() }));
+// jest.mock('@material-ui/core/styles', () => ({ withStyles: jest.fn() }));
 jest.mock('../../app/contexts/LoginDialogContext'); // The __mocks__/LoginDialogContext.js will be used automatically.
 
 // jest.mock('../../app/components/LoginDialog/LoginDialog', () => 'LoginDialog');
@@ -28,7 +31,8 @@ describe('Navbar test', () => {
   const defaultProps = {
     classes: { link: 'link', appbar: 'appbar' },
     logout: jest.fn(),
-    user: {}
+    user: {},
+    history: { push: jest.fn() }
   };
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
@@ -60,6 +64,7 @@ describe('Navbar test', () => {
     expect(localStorage.getItem(LOGIN_CALLBACK_URL)).toEqual('/');
     expect(context.handleLogoutAction).not.toHaveBeenCalled();
     expect(context.handleToggleLoginDialog).toHaveBeenCalledTimes(1);
+    expect(defaultProps.history.push).not.toHaveBeenCalled();
 
     // global.window = { location: { href: { value: 'http://df:39/dd' } } };
     // Object.defineProperty(window.location, 'href', {
@@ -77,6 +82,8 @@ describe('Navbar test', () => {
     component.instance().handleLoginButtonClick();
     expect(defaultProps.logout).toHaveBeenCalledTimes(1);
     expect(context.handleLogoutAction).toHaveBeenCalledTimes(1);
+    expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
+    expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
     // expect(component.state('open')).toBe(false);
   });
 

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MenuItem, Menu, IconButton, Hidden, Button, Typography, Toolbar, AppBar, Avatar } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import LoginDialog from './LoginDialog/';
 // import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
 // import LogoutSnackbar from './snackbars/LogoutSnackbar';
-import { logout } from '../actions/UserActions';
+import { logout as logoutActon } from '../actions/UserActions';
 import { LOGIN_CALLBACK_URL, HOME_PAGE_URL, ORDERS_PAGE_URL } from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
@@ -56,21 +56,22 @@ export class Navbar extends Component {
    * Changing anchorEl state to an click target element or null.
    * @return {null} No Return.
    */
-  handleMenuIconClick = ({ currentTarget }) =>
-    this.setState(({ anchorEl }) => {
-      if (anchorEl) return { anchorEl: null };
-      return { anchorEl: currentTarget };
-    });
+  handleMenuIconClick = ({ currentTarget }) => this.setState(({ anchorEl }) => {
+    if (anchorEl) return { anchorEl: null };
+    return { anchorEl: currentTarget };
+  });
 
   /**
    * Showing the login dialog when the user did not login and logout a user if the user has already login.
    * @return {null} No return.
    */
   handleLoginButtonClick = () => {
-    if (this.props.user._id) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
+    const { user, logout, history } = this.props;
+    if (user._id) { // If logout button was clicked, clear the state open in order to prevent the LoginDialog shows up.
       // this.setState({ open: false, logoutSnackbarOpen: true });
       this.handleLogoutAction();
-      this.props.logout();
+      logout();
+      history.push(HOME_PAGE_URL);
     } else {
       this.setState({ anchorEl: null }); // Have to make sure always close the menu.
       const matchUrl = window.location.href.match(URL_REGEXP);
@@ -125,8 +126,10 @@ export class Navbar extends Component {
                       open={Boolean(anchorEl)}
                       onClose={this.handleMenuIconClick}
                     >
-                      <MenuItem>Profile</MenuItem>
-                      <MenuItem>My account</MenuItem>
+                      <MenuItem>
+                        <Link to={ORDERS_PAGE_URL} className={classes.link}>Order</Link>
+                      </MenuItem>
+                      <MenuItem>Menu</MenuItem>
                       <MenuItem onClick={this.handleLoginButtonClick}>{user._id ?
                         (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
                       </MenuItem>
@@ -147,6 +150,7 @@ const mapStateToProps = state => ({
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logoutActon())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar));
+// Putting the withRouter to the first position because when test code mocks Link, the withRouter also has to be mocked. But it is hard to really return a react component to satisfy the whole chain call.
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)((withStyles(styles)(Navbar))));
