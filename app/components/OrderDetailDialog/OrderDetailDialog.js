@@ -16,6 +16,7 @@ import ShowDetailDialogContext from '../../contexts/ShowDetailDialogContext'; //
 
 const styles = ({
   ...dialogStyles, // Extending some basic dialog styles from DialogSytels.
+  dialogPaper: { ...dialogStyles.dialogPager, minWidth: 300, maxWidth: 1100 },
   headerDiv: { // These styles are using to cancel the CardHeader's default padding styles.
     position: 'relative',
     top: -20,
@@ -33,7 +34,7 @@ const styles = ({
   },
   summaryPanel: {
     gridArea: 'summaryPanel',
-    minWidth: 250
+    minWidth: 240
   },
   summaryContent: {
     position: 'sticky',
@@ -64,6 +65,7 @@ export class OrderDetailDialog extends Component {
     order: PropTypes.object,
     menuItems: PropTypes.object
   };
+
   static defaultProps = {
     order: null,
     menuItems: null
@@ -86,6 +88,7 @@ export class OrderDetailDialog extends Component {
    * @return {null} No return.
    */
   showDetailDialog = orderId => this.setState({ currentOrder: this.props.menuItems[orderId] }, () => this.handleDialogToggle());
+
   /**
    * The render method.
    * @return {jsx} Returning the jsx for the component.
