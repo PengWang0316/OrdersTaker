@@ -22,10 +22,7 @@ const parserUserFromJwtSuccess = user => ({
 
 export const emptyUser = () => userLoginSuccess({});
 
-export const logout = () => dispatch => {
-  localStorage.removeItem(JWT_MESSAGE);
-  dispatch(userLogoutSuccess());
-};
+export const logout = () => dispatch => dispatch(userLogoutSuccess());
 
 export const registerUser = user => dispatch => axios.post(API_REGISTER_USER, user)
   .then(({ data }) => { // After get user back, write it to localStorage and dispatch it to redux.
