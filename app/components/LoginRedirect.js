@@ -46,7 +46,7 @@ export class LoginRedirect extends Component {
     const jwtMessageMatch = props.location.search.match(JWT_REGEXP);
     if (!props.user._id && jwtMessageMatch) {
       props.parserUserFromJwt(jwtMessageMatch[1]); // Call the action to parser the jwt to a user state.
-      localStorage.setItem(JWT_MESSAGE, jwtMessageMatch[1]); // Save jwt to the local storage.
+      // localStorage.setItem(JWT_MESSAGE, jwtMessageMatch[1]); // Save jwt to the local storage.
       props.history.push(localStorage.getItem(LOGIN_CALLBACK_URL) || '/'); // Redirect users to where they left or to the home page.
     }
   }

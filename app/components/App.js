@@ -16,7 +16,7 @@ import Navbar from './Navbar';
 import { parserUserFromJwt } from '../actions/UserActions';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
-import { JWT_MESSAGE, HOME_PAGE_URL, LOGIN_REDIRECT_RUL, CART_PAGE_URL, ORDERS_PAGE_URL } from '../config';
+import { HOME_PAGE_URL, LOGIN_REDIRECT_RUL, CART_PAGE_URL, ORDERS_PAGE_URL } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 // import { CSSTransitionGroup } from 'react-transition-group';
@@ -57,8 +57,7 @@ const OrdersPage = importedComponent(() => import(/* webpackChunkName: "OrdersPa
  */
 export class App extends Component {
   static propTypes = {
-    user: PropTypes.object.isRequired,
-    parserUserFromJwt: PropTypes.func.isRequired
+    user: PropTypes.object.isRequired
   };
 
   /**
@@ -66,13 +65,13 @@ export class App extends Component {
    * @param {object} props contains the component's prop value.
    * @return {null} No return.
    */
-  constructor(props) {
-    super(props);
-    if (!props.user._id) {
-      const jwtMessage = localStorage.getItem(JWT_MESSAGE);
-      if (jwtMessage) props.parserUserFromJwt(jwtMessage);
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   if (!props.user._id) {
+  //     const jwtMessage = localStorage.getItem(JWT_MESSAGE);
+  //     if (jwtMessage) props.parserUserFromJwt(jwtMessage);
+  //   }
+  // }
 
   state = {
     isLoginDialogOpen: false,
@@ -100,8 +99,7 @@ export class App extends Component {
    * Set the logoutSnackbarOpen state to an opposite value.
    * @return {null} No return.
    */
-  handleToggleLogoutSnackbar = () => this.setState(({ isLogoutSnackBarOpen }) =>
-    ({ isLogoutSnackBarOpen: !isLogoutSnackBarOpen }));
+  handleToggleLogoutSnackbar = () => this.setState(({ isLogoutSnackBarOpen }) => ({ isLogoutSnackBarOpen: !isLogoutSnackBarOpen }));
 
   /**
    * It will be pass down in a context in order to make it available for all component.

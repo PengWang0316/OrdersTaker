@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './components/App';
 import configureStore from './store/ConfigureStore';
@@ -32,8 +32,7 @@ const render = Component => {
 render(App);
 
 // Webpack Hot Module Replacement API
-if (module.hot)
-  module.hot.accept('./components/App', () => render(App));
+if (module.hot) module.hot.accept('./components/App', () => render(App));
 
 // Registering a service worker in the production enviroment.
 registerServiceWorker();
