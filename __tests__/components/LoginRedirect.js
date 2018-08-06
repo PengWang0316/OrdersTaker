@@ -52,7 +52,7 @@ describe('LoginRedirect', () => {
     // expect(localStorage.setItem).toHaveBeenLastCalledWith(JWT_MESSAGE, 'jwtMessage');
     // expect(localStorage.getItem).toHaveBeenCalledTimes(1);
     // expect(localStorage.getItem).toHaveBeenLastCalledWith(LOGIN_CALLBACK_URL);
-    expect(localStorage.getItem(JWT_MESSAGE)).toEqual('jwtMessage');
+    // expect(localStorage.getItem(JWT_MESSAGE)).toEqual('jwtMessage');
     expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith('/');
   });
