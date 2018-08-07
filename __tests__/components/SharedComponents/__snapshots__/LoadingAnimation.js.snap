@@ -1,38 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoadingAnimation test LoadingAnimation is loading snapshot 1`] = `
+exports[`LoadingAnimation test Snapshot with isLoading false 1`] = `null`;
+
+exports[`LoadingAnimation test Snapshot with isLoading true 1`] = `
 <div
-  className="w-100 h-100 d-flex justify-content-center align-items-center"
-  style={
-    Object {
-      "minHeight": "150px",
-    }
-  }
+  className="root"
 >
   <div
-    className="progress"
-    style={
-      Object {
-        "width": "80%",
-      }
-    }
+    className="div"
   >
-    <div
-      aria-valuemax="100"
-      aria-valuemin="0"
-      aria-valuenow="75"
-      className="progress-bar progress-bar-striped progress-bar-animated"
-      role="progressbar"
-      style={
-        Object {
-          "width": "100%",
-        }
-      }
-    >
-      Loading...
-    </div>
+    <LinearProgress />
   </div>
 </div>
 `;
-
-exports[`LoadingAnimation test LoadingAnimation is not loading snapshot 1`] = `<div />`;

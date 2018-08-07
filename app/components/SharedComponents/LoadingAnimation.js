@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { LinearProgress } from '@material-ui/core';
 
-export const LoadingAnimation = props => {
-  if (props.isLoading) return (
-    <div className="w-100 h-100 d-flex justify-content-center align-items-center" style={{ minHeight: '150px' }}>
-      <div className="progress" style={{ width: '80%' }}>
-        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{ width: '100%' }}>Loading...</div>
-      </div>
-    </div>);
-  return <div />;
+const styles = {
+  root: {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 150,
+    padding: '0 30px'
+  },
+  div: {
+    width: '100%'
+  }
 };
+
+export const LoadingAnimation = ({ isLoading, classes }) => (
+  <Fragment>
+    {isLoading && (
+      <div className={classes.root}>
+        {/* The LinearProgress needs an additional div to wrap it in order to show the position correctly. */}
+        <div className={classes.div}>
+          <LinearProgress />
+        </div>
+      </div>
+    )}
+  </Fragment>
+);
 LoadingAnimation.propTypes = {
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  classes: PropTypes.object.isRequired
 };
 LoadingAnimation.defaultProps = { isLoading: true };
 /* istanbul ignore next */
 const mapStateToProps = state => ({ isLoading: state.isLoading });
-export default connect(mapStateToProps, null)(LoadingAnimation);
+export default connect(mapStateToProps, null)(withStyles(styles)(LoadingAnimation));
