@@ -104,6 +104,128 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
 </AppBar>
 `;
 
+exports[`Navbar test NavBar snapshot with user with avatar with role 2 1`] = `
+<AppBar
+  className="appbar"
+  position="static"
+>
+  <Toolbar>
+    <Link
+      className="link undefined"
+      to="/"
+    >
+      <Typography
+        color="inherit"
+        variant="title"
+      >
+        Name of the restaurant
+      </Typography>
+    </Link>
+    <Hidden
+      only="xs"
+    >
+      <Link
+        className="link"
+        to="/ordersPage"
+      >
+        <Button
+          color="inherit"
+        >
+          Order
+        </Button>
+      </Link>
+      <Button
+        color="inherit"
+      >
+        Menu
+      </Button>
+      <Link
+        className="link"
+        to="/kithenInterfacePage"
+      >
+        <Button
+          color="inherit"
+        >
+          Kithen
+        </Button>
+      </Link>
+      <Button
+        color="inherit"
+        onClick={[Function]}
+      >
+        <Avatar
+          alt="avatar"
+          src="avatar"
+        />
+        <Typography
+          color="inherit"
+        >
+          Logout
+        </Typography>
+      </Button>
+    </Hidden>
+    <Hidden
+      only={
+        Array [
+          "lg",
+          "md",
+          "sm",
+        ]
+      }
+    >
+      <IconButton
+        aria-haspopup="true"
+        aria-label="Menu"
+        aria-owns={null}
+        color="inherit"
+        onClick={[Function]}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Menu
+        anchorEl={null}
+        id="simple-menu"
+        onClose={[Function]}
+        open={false}
+      >
+        <MenuItem>
+          <Link
+            className="link"
+            to="/ordersPage"
+          >
+            Order
+          </Link>
+        </MenuItem>
+        <MenuItem>
+          Menu
+        </MenuItem>
+        <MenuItem>
+          <Link
+            className="link"
+            to="/kithenInterfacePage"
+          >
+            Kithen
+          </Link>
+        </MenuItem>
+        <MenuItem
+          onClick={[Function]}
+        >
+          <Avatar
+            alt="avatar"
+            src="avatar"
+          />
+          <Typography
+            color="inherit"
+          >
+            Logout
+          </Typography>
+        </MenuItem>
+      </Menu>
+    </Hidden>
+  </Toolbar>
+</AppBar>
+`;
+
 exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
 <AppBar
   className="appbar"

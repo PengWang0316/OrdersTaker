@@ -92,4 +92,6 @@ describe('Navbar test', () => {
   test('NavBar snapshot with user without avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id' } }} />).toJSON()).toMatchSnapshot());
 
   test('NavBar snapshot with user with avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar' } }} />).toJSON()).toMatchSnapshot());
+
+  test('NavBar snapshot with user with avatar with role 2', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar', role: 2 } }} />).toJSON()).toMatchSnapshot());
 });
