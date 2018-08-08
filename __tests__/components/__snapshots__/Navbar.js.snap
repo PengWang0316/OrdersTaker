@@ -7,7 +7,7 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
 >
   <Toolbar>
     <Link
-      className="link undefined"
+      className="link flex1"
       to="/"
     >
       <Typography
@@ -41,6 +41,7 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
       >
         <Avatar
           alt="avatar"
+          className="avatar"
           src="avatar"
         />
         <Typography
@@ -76,24 +77,33 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
       >
         <MenuItem>
           <Link
-            className="link"
+            className="menuLink"
             to="/ordersPage"
           >
-            Order
+            <Typography
+              color="textPrimary"
+            >
+              Order
+            </Typography>
           </Link>
         </MenuItem>
         <MenuItem>
-          Menu
+          <Typography
+            color="textPrimary"
+          >
+            Menu
+          </Typography>
         </MenuItem>
         <MenuItem
           onClick={[Function]}
         >
           <Avatar
             alt="avatar"
+            className="avatar"
             src="avatar"
           />
           <Typography
-            color="inherit"
+            color="textPrimary"
           >
             Logout
           </Typography>
@@ -111,7 +121,7 @@ exports[`Navbar test NavBar snapshot with user with avatar with role 2 1`] = `
 >
   <Toolbar>
     <Link
-      className="link undefined"
+      className="link flex1"
       to="/"
     >
       <Typography
@@ -155,6 +165,7 @@ exports[`Navbar test NavBar snapshot with user with avatar with role 2 1`] = `
       >
         <Avatar
           alt="avatar"
+          className="avatar"
           src="avatar"
         />
         <Typography
@@ -190,21 +201,33 @@ exports[`Navbar test NavBar snapshot with user with avatar with role 2 1`] = `
       >
         <MenuItem>
           <Link
-            className="link"
+            className="menuLink"
             to="/ordersPage"
           >
-            Order
+            <Typography
+              color="textPrimary"
+            >
+              Order
+            </Typography>
           </Link>
         </MenuItem>
         <MenuItem>
-          Menu
+          <Typography
+            color="textPrimary"
+          >
+            Menu
+          </Typography>
         </MenuItem>
         <MenuItem>
           <Link
-            className="link"
+            className="menuLink"
             to="/kithenInterfacePage"
           >
-            Kithen
+            <Typography
+              color="textPrimary"
+            >
+              Kithen
+            </Typography>
           </Link>
         </MenuItem>
         <MenuItem
@@ -212,10 +235,11 @@ exports[`Navbar test NavBar snapshot with user with avatar with role 2 1`] = `
         >
           <Avatar
             alt="avatar"
+            className="avatar"
             src="avatar"
           />
           <Typography
-            color="inherit"
+            color="textPrimary"
           >
             Logout
           </Typography>
@@ -233,7 +257,7 @@ exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
 >
   <Toolbar>
     <Link
-      className="link undefined"
+      className="link flex1"
       to="/"
     >
       <Typography
@@ -298,20 +322,28 @@ exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
       >
         <MenuItem>
           <Link
-            className="link"
+            className="menuLink"
             to="/ordersPage"
           >
-            Order
+            <Typography
+              color="textPrimary"
+            >
+              Order
+            </Typography>
           </Link>
         </MenuItem>
         <MenuItem>
-          Menu
+          <Typography
+            color="textPrimary"
+          >
+            Menu
+          </Typography>
         </MenuItem>
         <MenuItem
           onClick={[Function]}
         >
           <Typography
-            color="inherit"
+            color="textPrimary"
           >
             Logout
           </Typography>
@@ -329,7 +361,7 @@ exports[`Navbar test NavBar snapshot without user 1`] = `
 >
   <Toolbar>
     <Link
-      className="link undefined"
+      className="link flex1"
       to="/"
     >
       <Typography
@@ -390,14 +422,22 @@ exports[`Navbar test NavBar snapshot without user 1`] = `
       >
         <MenuItem>
           <Link
-            className="link"
+            className="menuLink"
             to="/ordersPage"
           >
-            Order
+            <Typography
+              color="textPrimary"
+            >
+              Order
+            </Typography>
           </Link>
         </MenuItem>
         <MenuItem>
-          Menu
+          <Typography
+            color="textPrimary"
+          >
+            Menu
+          </Typography>
         </MenuItem>
         <MenuItem
           onClick={[Function]}

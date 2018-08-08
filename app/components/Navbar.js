@@ -25,6 +25,9 @@ const styles = theme => ({
     color: theme.palette.primary.contrastText,
     textDecoration: 'none'
   },
+  menuLink: {
+    textDecoration: 'none'
+  },
   flex1: {
     flex: 1
   },
@@ -140,19 +143,25 @@ export class Navbar extends Component {
                       onClose={this.handleMenuIconClick}
                     >
                       <MenuItem>
-                        <Link to={ORDERS_PAGE_URL} className={classes.link}>Order</Link>
+                        <Link to={ORDERS_PAGE_URL} className={classes.menuLink}>
+                          <Typography color="textPrimary">Order</Typography>
+                        </Link>
                       </MenuItem>
-                      <MenuItem>Menu</MenuItem>
+                      <MenuItem>
+                        <Typography color="textPrimary">Menu</Typography>
+                      </MenuItem>
                       {user.role && user.role < NORMAL_USER_ROLE && (
                         <MenuItem>
-                          <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.link}>Kithen</Link>
+                          <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.menuLink}>
+                            <Typography color="textPrimary">Kithen</Typography>
+                          </Link>
                         </MenuItem>
                       )}
                       <MenuItem onClick={this.handleLoginButtonClick}>
                         {user._id ? (
                           <Fragment>
                             {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}
-                            <Typography color="inherit">Logout</Typography>
+                            <Typography color="textPrimary">Logout</Typography>
                           </Fragment>) : 'Login'}
                       </MenuItem>
                     </Menu>
