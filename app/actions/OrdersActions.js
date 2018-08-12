@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from './ActionTypes';
-import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS } from './ApiUrls';
+import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS, API_FETCH_UNFINISHED_ORDERS } from './ApiUrls';
 import { MAX_ORDER_AMOUNT } from '../config';
 
 const increaseOrderAmountSuccess = () => ({
@@ -15,10 +15,9 @@ const fetchOrderAmountSuccess = loginUserOrderAmount => ({
 
 export const increaseOrderAmount = () => increaseOrderAmountSuccess();
 
-export const fetchOrderAmount = user => dispatch =>
-  axios.get(API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } })
-    .then(({ data }) => dispatch(fetchOrderAmountSuccess(data)))
-    .catch(err => console.error(err));
+export const fetchOrderAmount = user => dispatch => axios.get(
+  API_FETCH_ORDER_AMOUNT, { params: { jwtMessage: user.jwt } }
+).then(({ data }) => dispatch(fetchOrderAmountSuccess(data))).catch(err => console.error(err));
 
 /**
  * Fetching the orders from database based on offset, amount and user's jwt information.
@@ -26,18 +25,30 @@ export const fetchOrderAmount = user => dispatch =>
  * @param {object} user has all user information.
  * @return {Promise} Return a promise with the orders' information.
  */
-export const fetchLoginUserOrders = (offset, user) => new Promise((resolve, reject) =>
-  axios.get(API_FETCH_ORDERS, { params: { offset, amount: MAX_ORDER_AMOUNT, jwtMessage: user.jwt } })
-    .then(({ data }) => resolve(data))
-    .catch(err => {
-      console.error(err);
-      reject(err);
-    }));
+export const fetchLoginUserOrders = (offset, user) => new Promise(
+  (resolve, reject) => axios.get(
+    API_FETCH_ORDERS, { params: { offset, amount: MAX_ORDER_AMOUNT, jwtMessage: user.jwt } }
+  ).then(({ data }) => resolve(data)).catch(err => {
+    console.error(err);
+    reject(err);
+  })
+);
 
-export const fetchUnloginUserOrders = (offset, orderIds) => new Promise((resolve, reject) =>
-  axios.get(API_FETCH_UNLOGIN_ORDERS, { params: { offset, orderIds, amount: MAX_ORDER_AMOUNT } })
+export const fetchUnloginUserOrders = (offset, orderIds) => new Promise(
+  (resolve, reject) => axios.get(
+    API_FETCH_UNLOGIN_ORDERS, { params: { offset, orderIds, amount: MAX_ORDER_AMOUNT } }
+  ).then(({ data }) => resolve(data))
+    .catch(err => {
+      console.error(err);
+      reject(err);
+    })
+);
+
+export const fetchUnfinishedOrders = user => new Promise(
+  (resolve, reject) => axios.get(API_FETCH_UNFINISHED_ORDERS, { params: { jwt: user.jwt } })
     .then(({ data }) => resolve(data))
     .catch(err => {
       console.error(err);
       reject(err);
-    }));
+    })
+);

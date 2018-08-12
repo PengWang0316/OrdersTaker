@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS } from '../../app/actions/ApiUrls';
+import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS, API_FETCH_UNFINISHED_ORDERS } from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 import { MAX_ORDER_AMOUNT } from '../../app/config';
 
@@ -82,5 +82,22 @@ describe('OrdersActions', () => {
     const orderIds = ['id1', 'id2'];
     axiosMock.onGet(API_FETCH_UNLOGIN_ORDERS, { params: { offset: 10, orderIds, amount: MAX_ORDER_AMOUNT } }).networkError();
     return OrdersActions.fetchUnloginUserOrders(10, orderIds).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
+  });
+
+  test('fetchUnfinishedOrders without error', () => {
+    console.error = jest.fn();
+    const user = { jwt: 'jwt' };
+    axiosMock.onGet(API_FETCH_UNFINISHED_ORDERS, { params: { jwt: user.jwt } }).reply(200, 'data');
+    return OrdersActions.fetchUnfinishedOrders(user).then(data => {
+      expect(data).toEqual('data');
+      expect(console.error).not.toHaveBeenCalled();
+    });
+  });
+
+  test('fetchUnfinishedOrders with error', () => {
+    console.error = jest.fn();
+    const user = { jwt: 'jwt' };
+    axiosMock.onGet(API_FETCH_UNFINISHED_ORDERS, { params: { jwt: user.jwt } }).networkError();
+    return OrdersActions.fetchUnfinishedOrders(user).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
   });
 });

@@ -18,3 +18,4 @@ export const API_FETCH_ORDER_AMOUNT = `${API_BASE_URL}/fetchOrderAmount`;
 export const API_FETCH_ORDERS = `${API_BASE_URL}/fetchOrders`;
 export const API_FETCH_UNLOGIN_ORDERS = `${API_BASE_URL}/fetchUnloginOrders`;
 export const API_LINK_ORDER_TO_ACCOUNT = `${API_BASE_URL}/linkOrderToAccount`;
+export const API_FETCH_UNFINISHED_ORDERS = `${API_BASE_URL}/fetchUnfinishedOrders`;
