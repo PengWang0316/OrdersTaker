@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { UnfinishedOrderRow } from '../../app/components/UnfinishedOrderRow';
+import { UnfinishedOrderRow } from '../../../app/components/UnfinishedOrder/UnfinishedOrderRow';
 
 jest.mock('@material-ui/core/Typography', () => 'Typography');
 jest.mock('@material-ui/core/CircularProgress', () => 'CircularProgress');
