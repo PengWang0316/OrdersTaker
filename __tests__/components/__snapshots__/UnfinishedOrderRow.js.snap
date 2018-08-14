@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnfinishedOrderRow Snapshot with finishedItems and different length 1`] = `
+<div
+  className="root"
+>
+  <Typography
+    color="primary"
+  >
+    Table 
+  </Typography>
+  <Typography
+    color="textPrimary"
+  >
+    15:22 Fri Jul 27 2018
+  </Typography>
+  <div
+    className="flexDiv"
+  >
+    <Typography
+      className="finishPercentage"
+      color="primary"
+    >
+      50
+      %
+    </Typography>
+    <CircularProgress
+      className="progress"
+      size={36}
+      value={50}
+      variant="static"
+    />
+  </div>
+</div>
+`;
+
+exports[`UnfinishedOrderRow Snapshot with finishedItems and same length 1`] = `
+<div
+  className="root"
+>
+  <Typography
+    color="primary"
+  >
+    Table 
+  </Typography>
+  <Typography
+    color="textPrimary"
+  >
+    15:22 Fri Jul 27 2018
+  </Typography>
+  <div
+    className="flexDiv"
+  >
+    <CheckCircle
+      className="circleIcon progress"
+    />
+  </div>
+</div>
+`;
+
+exports[`UnfinishedOrderRow Snapshot without finishedItems 1`] = `
+<div
+  className="root"
+>
+  <Typography
+    color="primary"
+  >
+    Table 
+  </Typography>
+  <Typography
+    color="textPrimary"
+  >
+    15:22 Fri Jul 27 2018
+  </Typography>
+  <div
+    className="flexDiv"
+  >
+    <Typography
+      className="finishPercentage"
+      color="primary"
+    >
+      0
+      %
+    </Typography>
+    <CircularProgress
+      className="progress"
+      size={36}
+      value={0}
+      variant="static"
+    />
+  </div>
+</div>
+`;
