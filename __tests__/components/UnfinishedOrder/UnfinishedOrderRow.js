@@ -5,7 +5,7 @@ import { UnfinishedOrderRow } from '../../../app/components/UnfinishedOrder/Unfi
 
 jest.mock('@material-ui/core/Typography', () => 'Typography');
 jest.mock('@material-ui/core/CircularProgress', () => 'CircularProgress');
-jest.mock('@material-ui/icons/CheckCircle', () => 'CheckCircle');
+jest.mock('@material-ui/icons/DoneAll', () => 'DoneAll');
 
 describe('UnfinishedOrderRow', () => {
   const defalutProps = {

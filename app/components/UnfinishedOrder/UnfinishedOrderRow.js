@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Typography, CircularProgress } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { CheckCircle as CheckCircleIcon } from '@material-ui/icons';
+import { DoneAll as DoneAllIcon } from '@material-ui/icons';
 import { lightGreen } from '@material-ui/core/colors';
 
 const styles = {
@@ -49,7 +49,7 @@ export const UnfinishedOrderRow = ({ order, classes }) => {
         {`${orderDate.getHours()}:${orderDate.getMinutes()} ${orderDate.toDateString()}`}
       </Typography>
       <div className={classes.flexDiv}>
-        {finishingPercentage === 100 && <CheckCircleIcon className={`${classes.circleIcon} ${classes.progress}`} />}
+        {finishingPercentage === 100 && <DoneAllIcon className={`${classes.circleIcon} ${classes.progress}`} />}
         {finishingPercentage !== 100 && (
           <Fragment>
             <Typography color="primary" className={classes.finishPercentage}>{finishingPercentage}%</Typography>

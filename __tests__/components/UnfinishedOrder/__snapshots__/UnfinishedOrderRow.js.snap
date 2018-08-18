@@ -51,7 +51,7 @@ exports[`UnfinishedOrderRow Snapshot with finishedItems and same length 1`] = `
   <div
     className="flexDiv"
   >
-    <CheckCircle
+    <DoneAll
       className="circleIcon progress"
     />
   </div>
