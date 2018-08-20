@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnfinishedOrderList Snapshot with the CheckCircleIcon 1`] = `
+<List
+  className="root"
+>
+  <ListItem
+    button={true}
+    name="123"
+    onClick={[Function]}
+  >
+    <Avatar
+      className="avatar"
+    />
+    <Typography
+      color="primary"
+    >
+      123name
+    </Typography>
+    <ListItemText
+      primary="× 2"
+    />
+    <ListItemSecondaryAction>
+      <CheckCircle
+        className="checkIcon"
+      />
+    </ListItemSecondaryAction>
+  </ListItem>
+</List>
+`;
+
+exports[`UnfinishedOrderList Snapshot without the CheckCircleIcon 1`] = `
+<List
+  className="root"
+>
+  <ListItem
+    button={true}
+    name="123"
+    onClick={[Function]}
+  >
+    <Avatar
+      className="avatar"
+    />
+    <Typography
+      color="primary"
+    >
+      123name
+    </Typography>
+    <ListItemText
+      primary="small × 1 "
+    />
+  </ListItem>
+</List>
+`;
