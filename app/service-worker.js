@@ -29,8 +29,30 @@ workbox.clientsClaim();
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
 // Custom code...
+/* 1 day cacheFirst strategy. */
+const avatarPhotoStrategy = workbox.strategies.staleWhileRevalidate({
+  cacheName: 'avatarPhotos',
+  cacheableResponse: { statuses: [0, 200] },
+});
+workbox.routing.registerRoute(/^https:\/\/graph\.facebook\.com\/.*/, avatarPhotoStrategy);
+workbox.routing.registerRoute(/^https:\/\/.*\.googleusercontent\.com\/.*/, avatarPhotoStrategy);
 
+/* 365 days cacheFirst strategy for Cloudinary images. */
+const cloudinaryStrategy = workbox.strategies.cacheFirst({
+  cacheName: 'cloudinaryImages',
+  cacheExpiration: {
+    maxEntries: 30, // It depends on the number of average image will be used for each user.
+    maxAgeSeconds: 365 * 24 * 60 * 60
+  },
+  cacheableResponse: { statuses: [0, 200] },
+});
+workbox.routing.registerRoute(/^https:\/\/res.cloudinary.com\/orderstaker\/image\/upload\/.*/, cloudinaryStrategy);
 
+/* NetworkFirst strategy for REST API call. */
+const apiCallStrategy = workbox.strategies.networkFirst();
+workbox.routing.registerRoute(/^https:\/\/orderstaker\.kevin-project\.com:8080\/.*/, apiCallStrategy);
+workbox.routing.registerRoute(/^https:\/\/orderstaker\.kevin-project\.com/, apiCallStrategy);
+workbox.routing.registerRoute(/^http:\/\/orderstaker\.kevin-project\.com/, apiCallStrategy);
 
 
 
