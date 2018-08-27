@@ -13,7 +13,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'npm install'
-                sh 'npm run build'
+                // sh 'npm run build' // The tier aws ec2 does not have enough memory to run this
             }
         }
         stage('Test') {
@@ -21,14 +21,14 @@ pipeline {
                 sh 'npm test'
             }
         }
-        stage('Deliver') { 
-            steps {
-                // input message: 'Make suer everything is ok (Click "Proceed" to deploy to the production server) ' 
-                sshagent(credentials : ['abe0d167-e79b-49f2-b141-832e0f302786']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@orderstaker.kevin-project.com sudo rm /var/www/html/*.*'	
-                    sh 'scp -r -o StrictHostKeyChecking=no /var/jenkins_home/workspace/OrdersTakerFrontEnd/dist/*.* ubuntu@orderstaker.kevin-project.com:/var/www/html'	
-                }
-            }
-        }
+        // stage('Deliver') { //The tier aws ec2 does not have enough memory to run building process
+        //     steps {
+        //         // input message: 'Make suer everything is ok (Click "Proceed" to deploy to the production server) ' 
+        //         sshagent(credentials : ['abe0d167-e79b-49f2-b141-832e0f302786']) {
+        //             sh 'ssh -o StrictHostKeyChecking=no ubuntu@orderstaker.kevin-project.com sudo rm /var/www/html/*.*'	
+        //             sh 'scp -r -o StrictHostKeyChecking=no /var/jenkins_home/workspace/OrdersTakerFrontEnd/dist/*.* ubuntu@orderstaker.kevin-project.com:/var/www/html'	
+        //         }
+        //     }
+        // }
     }
 }
