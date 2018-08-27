@@ -16,11 +16,11 @@ pipeline {
                 // sh 'npm run build' // The tier aws ec2 does not have enough memory to run this
             }
         }
-        stage('Test') {
-            steps {
-                // sh 'npm test' // The tier aws ec2 does not have enough memory to run this
-            }
-        }
+        // stage('Test') { // The tier aws ec2 does not have enough memory to run this
+        //     steps {
+        //         sh 'npm test'
+        //     }
+        // }
         // stage('Deliver') { //The tier aws ec2 does not have enough memory to run building process
         //     steps {
         //         // input message: 'Make suer everything is ok (Click "Proceed" to deploy to the production server) ' 
