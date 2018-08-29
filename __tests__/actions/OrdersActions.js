@@ -4,7 +4,13 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from '../../app/actions/ActionTypes';
-import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS, API_FETCH_UNFINISHED_ORDERS } from '../../app/actions/ApiUrls';
+import {
+  API_FETCH_ORDER_AMOUNT,
+  API_FETCH_ORDERS,
+  API_FETCH_UNLOGIN_ORDERS,
+  API_FETCH_UNFINISHED_ORDERS,
+  API_UPDATE_FINISHED_ITEMS
+} from '../../app/actions/ApiUrls';
 import * as OrdersActions from '../../app/actions/OrdersActions';
 import { MAX_ORDER_AMOUNT } from '../../app/config';
 
@@ -99,5 +105,11 @@ describe('OrdersActions', () => {
     const user = { jwt: 'jwt' };
     axiosMock.onGet(API_FETCH_UNFINISHED_ORDERS, { params: { jwt: user.jwt } }).networkError();
     return OrdersActions.fetchUnfinishedOrders(user).catch(() => expect(console.error).toHaveBeenCalledTimes(1));
+  });
+
+  test('updateFinishedItems', () => { // This does not really test the code. I cannot mock axios since other functions need use a mock axios adapter.
+    const params = { orderId: 'orderId', itemId: 'itemId', jwt: 'jwt' };
+    axiosMock.onPut(API_UPDATE_FINISHED_ITEMS, { params }).reply(200);
+    return OrdersActions.updateFinishedItems(params);
   });
 });

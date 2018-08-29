@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 import { INCREASE_ORDER_AMOUNT_SUCCESS, FETCH_ORDER_AMOUNT_SUCCESS } from './ActionTypes';
-import { API_FETCH_ORDER_AMOUNT, API_FETCH_ORDERS, API_FETCH_UNLOGIN_ORDERS, API_FETCH_UNFINISHED_ORDERS } from './ApiUrls';
+import {
+  API_FETCH_ORDER_AMOUNT,
+  API_FETCH_ORDERS,
+  API_FETCH_UNLOGIN_ORDERS,
+  API_FETCH_UNFINISHED_ORDERS,
+  API_UPDATE_FINISHED_ITEMS
+} from './ApiUrls';
 import { MAX_ORDER_AMOUNT } from '../config';
 
 const increaseOrderAmountSuccess = () => ({
@@ -52,3 +58,5 @@ export const fetchUnfinishedOrders = user => new Promise(
       reject(err);
     })
 );
+
+export const updateFinishedItems = params => axios.put(API_UPDATE_FINISHED_ITEMS, { params });
