@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UnfinishedOrderList Snapshot with an empty menuItes 1`] = `
+<List
+  className="root"
+/>
+`;
+
 exports[`UnfinishedOrderList Snapshot with the CheckCircleIcon 1`] = `
 <List
   className="root"

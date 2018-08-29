@@ -35,7 +35,7 @@ export const UnfinishedOrderList = ({
   order, menuItems, classes, onClick
 }) => (
   <List className={classes.root}>
-    {menuItems && Object.keys(order.items).map(key => (
+    {Object.keys(menuItems).length !== 0 && Object.keys(order.items).map(key => (
       <ListItem key={key} button name={key} onClick={() => onClick(order._id, key)}>
         <Avatar src={menuItems[key].photo} className={classes.avatar} />
         <Typography color="primary">

@@ -40,6 +40,7 @@ describe('UnfinishedOrderList', () => {
 
   test('Snapshot without the CheckCircleIcon', () => expect(renderer.create(<UnfinishedOrderList {...defaultProps} />).toJSON()).toMatchSnapshot());
   test('Snapshot with the CheckCircleIcon', () => expect(renderer.create(<UnfinishedOrderList {...{ ...defaultProps, order: { _id: '1', items: { 123: { qty: { _onePrice: 2 } } }, finishedItems: { 123: true } } }} />).toJSON()).toMatchSnapshot());
+  test('Snapshot with an empty menuItes', () => expect(renderer.create(<UnfinishedOrderList {...{ ...defaultProps, menuItems: {} }} />).toJSON()).toMatchSnapshot());
 
   test('Click ListItem', () => {
     const component = getShallowComponent();
