@@ -59,4 +59,4 @@ export const fetchUnfinishedOrders = user => new Promise(
     })
 );
 
-export const updateFinishedItems = params => axios.put(API_UPDATE_FINISHED_ITEMS, { params });
+export const updateFinishedItems = body => axios.put(API_UPDATE_FINISHED_ITEMS, body);

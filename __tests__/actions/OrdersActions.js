@@ -108,8 +108,8 @@ describe('OrdersActions', () => {
   });
 
   test('updateFinishedItems', () => { // This does not really test the code. I cannot mock axios since other functions need use a mock axios adapter.
-    const params = { orderId: 'orderId', itemId: 'itemId', jwt: 'jwt' };
-    axiosMock.onPut(API_UPDATE_FINISHED_ITEMS, { params }).reply(200);
-    return OrdersActions.updateFinishedItems(params);
+    const body = { orderId: 'orderId', itemId: 'itemId', jwt: 'jwt' };
+    axiosMock.onPut(API_UPDATE_FINISHED_ITEMS, body).reply(200);
+    return OrdersActions.updateFinishedItems(body);
   });
 });
