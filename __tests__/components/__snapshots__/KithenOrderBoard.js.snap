@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KithenOrderBoard Snapshot 1`] = `
+<Paper
+  className="paper"
+>
+  <ExpansionPanel>
+    <ExpansionPanelSummary
+      expandIcon={<ExpandMore />}
+    >
+      <UnfinishedOrderRow
+        order={
+          Object {
+            "_id": "orderId1",
+            "finishedItems": Object {
+              "itemId1": true,
+            },
+            "other": "other",
+          }
+        }
+      />
+    </ExpansionPanelSummary>
+    <ExpansionPanelDetails>
+      <UnfinishedOrderList
+        onClick={[Function]}
+        order={
+          Object {
+            "_id": "orderId1",
+            "finishedItems": Object {
+              "itemId1": true,
+            },
+            "other": "other",
+          }
+        }
+      />
+    </ExpansionPanelDetails>
+  </ExpansionPanel>
+  <ExpansionPanel>
+    <ExpansionPanelSummary
+      expandIcon={<ExpandMore />}
+    >
+      <UnfinishedOrderRow
+        order={
+          Object {
+            "_id": "orderId2",
+          }
+        }
+      />
+    </ExpansionPanelSummary>
+    <ExpansionPanelDetails>
+      <UnfinishedOrderList
+        onClick={[Function]}
+        order={
+          Object {
+            "_id": "orderId2",
+          }
+        }
+      />
+    </ExpansionPanelDetails>
+  </ExpansionPanel>
+</Paper>
+`;

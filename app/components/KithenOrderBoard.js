@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Paper, ExpansionPanel, ExpansionPanelDetails, Typography, ExpansionPanelSummary
+  Paper, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 
-import { fetchUnfinishedOrders } from '../actions/OrdersActions';
+import { fetchUnfinishedOrders, updateFinishedItems } from '../actions/OrdersActions';
 import UnfinishedOrderRow from './UnfinishedOrder/UnfinishedOrderRow';
 import UnfinishedOrderList from './UnfinishedOrder/UnfinishedOrderList';
 
@@ -22,7 +22,8 @@ const styles = {
  */
 export class KithenOrderBoard extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   };
 
   state = {
@@ -35,7 +36,8 @@ export class KithenOrderBoard extends Component {
    * @return {null} No return.
    */
   componentDidMount() {
-    fetchUnfinishedOrders(this.props.user).then(data => this.setState({ unfinishedOrders: KithenOrderBoard.getObjectFromArray(data) }));
+    return fetchUnfinishedOrders(this.props.user)
+      .then(data => this.setState({ unfinishedOrders: KithenOrderBoard.getObjectFromArray(data) }));
   }
 
   /**
@@ -55,10 +57,21 @@ export class KithenOrderBoard extends Component {
    * @param {string} itemId is the id of the item is changing.
    * @return {null} No return.
    */
-  handleItemClick = (orderId, itemId) => {
-    console.log(orderId, itemId);
-
-  };
+  handleItemClick = (orderId, itemId) => this.setState(({ unfinishedOrders }) => { // Updating the unfinishedOrders state
+    const newState = { ...unfinishedOrders, [orderId]: { ...unfinishedOrders[orderId] } };
+    if (!newState[orderId].finishedItems) newState[orderId].finishedItems = { [itemId]: true };
+    else {
+      const finishedItems = { ...newState[orderId].finishedItems };
+      if (newState[orderId].finishedItems[itemId]) delete finishedItems[itemId];
+      else finishedItems[itemId] = true;
+      newState[orderId].finishedItems = finishedItems;
+    }
+    // Call the back-end api
+    updateFinishedItems({
+      orderId, itemId, isFinished: newState[orderId].finishedItems[itemId], jwt: this.props.user.jwt
+    });
+    return { unfinishedOrders: newState };
+  });
 
   /**
    * The render method.
@@ -89,5 +102,6 @@ const mapStateToProps = state => ({
 });
 /* istanbul ignore next */
 // const mapDispatchToProps = dispatch => ({
+//   updateFishedItems: params => dispatch(updateFishedItems(params))
 // });
 export default connect(mapStateToProps, null)(withStyles(styles)(KithenOrderBoard));
