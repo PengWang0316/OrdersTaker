@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { LinearProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { parserUserFromJwt } from '../actions/UserActions';
+import { parserUserFromJwt as parserUserFromJwtAction } from '../actions/UserActions';
 import { LOGIN_CALLBACK_URL, JWT_MESSAGE } from '../config';
 
 const JWT_REGEXP = /^\?.+=(.+)/;
@@ -39,15 +39,17 @@ export class LoginRedirect extends Component {
 
   /**
    * If the Redux has not had a user state, call the auction to parser it based on the jwt message and save jwt to the local storage.
-   * @param {object} props contains all props' value
+   * @return {null} No return.
    */
-  constructor(props) {
-    super(props);
-    const jwtMessageMatch = props.location.search.match(JWT_REGEXP);
-    if (!props.user._id && jwtMessageMatch) {
-      props.parserUserFromJwt(jwtMessageMatch[1]); // Call the action to parser the jwt to a user state.
+  componentDidMount() {
+    const {
+      location, user, parserUserFromJwt, history
+    } = this.props;
+    const jwtMessageMatch = location.search.match(JWT_REGEXP);
+    if (!user._id && jwtMessageMatch) {
+      parserUserFromJwt(jwtMessageMatch[1]); // Call the action to parser the jwt to a user state.
       // localStorage.setItem(JWT_MESSAGE, jwtMessageMatch[1]); // Save jwt to the local storage.
-      props.history.push(localStorage.getItem(LOGIN_CALLBACK_URL) || '/'); // Redirect users to where they left or to the home page.
+      history.push(localStorage.getItem(LOGIN_CALLBACK_URL) || '/'); // Redirect users to where they left or to the home page.
     }
   }
 
@@ -71,6 +73,6 @@ const mapStateToProps = state => ({
 });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
-  parserUserFromJwt: jwtMessage => dispatch(parserUserFromJwt(jwtMessage))
+  parserUserFromJwt: jwtMessage => dispatch(parserUserFromJwtAction(jwtMessage))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(LoginRedirect));
