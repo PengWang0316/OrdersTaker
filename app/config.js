@@ -23,3 +23,7 @@ export const LOGIN_REDIRECT_RUL = '/loginRedirect';
 export const CART_PAGE_URL = '/cartPage';
 export const ORDERS_PAGE_URL = '/ordersPage';
 export const KITHEN_INTERFACE_PAGE_URL = '/kithenInterfacePage';
+
+/* Socket IO events */
+export const SOCKETIO_EVENT_ADD_NEW_ORDER = 'socketioEventAddNewOrder';
+export const SOCKETIO_EVENT_UPDATE_ORDER_ITEM = 'socketioEventUpdateOrderItem';
