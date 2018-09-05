@@ -6,10 +6,12 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import io from 'socket.io-client';
 
 import { fetchUnfinishedOrders, updateFinishedItems } from '../actions/OrdersActions';
 import UnfinishedOrderRow from './UnfinishedOrder/UnfinishedOrderRow';
 import UnfinishedOrderList from './UnfinishedOrder/UnfinishedOrderList';
+import { SOCKETIO_URL, SOCKETIO_EVENT_ADD_NEW_ORDER, SOCKETIO_EVENT_UPDATE_ORDER_ITEM } from '../config';
 
 const styles = {
   paper: {
@@ -31,11 +33,19 @@ export class KithenOrderBoard extends Component {
   };
 
   /**
-   * Fetching the unfinished orders.
+   * Initializing the socketio and fetching the unfinished orders.
    * @param {object} props contains all component's prop value.
    * @return {null} No return.
    */
   componentDidMount() {
+    this.socket = io(SOCKETIO_URL, {
+      extraHeaders: {
+        'Access-Control-Allow-Credentials': 'omit'
+      }
+    });
+    this.socket.on(SOCKETIO_EVENT_ADD_NEW_ORDER, this.addNewOrderCallback);
+    this.socket.on(SOCKETIO_EVENT_UPDATE_ORDER_ITEM, this.updateOrderItemCallback);
+
     return fetchUnfinishedOrders(this.props.user)
       .then(data => this.setState({ unfinishedOrders: KithenOrderBoard.getObjectFromArray(data) }));
   }
@@ -71,6 +81,40 @@ export class KithenOrderBoard extends Component {
       orderId, itemId, isFinished: newState[orderId].finishedItems[itemId], jwt: this.props.user.jwt
     });
     return { unfinishedOrders: newState };
+  });
+
+  /**
+   * Adding a new order to the unfinishedOrders state.
+   * @param {object} order is the new order we received.
+   * @return {null} No return.
+   */
+  addNewOrderCallback = order => this.setState(({ unfinishedOrders }) => ({
+    unfinishedOrders: {
+      ...unfinishedOrders,
+      [order._id]: { ...order, dateStamp: new Date() }
+    }
+  }));
+
+  /**
+   * Updating the item status in the state.
+   * @param {object} params is an object that contains order id, item id, and finish status.
+   * @return {null} No return.
+   */
+  updateOrderItemCallback = ({
+    orderId, itemId, isFinished
+  }) => this.setState(({ unfinishedOrders }) => {
+    const finishedItems = unfinishedOrders[orderId].finishedItems ? { ...unfinishedOrders[orderId].finishedItems } : {};
+    if (!isFinished) delete finishedItems[itemId];
+    else finishedItems[itemId] = true;
+    return {
+      unfinishedOrders: {
+        ...unfinishedOrders,
+        [orderId]: {
+          ...unfinishedOrders[orderId],
+          finishedItems
+        }
+      }
+    };
   });
 
   /**

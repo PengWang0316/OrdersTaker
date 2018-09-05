@@ -1,8 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 
 import { KithenOrderBoard } from '../../app/components/KithenOrderBoard';
+import { SOCKETIO_URL, SOCKETIO_EVENT_ADD_NEW_ORDER, SOCKETIO_EVENT_UPDATE_ORDER_ITEM } from '../../app/config';
 
 
 jest.mock('@material-ui/core/Paper', () => 'Paper');
@@ -16,6 +18,7 @@ jest.mock('../../app//actions/OrdersActions', () => ({
   fetchUnfinishedOrders: jest.fn().mockReturnValue(Promise.resolve([{ _id: '1' }, { _id: '2' }])),
   updateFinishedItems: jest.fn()
 }));
+jest.mock('socket.io-client', () => jest.fn());
 
 describe('KithenOrderBoard', () => {
   const defaultProps = {
@@ -29,9 +32,22 @@ describe('KithenOrderBoard', () => {
   const getShallowComponent = (props = defaultProps) => shallow(<KithenOrderBoard {...defaultProps} />);
 
   test('componentDidMount', () => {
+    const mockOnFn = jest.fn();
     const OrdersActions = require('../../app//actions/OrdersActions');
+    const socketio = require('socket.io-client');
+    socketio.mockReturnValue({ on: mockOnFn });
     const component = getShallowComponent();
     expect(OrdersActions.fetchUnfinishedOrders).toHaveBeenCalledTimes(1);
+    expect(socketio).toHaveBeenCalledTimes(1);
+    expect(socketio).toHaveBeenLastCalledWith(SOCKETIO_URL, {
+      extraHeaders: {
+        'Access-Control-Allow-Credentials': 'omit'
+      }
+    });
+    expect(mockOnFn).toHaveBeenCalledTimes(2);
+    expect(mockOnFn).toHaveBeenNthCalledWith(1, SOCKETIO_EVENT_ADD_NEW_ORDER, component.instance().addNewOrderCallback);
+    expect(mockOnFn).toHaveBeenNthCalledWith(2, SOCKETIO_EVENT_UPDATE_ORDER_ITEM, component.instance().updateOrderItemCallback);
+    expect(component.instance().socket).toEqual({ on: mockOnFn });
     // expect(component.state('unfinishedOrders')).toEqual({ 1: { _id: '1' }, 2: { _id: '2' } });
   });
 
@@ -76,9 +92,49 @@ describe('KithenOrderBoard', () => {
     });
   });
 
+  test('addNewOrderCallback', () => {
+    const timer = sinon.useFakeTimers(new Date('2018/09/04').getTime());
+    const component = getShallowComponent();
+    const oldState = { orderId1: { _id: 'orderId1', finishedItems: {}, other: 'other' }, orderId2: { _id: 'orderId2' } };
+    const newState = {
+      _id: 'orderId3', finishedItems: {}, other: 'other', dateStamp: new Date()
+    };
+    component.instance().state = { unfinishedOrders: oldState };
+    component.instance().addNewOrderCallback(newState);
+    expect(component.state('unfinishedOrders')).toEqual({ ...oldState, [newState._id]: { ...newState } });
+    timer.restore();
+  });
+
+  test('updateOrderItemCallback isFinished', () => {
+    const component = getShallowComponent();
+    const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
+    // component.setState({ unfinishedOrders: oldState });
+    component.instance().state = { unfinishedOrders: oldState };
+    component.instance().updateOrderItemCallback({ orderId: 'orderId1', itemId: 'itemId3', isFinished: true });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true, itemId3: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
+  });
+
+  test('updateOrderItemCallback isFinished with undefined finishedItems', () => {
+    const component = getShallowComponent();
+    const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
+    // component.setState({ unfinishedOrders: oldState });
+    component.instance().state = { unfinishedOrders: oldState };
+    component.instance().updateOrderItemCallback({ orderId: 'orderId2', itemId: 'itemId3', isFinished: true });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2', finishedItems: { itemId3: true } } });
+  });
+
+  test('updateOrderItemCallback isFinished is false', () => {
+    const component = getShallowComponent();
+    const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
+    component.setState({ unfinishedOrders: oldState });
+    component.instance().updateOrderItemCallback({ orderId: 'orderId1', itemId: 'itemId2', isFinished: false });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
+  });
+
   test('Snapshot', () => {
     const component = getShallowComponent();
     component.setState({ unfinishedOrders: { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } } });
     expect(renderer.create(component).toJSON()).toMatchSnapshot();
   });
+
 });
