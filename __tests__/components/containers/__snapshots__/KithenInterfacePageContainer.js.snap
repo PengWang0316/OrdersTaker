@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KithenInterfacePageContainer Snapshot 1`] = `
+<div
+  className="root"
+>
+  <div
+    className="titleDiv"
+  >
+    <Typography
+      color="primary"
+      variant="title"
+    >
+      All received order
+    </Typography>
+    <Typography
+      color="textSecondary"
+    >
+      <Clock
+        format="HH:mm:ss MMM DD YYYY"
+        ticking={true}
+      />
+    </Typography>
+  </div>
+  <CloKithenOrderBoardck />
+</div>
+`;
