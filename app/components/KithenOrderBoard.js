@@ -78,7 +78,11 @@ export class KithenOrderBoard extends Component {
     }
     // Call the back-end api
     updateFinishedItems({
-      orderId, itemId, isFinished: newState[orderId].finishedItems[itemId], jwt: this.props.user.jwt
+      orderId,
+      itemId,
+      isItemFinished: newState[orderId].finishedItems[itemId],
+      isOrderFinished: newState[orderId].finishedItems ? Object.keys(newState[orderId].items).length === Object.keys(newState[orderId].finishedItems).length : false,
+      jwt: this.props.user.jwt
     });
     return { unfinishedOrders: newState };
   });
@@ -101,10 +105,10 @@ export class KithenOrderBoard extends Component {
    * @return {null} No return.
    */
   updateOrderItemCallback = ({
-    orderId, itemId, isFinished
+    orderId, itemId, isItemFinished
   }) => this.setState(({ unfinishedOrders }) => {
     const finishedItems = unfinishedOrders[orderId].finishedItems ? { ...unfinishedOrders[orderId].finishedItems } : {};
-    if (!isFinished) delete finishedItems[itemId];
+    if (!isItemFinished) delete finishedItems[itemId];
     else finishedItems[itemId] = true;
     return {
       unfinishedOrders: {

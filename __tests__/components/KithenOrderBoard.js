@@ -56,39 +56,39 @@ describe('KithenOrderBoard', () => {
   test('handleItemClick without finishedItems', () => {
     const OrdersActions = require('../../app//actions/OrdersActions'); 
     const component = getShallowComponent();
-    component.instance().state = { unfinishedOrders: { orderId1: { _id: 'orderId1' }, orderId2: { _id: 'orderId2' } } };
+    component.instance().state = { unfinishedOrders: { orderId1: { _id: 'orderId1', items: { idA: 'a' } }, orderId2: { _id: 'orderId2', items: { idA: 'a' } } } };
     component.instance().handleItemClick('orderId1', 'itemId1');
 
-    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true } }, orderId2: { _id: 'orderId2' } });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, items: { idA: 'a' } }, orderId2: { _id: 'orderId2', items: { idA: 'a' } } });
     expect(OrdersActions.updateFinishedItems).toHaveBeenCalledTimes(1);
     expect(OrdersActions.updateFinishedItems).toHaveBeenLastCalledWith({
-      orderId: 'orderId1', itemId: 'itemId1', isFinished: true, jwt: defaultProps.user.jwt
+      orderId: 'orderId1', itemId: 'itemId1', isItemFinished: true, jwt: defaultProps.user.jwt, isOrderFinished: true
     });
   });
 
   test('handleItemClick with finishedItems and itemId', () => {
     const OrdersActions = require('../../app//actions/OrdersActions'); 
     const component = getShallowComponent();
-    component.setState({ unfinishedOrders: { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } } });
+    component.setState({ unfinishedOrders: { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other', items: { idA: 'a' } }, orderId2: { _id: 'orderId2', items: { idA: 'a' } } } });
     component.instance().handleItemClick('orderId1', 'itemId1');
 
-    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: {}, other: 'other' }, orderId2: { _id: 'orderId2' } });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: {}, other: 'other', items: { idA: 'a' } }, orderId2: { _id: 'orderId2', items: { idA: 'a' } } });
     expect(OrdersActions.updateFinishedItems).toHaveBeenCalledTimes(2);
     expect(OrdersActions.updateFinishedItems).toHaveBeenLastCalledWith({
-      orderId: 'orderId1', itemId: 'itemId1', isFinished: undefined, jwt: defaultProps.user.jwt
+      orderId: 'orderId1', itemId: 'itemId1', isItemFinished: undefined, jwt: defaultProps.user.jwt, isOrderFinished: false
     });
   });
 
   test('handleItemClick with finishedItems without itemId', () => {
     const OrdersActions = require('../../app//actions/OrdersActions'); 
     const component = getShallowComponent();
-    component.instance().state = { unfinishedOrders: { orderId1: { _id: 'orderId1', finishedItems: {}, other: 'other' }, orderId2: { _id: 'orderId2' } } };
+    component.instance().state = { unfinishedOrders: { orderId1: { _id: 'orderId1', finishedItems: {}, other: 'other', items: { idA: 'a' } }, orderId2: { _id: 'orderId2', items: { idA: 'a' } } } };
     component.instance().handleItemClick('orderId1', 'itemId1');
 
-    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other', items: { idA: 'a' } }, orderId2: { _id: 'orderId2', items: { idA: 'a' } } });
     expect(OrdersActions.updateFinishedItems).toHaveBeenCalledTimes(3);
     expect(OrdersActions.updateFinishedItems).toHaveBeenLastCalledWith({
-      orderId: 'orderId1', itemId: 'itemId1', isFinished: true, jwt: defaultProps.user.jwt
+      orderId: 'orderId1', itemId: 'itemId1', isItemFinished: true, jwt: defaultProps.user.jwt, isOrderFinished: true
     });
   });
 
@@ -110,7 +110,7 @@ describe('KithenOrderBoard', () => {
     const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
     // component.setState({ unfinishedOrders: oldState });
     component.instance().state = { unfinishedOrders: oldState };
-    component.instance().updateOrderItemCallback({ orderId: 'orderId1', itemId: 'itemId3', isFinished: true });
+    component.instance().updateOrderItemCallback({ orderId: 'orderId1', itemId: 'itemId3', isItemFinished: true });
     expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true, itemId3: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
   });
 
@@ -119,7 +119,7 @@ describe('KithenOrderBoard', () => {
     const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
     // component.setState({ unfinishedOrders: oldState });
     component.instance().state = { unfinishedOrders: oldState };
-    component.instance().updateOrderItemCallback({ orderId: 'orderId2', itemId: 'itemId3', isFinished: true });
+    component.instance().updateOrderItemCallback({ orderId: 'orderId2', itemId: 'itemId3', isItemFinished: true });
     expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2', finishedItems: { itemId3: true } } });
   });
 
