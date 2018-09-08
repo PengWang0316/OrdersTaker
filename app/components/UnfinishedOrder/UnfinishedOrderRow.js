@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, CircularProgress } from '@material-ui/core';
+import { Typography, CircularProgress, IconButton } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { DoneAll as DoneAllIcon } from '@material-ui/icons';
-import { lightGreen } from '@material-ui/core/colors';
+import { DoneAll as DoneAllIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import { lightGreen, red } from '@material-ui/core/colors';
 
-const styles = {
+/* istanbul ignore next */
+const styles = theme => ({
   root: {
     width: '100%',
     display: 'flex',
@@ -28,8 +29,24 @@ const styles = {
     width: 30,
     height: 30,
     color: lightGreen[700]
+  },
+  deleteIcon: {
+    width: 20,
+    height: 20
+  },
+  deleteBtn: {
+    marginLeft: 10,
+    // color: theme.palette.getContrastText(red[700]),
+    // backgroundColor: red[700],
+    '&:hover': {
+      color: theme.palette.getContrastText(red[700]),
+      backgroundColor: red[600]
+    }
+  },
+  finishedDate: {
+    marginLeft: -83
   }
-};
+});
 
 const getPercentageOfFinishing = (finishedItemsLength, itemsLength) => Math.floor((finishedItemsLength / itemsLength) * 100);
 
@@ -44,8 +61,14 @@ export const UnfinishedOrderRow = ({ order, classes }) => {
   }
   return (
     <div className={classes.root}>
-      <Typography color="primary">Table {order.tableNumber}</Typography>
-      <Typography color="textPrimary">
+      <div className={classes.flexDiv}>
+        <Typography color="primary">Table {order.tableNumber}</Typography>
+        {finishingPercentage === 100 && (
+          <IconButton className={classes.deleteBtn}>
+            <DeleteIcon className={classes.deleteIcon} />
+          </IconButton>)}
+      </div>
+      <Typography color="textPrimary" className={finishingPercentage === 100 ? classes.finishedDate : null}>
         {`${orderDate.getHours()}:${orderDate.getMinutes()} ${orderDate.toDateString()}`}
       </Typography>
       <div className={classes.flexDiv}>
