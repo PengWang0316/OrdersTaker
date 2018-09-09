@@ -81,7 +81,7 @@ export class KithenOrderBoard extends Component {
       orderId,
       itemId,
       isItemFinished: newState[orderId].finishedItems[itemId],
-      isOrderFinished: newState[orderId].finishedItems ? Object.keys(newState[orderId].items).length === Object.keys(newState[orderId].finishedItems).length : false,
+      isOrderFinished: Object.keys(newState[orderId].items).length === Object.keys(newState[orderId].finishedItems).length,
       jwt: this.props.user.jwt
     });
     return { unfinishedOrders: newState };
