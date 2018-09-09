@@ -48,9 +48,14 @@ const styles = theme => ({
   }
 });
 
+let propDeleteOrderCallback;
+let orderId;
+
+const handleDeleteBtnClick = () => propDeleteOrderCallback(orderId);
+
 const getPercentageOfFinishing = (finishedItemsLength, itemsLength) => Math.floor((finishedItemsLength / itemsLength) * 100);
 
-export const UnfinishedOrderRow = ({ order, classes }) => {
+export const UnfinishedOrderRow = ({ order, classes, deleteOrderCallback }) => {
   const orderDate = new Date(order.dateStamp);
   let finishingPercentage = 0;
   if (order.finishedItems) { // If the order has some finished items, calculate the percentage for the finishing.
@@ -59,12 +64,14 @@ export const UnfinishedOrderRow = ({ order, classes }) => {
     finishingPercentage = finishedItemsLength === itemsLength
       ? 100 : getPercentageOfFinishing(finishedItemsLength, itemsLength);
   }
+  propDeleteOrderCallback = deleteOrderCallback;
+  orderId = order._id;
   return (
     <div className={classes.root}>
       <div className={classes.flexDiv}>
         <Typography color="primary">Table {order.tableNumber}</Typography>
         {finishingPercentage === 100 && (
-          <IconButton className={classes.deleteBtn}>
+          <IconButton className={classes.deleteBtn} onClick={handleDeleteBtnClick}>
             <DeleteIcon className={classes.deleteIcon} />
           </IconButton>)}
       </div>
@@ -85,6 +92,7 @@ export const UnfinishedOrderRow = ({ order, classes }) => {
 };
 UnfinishedOrderRow.propTypes = {
   classes: PropTypes.object.isRequired,
-  order: PropTypes.object.isRequired
+  order: PropTypes.object.isRequired,
+  deleteOrderCallback: PropTypes.func.isRequired
 };
 export default withStyles(styles)(UnfinishedOrderRow);
