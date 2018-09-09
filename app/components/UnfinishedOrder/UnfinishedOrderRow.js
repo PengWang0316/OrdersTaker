@@ -48,10 +48,10 @@ const styles = theme => ({
   }
 });
 
-let propDeleteOrderCallback;
-let orderId;
+// let propDeleteOrderCallback;
+// let orderId;
 
-const handleDeleteBtnClick = () => propDeleteOrderCallback(orderId);
+// const handleDeleteBtnClick = () => propDeleteOrderCallback(orderId);
 
 const getPercentageOfFinishing = (finishedItemsLength, itemsLength) => Math.floor((finishedItemsLength / itemsLength) * 100);
 
@@ -64,14 +64,14 @@ export const UnfinishedOrderRow = ({ order, classes, deleteOrderCallback }) => {
     finishingPercentage = finishedItemsLength === itemsLength
       ? 100 : getPercentageOfFinishing(finishedItemsLength, itemsLength);
   }
-  propDeleteOrderCallback = deleteOrderCallback;
-  orderId = order._id;
+  // propDeleteOrderCallback = deleteOrderCallback;
+  // orderId = order._id;
   return (
     <div className={classes.root}>
       <div className={classes.flexDiv}>
         <Typography color="primary">Table {order.tableNumber}</Typography>
         {finishingPercentage === 100 && (
-          <IconButton className={classes.deleteBtn} onClick={handleDeleteBtnClick}>
+          <IconButton className={classes.deleteBtn} onClick={() => deleteOrderCallback(order._id)}>
             <DeleteIcon className={classes.deleteIcon} />
           </IconButton>)}
       </div>

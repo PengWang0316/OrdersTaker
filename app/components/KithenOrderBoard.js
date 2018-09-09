@@ -46,6 +46,8 @@ export class KithenOrderBoard extends Component {
     this.socket.on(SOCKETIO_EVENT_ADD_NEW_ORDER, this.addNewOrderCallback);
     this.socket.on(SOCKETIO_EVENT_UPDATE_ORDER_ITEM, this.updateOrderItemCallback);
 
+    this.deletedOrders = {}; // Using to save deleted orders in order to add it back when other user changes its status.
+
     return fetchUnfinishedOrders(this.props.user)
       .then(data => this.setState({ unfinishedOrders: KithenOrderBoard.getObjectFromArray(data) }));
   }
@@ -122,6 +124,18 @@ export class KithenOrderBoard extends Component {
   });
 
   /**
+   * Removing the order from unfinishedOrders state.
+   * @param {string} orderId is the id of the order will be removed.
+   * @return {null} No return.
+   */
+  handleDeleteClickCallback = orderId => this.setState(({ unfinishedOrders }) => {
+    this.deletedOrders[orderId] = unfinishedOrders[orderId]; // Put the order to an object in order to add it back when other users change it status remotly.
+    const newState = { ...unfinishedOrders };
+    delete newState[orderId];
+    return { unfinishedOrders: newState };
+  });
+
+  /**
    * The render method.
    * @return {jsx} Return the jsx for the component
    */
@@ -133,7 +147,7 @@ export class KithenOrderBoard extends Component {
         {unfinishedOrders && Object.keys(unfinishedOrders).map(key => (
           <ExpansionPanel key={key}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <UnfinishedOrderRow order={unfinishedOrders[key]} />
+              <UnfinishedOrderRow order={unfinishedOrders[key]} deleteOrderCallback={this.handleDeleteClickCallback} />
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <UnfinishedOrderList order={unfinishedOrders[key]} onClick={this.handleItemClick} />

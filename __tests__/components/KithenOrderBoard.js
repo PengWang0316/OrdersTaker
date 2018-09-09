@@ -48,6 +48,7 @@ describe('KithenOrderBoard', () => {
     expect(mockOnFn).toHaveBeenNthCalledWith(1, SOCKETIO_EVENT_ADD_NEW_ORDER, component.instance().addNewOrderCallback);
     expect(mockOnFn).toHaveBeenNthCalledWith(2, SOCKETIO_EVENT_UPDATE_ORDER_ITEM, component.instance().updateOrderItemCallback);
     expect(component.instance().socket).toEqual({ on: mockOnFn });
+    expect(component.instance().deletedOrders).toEqual({});
     // expect(component.state('unfinishedOrders')).toEqual({ 1: { _id: '1' }, 2: { _id: '2' } });
   });
 
@@ -129,6 +130,15 @@ describe('KithenOrderBoard', () => {
     component.setState({ unfinishedOrders: oldState });
     component.instance().updateOrderItemCallback({ orderId: 'orderId1', itemId: 'itemId2', isFinished: false });
     expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
+  });
+
+  test('handleDeleteClickCallback', () => {
+    const component = getShallowComponent();
+    const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
+    component.setState({ unfinishedOrders: oldState });
+    component.instance().handleDeleteClickCallback('orderId1');
+    expect(component.state('unfinishedOrders')).toEqual({ orderId2: { _id: 'orderId2' } });
+    expect(component.instance().deletedOrders).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' } });
   });
 
   test('Snapshot', () => {

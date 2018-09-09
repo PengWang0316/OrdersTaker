@@ -9,6 +9,7 @@ exports[`KithenOrderBoard Snapshot 1`] = `
       expandIcon={<ExpandMore />}
     >
       <UnfinishedOrderRow
+        deleteOrderCallback={[Function]}
         order={
           Object {
             "_id": "orderId1",
@@ -40,6 +41,7 @@ exports[`KithenOrderBoard Snapshot 1`] = `
       expandIcon={<ExpandMore />}
     >
       <UnfinishedOrderRow
+        deleteOrderCallback={[Function]}
         order={
           Object {
             "_id": "orderId2",
