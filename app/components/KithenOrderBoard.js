@@ -109,14 +109,15 @@ export class KithenOrderBoard extends Component {
   updateOrderItemCallback = ({
     orderId, itemId, isItemFinished
   }) => this.setState(({ unfinishedOrders }) => {
-    const finishedItems = unfinishedOrders[orderId].finishedItems ? { ...unfinishedOrders[orderId].finishedItems } : {};
+    const order = unfinishedOrders[orderId] ? unfinishedOrders[orderId] : this.deletedOrders[orderId]; // Get the order from the saving variable if it was deleted
+    const finishedItems = order.finishedItems ? { ...order.finishedItems } : {};
     if (!isItemFinished) delete finishedItems[itemId];
     else finishedItems[itemId] = true;
     return {
       unfinishedOrders: {
         ...unfinishedOrders,
         [orderId]: {
-          ...unfinishedOrders[orderId],
+          ...order,
           finishedItems
         }
       }

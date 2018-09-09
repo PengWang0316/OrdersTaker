@@ -132,6 +132,15 @@ describe('KithenOrderBoard', () => {
     expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
   });
 
+  test('updateOrderItemCallback no order in the state', () => {
+    const component = getShallowComponent();
+    const oldState = { orderId2: { _id: 'orderId2' } };
+    component.setState({ unfinishedOrders: oldState });
+    component.instance().deletedOrders = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' } };
+    component.instance().updateOrderItemCallback({ orderId: 'orderId1', itemId: 'itemId2', isFinished: false });
+    expect(component.state('unfinishedOrders')).toEqual({ orderId1: { _id: 'orderId1', finishedItems: { itemId1: true }, other: 'other' }, orderId2: { _id: 'orderId2' } });
+  });
+
   test('handleDeleteClickCallback', () => {
     const component = getShallowComponent();
     const oldState = { orderId1: { _id: 'orderId1', finishedItems: { itemId1: true, itemId2: true }, other: 'other' }, orderId2: { _id: 'orderId2' } };
