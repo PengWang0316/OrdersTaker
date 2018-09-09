@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 
 import { Navbar } from '../../app/components/Navbar';
-import { LOGIN_CALLBACK_URL, JWT_MESSAGE, HOME_PAGE_URL } from '../../app/config';
+import { LOGIN_CALLBACK_URL, HOME_PAGE_URL } from '../../app/config';
 import context from '../../app/contexts/LoginDialogContextTestHelper';
 
 jest.mock('@material-ui/core/AppBar', () => 'AppBar');
@@ -29,7 +29,9 @@ jest.mock('../../app/contexts/LoginDialogContext'); // The __mocks__/LoginDialog
 
 describe('Navbar test', () => {
   const defaultProps = {
-    classes: { link: 'link', appbar: 'appbar' },
+    classes: {
+      link: 'link', appbar: 'appbar', menuLink: 'menuLink', flex1: 'flex1', avatar: 'avatar'
+    },
     logout: jest.fn(),
     user: {},
     history: { push: jest.fn() }
@@ -92,4 +94,6 @@ describe('Navbar test', () => {
   test('NavBar snapshot with user without avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id' } }} />).toJSON()).toMatchSnapshot());
 
   test('NavBar snapshot with user with avatar', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar' } }} />).toJSON()).toMatchSnapshot());
+
+  test('NavBar snapshot with user with avatar with role 2', () => expect(renderer.create(<Navbar {...{ ...defaultProps, user: { _id: 'id', avatar: 'avatar', role: 2 } }} />).toJSON()).toMatchSnapshot());
 });

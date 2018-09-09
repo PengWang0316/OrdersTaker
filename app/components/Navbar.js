@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { MenuItem, Menu, IconButton, Hidden, Button, Typography, Toolbar, AppBar, Avatar } from '@material-ui/core';
+import {
+  MenuItem, Menu, IconButton, Hidden, Button, Typography, Toolbar, AppBar, Avatar
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -10,7 +12,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import LoginDialogSnackbar from './snackbars/LoginDialogSnackbar';
 // import LogoutSnackbar from './snackbars/LogoutSnackbar';
 import { logout as logoutActon } from '../actions/UserActions';
-import { LOGIN_CALLBACK_URL, HOME_PAGE_URL, ORDERS_PAGE_URL } from '../config';
+import {
+  LOGIN_CALLBACK_URL, HOME_PAGE_URL, ORDERS_PAGE_URL, NORMAL_USER_ROLE, KITHEN_INTERFACE_PAGE_URL
+} from '../config';
 import LoginDialogContext from '../contexts/LoginDialogContext';
 
 const URL_REGEXP = /^https?:\/\/.+?(\/.*)/; // Using this to get the relative url.
@@ -19,6 +23,9 @@ const URL_REGEXP = /^https?:\/\/.+?(\/.*)/; // Using this to get the relative ur
 const styles = theme => ({
   link: {
     color: theme.palette.primary.contrastText,
+    textDecoration: 'none'
+  },
+  menuLink: {
     textDecoration: 'none'
   },
   flex1: {
@@ -99,15 +106,24 @@ export class Navbar extends Component {
               <AppBar position="static" className={classes.appbar}>
                 <Toolbar>
                   <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`}>
-                    <Typography variant="title" color="inherit">
-                      Name of the restaurant
-                    </Typography>
+                    <Typography variant="title" color="inherit">Name of the restaurant</Typography>
                   </Link>
                   <Hidden only="xs">
-                    <Link to={ORDERS_PAGE_URL} className={classes.link}><Button color="inherit">Order</Button></Link>
+                    <Link to={ORDERS_PAGE_URL} className={classes.link}>
+                      <Button color="inherit">Order</Button>
+                    </Link>
                     <Button color="inherit">Menu</Button>
-                    <Button color="inherit" onClick={this.handleLoginButtonClick}>{user._id ?
-                      (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
+                    {user.role && user.role < NORMAL_USER_ROLE && (
+                      <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.link}>
+                        <Button color="inherit">Kithen</Button>
+                      </Link>
+                    )}
+                    <Button color="inherit" onClick={this.handleLoginButtonClick}>
+                      {user._id ? (
+                        <Fragment>
+                          {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}
+                          <Typography color="inherit">Logout</Typography>
+                        </Fragment>) : 'Login'}
                     </Button>
                   </Hidden>
                   <Hidden only={['lg', 'md', 'sm']}>
@@ -127,11 +143,26 @@ export class Navbar extends Component {
                       onClose={this.handleMenuIconClick}
                     >
                       <MenuItem>
-                        <Link to={ORDERS_PAGE_URL} className={classes.link}>Order</Link>
+                        <Link to={ORDERS_PAGE_URL} className={classes.menuLink}>
+                          <Typography color="textPrimary">Order</Typography>
+                        </Link>
                       </MenuItem>
-                      <MenuItem>Menu</MenuItem>
-                      <MenuItem onClick={this.handleLoginButtonClick}>{user._id ?
-                        (<Fragment>{user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}<Typography color="inherit">Logout</Typography></Fragment>) : 'Login'}
+                      <MenuItem>
+                        <Typography color="textPrimary">Menu</Typography>
+                      </MenuItem>
+                      {user.role && user.role < NORMAL_USER_ROLE && (
+                        <MenuItem>
+                          <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.menuLink}>
+                            <Typography color="textPrimary">Kithen</Typography>
+                          </Link>
+                        </MenuItem>
+                      )}
+                      <MenuItem onClick={this.handleLoginButtonClick}>
+                        {user._id ? (
+                          <Fragment>
+                            {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}
+                            <Typography color="textPrimary">Logout</Typography>
+                          </Fragment>) : 'Login'}
                       </MenuItem>
                     </Menu>
                   </Hidden>

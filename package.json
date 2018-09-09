@@ -7,6 +7,7 @@
     "create": "webpack",
     "start": "webpack-dev-server --mode development --open",
     "build": "set NODE_ENV=production & webpack --mode production -p",
+    "deploy": "scp -i c:/projects/orderstaker.pem c:/projects/orderstaker/dist/*.* ubuntu@orderstaker.kevin-project.com:/var/www/html/", 
     "test": "jest",
     "testCoverage": "jest --coverage --runInBand",
     "testWatch": "jest --watch",
@@ -61,6 +62,7 @@
     "react-dom": "^16.4.2",
     "react-hot-loader": "^4.3.4",
     "react-imported-component": "^4.6.2",
+    "react-live-clock": "^2.0.3",
     "react-qr-reader": "^2.1.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
@@ -68,6 +70,7 @@
     "redux": "^4.0.0",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.2.0",
+    "socket.io-client": "^2.1.1",
     "workbox-sw": "^3.4.1"
   },
   "devDependencies": {
