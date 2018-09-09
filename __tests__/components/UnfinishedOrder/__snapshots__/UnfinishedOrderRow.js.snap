@@ -4,12 +4,17 @@ exports[`UnfinishedOrderRow Snapshot with finishedItems and different length 1`]
 <div
   className="root"
 >
-  <Typography
-    color="primary"
+  <div
+    className="flexDiv"
   >
-    Table 
-  </Typography>
+    <Typography
+      color="primary"
+    >
+      Table 
+    </Typography>
+  </div>
   <Typography
+    className={null}
     color="textPrimary"
   >
     15:22 Fri Jul 27 2018
@@ -38,11 +43,20 @@ exports[`UnfinishedOrderRow Snapshot with finishedItems and same length 1`] = `
 <div
   className="root"
 >
-  <Typography
-    color="primary"
+  <div
+    className="flexDiv"
   >
-    Table 
-  </Typography>
+    <Typography
+      color="primary"
+    >
+      Table 
+    </Typography>
+    <IconButton
+      onClick={[Function]}
+    >
+      <Delete />
+    </IconButton>
+  </div>
   <Typography
     color="textPrimary"
   >
@@ -62,12 +76,17 @@ exports[`UnfinishedOrderRow Snapshot without finishedItems 1`] = `
 <div
   className="root"
 >
-  <Typography
-    color="primary"
+  <div
+    className="flexDiv"
   >
-    Table 
-  </Typography>
+    <Typography
+      color="primary"
+    >
+      Table 
+    </Typography>
+  </div>
   <Typography
+    className={null}
     color="textPrimary"
   >
     15:22 Fri Jul 27 2018
