@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 
 import PriceItem from './PriceItem';
 import ShowDetailDialogContext from '../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
-import { IMAGE_PLACEHOLDER_URL } from '../config';
+import { IMAGE_PLACEHOLDER_URL, LAZY_IMAGE_CLASS } from '../config';
 
 
 const styles = {
@@ -51,7 +51,7 @@ export const MenuItem = ({ classes, item }) => (
   <ShowDetailDialogContext.Consumer>
     {showDetailDialog => (
       <div className={classes.menuItem}>
-        <img src={IMAGE_PLACEHOLDER_URL} data-src={item.photo} className={`${classes.avatar} lazyImage`} onClick={() => showDetailDialog(item._id)} alt="items" />
+        <img src={IMAGE_PLACEHOLDER_URL} data-src={item.photo} className={`${classes.avatar} ${LAZY_IMAGE_CLASS}`} onClick={() => showDetailDialog(item._id)} alt="items" />
         <Typography className={classes.menuName} color="primary" onClick={() => showDetailDialog(item._id)}>{item.name}</Typography>
         <PriceItem item={item} />
       </div>
