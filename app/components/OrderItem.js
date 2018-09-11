@@ -78,7 +78,7 @@ export const OrderItem = ({
   return (
     <div className={classes.root}>
       <ShowDetailDialogContext.Consumer>
-        { showDetailDialog => <Avatar src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(itemId)} /> }
+        { ({ showDetailDialog }) => <Avatar src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(itemId)} /> }
       </ShowDetailDialogContext.Consumer>
       <div>
         <Typography color="primary" variant="subheading" className={classes.itemTitle}>{item.name}</Typography>

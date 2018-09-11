@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Avatar, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import PriceItem from './PriceItem';
 import ShowDetailDialogContext from '../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
+import { IMAGE_PLACEHOLDER_URL, LAZY_IMAGE_CLASS } from '../config';
 
 
 const styles = {
   avatar: {
+    borderRadius: '50%',
     width: '150px',
     height: '150px',
     marginBottom: '8px',
-    transition: 'all 0.4s',
+    transition: 'box-shadow .4s, transform .4s, width .4s, height .4s',
     '&:hover': {
       cursor: 'pointer',
       boxShadow: '4px 4px 12px 1px rgba(0, 0, 0, 0.4)',
@@ -45,15 +47,19 @@ const styles = {
   }
 };
 
+
 export const MenuItem = ({ classes, item }) => (
   <ShowDetailDialogContext.Consumer>
-    {showDetailDialog => (
+    {({ showDetailDialog, lazyImageObserver }) => (
       <div className={classes.menuItem}>
-        <Avatar src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(item._id)} />
+        {lazyImageObserver && <img ref={image => { if (image) lazyImageObserver.observe(image); }} src={IMAGE_PLACEHOLDER_URL} data-src={item.photo} className={`${classes.avatar} ${LAZY_IMAGE_CLASS}`} onClick={() => showDetailDialog(item._id)} alt="items" />}
+        {/* istanbul ignore next */
+          !lazyImageObserver && <img src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(item._id)} alt="items" />
+        }
         <Typography className={classes.menuName} color="primary" onClick={() => showDetailDialog(item._id)}>{item.name}</Typography>
         <PriceItem item={item} />
       </div>
-      )}
+    )}
   </ShowDetailDialogContext.Consumer>
 );
 MenuItem.propTypes = {

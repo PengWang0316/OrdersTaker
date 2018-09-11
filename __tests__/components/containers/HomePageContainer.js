@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 
 import { HomePageContainer } from '../../../app/components/containers/HomePageContainer';
+import { LAZY_IMAGE_CLASS } from '../../../app/config';
 
 jest.mock('../../../app/components/Banner', () => 'Banner');
 jest.mock('../../../app/components/MenuCategory', () => 'MenuCategory');
@@ -11,6 +12,10 @@ jest.mock('../../../app/components/OrderFloatingButton', () => 'OrderFloatingBut
 window.innerWidth = 800;
 
 describe('HomePageContainer', () => {
+  beforeEach(() => {
+    window.IntersectionObserver = jest.fn();
+  });
+
   const defaultProps = {
     menuItems: { id: 1 },
     menus: null,
@@ -32,6 +37,36 @@ describe('HomePageContainer', () => {
     component.instance().componentWillUnmount();
     expect(window.removeEventListener).toHaveBeenCalledTimes(1);
     expect(window.removeEventListener).toHaveBeenLastCalledWith('resize', component.instance().handleResize);
+  });
+
+  test('componentDidMount', () => {
+    // window.IntersectionObserver = null;
+    // let component = getShallowComponent();
+    // expect(component.instance().lazyImageObserver).toBeUndefined();
+
+    const component = getShallowComponent();
+    expect(window.IntersectionObserver).toHaveBeenCalledTimes(1);
+    expect(component.instance().lazyImageObserver).not.toBeUndefined();
+    expect(component.instance().lazyImageObserver).not.toBeNull();
+  });
+
+  test('replaceImage', () => {
+    const mockRemoveFn = jest.fn();
+    const mockUnobserveFn = jest.fn();
+    const entries = [
+      { isIntersecting: true, target: { src: 'src', dataset: { src: 'dataset src' }, classList: { remove: mockRemoveFn } } },
+      { isIntersecting: false }
+    ];
+
+    const component = getShallowComponent();
+    component.instance().lazyImageObserver = { unobserve: mockUnobserveFn };
+
+    component.instance().replaceImage(entries, null);
+    expect(entries[0].target.src).toBe('dataset src');
+    expect(mockRemoveFn).toHaveBeenCalledTimes(1);
+    expect(mockRemoveFn).toHaveBeenLastCalledWith(LAZY_IMAGE_CLASS);
+    expect(mockUnobserveFn).toHaveBeenCalledTimes(1);
+    expect(mockUnobserveFn).toHaveBeenLastCalledWith(entries[0].target);
   });
 
   test('handleResize', () => {
