@@ -4,10 +4,12 @@ exports[`MenuItem Snapshot 1`] = `
 <div
   className="menuItem"
 >
-  <Avatar
-    className="avatar"
+  <img
+    alt="items"
+    className="avatar lazyImage"
+    data-src="photo"
     onClick={[Function]}
-    src="photo"
+    src="http://res.cloudinary.com/orderstaker/image/upload/v1536616770/others/PlaceHolder.png"
   />
   <Typography
     className="menuName"

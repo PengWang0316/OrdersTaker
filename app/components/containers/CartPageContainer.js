@@ -146,7 +146,7 @@ export class CartPageContainer extends Component {
         </div>
         <div className={classes.listPanel}>
           {newOrder && (
-            <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
+            <ShowDetailDialogContext.Provider value={{ showDetailDialog: this.showDetailDialog }}>
               <OrderList orders={newOrder} orderItems={orderItems} />
             </ShowDetailDialogContext.Provider>
           )}

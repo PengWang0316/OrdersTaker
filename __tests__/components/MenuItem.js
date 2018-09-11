@@ -6,7 +6,7 @@ import { MenuItem } from '../../app/components/MenuItem';
 import context from '../../app/contexts/ShowDetailDialogContextTestHelper';
 
 jest.mock('@material-ui/core/Typography', () => 'Typography');
-jest.mock('@material-ui/core/Avatar', () => 'Avatar');
+// jest.mock('@material-ui/core/Avatar', () => 'Avatar');
 jest.mock('../../app/components/PriceItem', () => 'PriceItem');
 jest.mock('../../app/contexts/ShowDetailDialogContext'); // The __mocks__/ShowDetailDialogContext.js will be used automatically.
 
@@ -18,15 +18,17 @@ describe('MenuItem', () => {
   test('Snapshot', () => expect(renderer.create(<MenuItem {...defaultProps} />).toJSON())
     .toMatchSnapshot());
 
-  test('Click avatar and Typography element', () => {
+  test('Click image and Typography element', () => {
     // const ComponentWithContext = getComponentWithContext();
     // showDetailDialogContext.
     const component = mount(<MenuItem {...defaultProps} />);
+    const { showDetailDialog, lazyImageObserver } = context;
     // console.log(component.html());
     // console.log(component.find('Avatar'));
-    component.find('Avatar').simulate('click');
-    expect(context).toHaveBeenCalledTimes(1);
+    component.find('img').simulate('click');
+    expect(showDetailDialog).toHaveBeenCalledTimes(1);
     component.find('Typography').simulate('click');
-    expect(context).toHaveBeenCalledTimes(2);
+    expect(showDetailDialog).toHaveBeenCalledTimes(2);
+    expect(lazyImageObserver.observe).toHaveBeenCalled();
   });
 });

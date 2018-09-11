@@ -17,6 +17,10 @@ export const ORDER_STATUS_FINISHED = 'Finished';
 export const ORDER_STATUS_RECEIVED = 'Received';
 export const ORDER_STATUS_PREPARING = 'Preparing';
 
+/* Lazy image loading */
+export const LAZY_IMAGE_CLASS = 'lazyImage';
+export const IMAGE_PLACEHOLDER_URL = 'https://res.cloudinary.com/orderstaker/image/upload/v1536616770/others/PlaceHolder.png';
+
 /* URLS */
 export const HOME_PAGE_URL = '/';
 export const LOGIN_REDIRECT_RUL = '/loginRedirect';

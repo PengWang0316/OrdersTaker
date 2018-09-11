@@ -6,6 +6,7 @@ import { fetchAllMenu } from '../../actions/MenuActions';
 
 import Banner from '../Banner';
 import MenuCategory from '../MenuCategory';
+import { LAZY_IMAGE_CLASS } from '../../config';
 import ItemDetailDialog from '../ItemDetailDialog';
 import OrderFloatingButton from '../OrderFloatingButton';
 import ShowDetailDialogContext from '../../contexts/ShowDetailDialogContext'; // Import the context to pass the function.
@@ -18,7 +19,11 @@ export class HomePageContainer extends Component {
     menuItems: PropTypes.object,
     fetchAllMenu: PropTypes.func.isRequired
   };
-  static defaultProps = { menus: null, menuItems: null };
+
+  static defaultProps = {
+    menus: null,
+    menuItems: null
+  };
 
   /**
    * call fetchAllMenu method when the menus is null
@@ -41,6 +46,15 @@ export class HomePageContainer extends Component {
   };
 
   /**
+   * Initializing an IntersectionObserver in order to pass it to the React Context (ShowDetailDialogContexts)
+   * @return {null} No return.
+   */
+  componentDidMount() {
+    /* istanbul ignore next */
+    if ('IntersectionObserver' in window) this.lazyImageObserver = new IntersectionObserver(this.replaceImage);
+  }
+
+  /**
    * Removing the resize listener when the component unmounted.
    * @return {null} No return.
    */
@@ -55,8 +69,8 @@ export class HomePageContainer extends Component {
    */
   static getAmountNumber = width => {
     if (width <= 801) return 6;
-    else if (width <= 987) return 8;
-    else if (width <= 1200) return 10;
+    if (width <= 987) return 8;
+    if (width <= 1200) return 10;
     return 12;
   };
 
@@ -86,6 +100,23 @@ export class HomePageContainer extends Component {
   handleDialogToggle = () => this.setState(({ isDialogOpen }) => ({ isDialogOpen: !isDialogOpen }));
 
   /**
+   * The callback function for the IntersectionObserver.
+   * @param {array} entries is an array that offers when the intersection changed.
+   * @param {object} observer will not be use here.
+   * @return {null} No return.
+   */
+  replaceImage = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { // Replacing the src to the real url and remove the image from the observe list.
+        const lazyImage = entry.target;
+        lazyImage.src = lazyImage.dataset.src;
+        lazyImage.classList.remove(LAZY_IMAGE_CLASS);
+        this.lazyImageObserver.unobserve(lazyImage);
+      }
+    });
+  }
+
+  /**
    * Rendering the jsx for the component.
    * @return {jsx} Return jsx
    */
@@ -95,9 +126,8 @@ export class HomePageContainer extends Component {
     return (
       <Fragment>
         <Banner />
-        <ShowDetailDialogContext.Provider value={this.showDetailDialog}>
-          {menus && menus.map(menu =>
-            <MenuCategory menu={menu} key={menu._id} itemAmount={itemAmount} />)}
+        <ShowDetailDialogContext.Provider value={{ showDetailDialog: this.showDetailDialog, lazyImageObserver: this.lazyImageObserver }}>
+          {menus && menus.map(menu => <MenuCategory menu={menu} key={menu._id} itemAmount={itemAmount} />)}
         </ShowDetailDialogContext.Provider>
         <OrderFloatingButton />
         <ItemDetailDialog onClose={this.handleDialogToggle} open={isDialogOpen} item={currentItem} />
