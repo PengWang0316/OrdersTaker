@@ -9,7 +9,7 @@ exports[`MenuItem Snapshot 1`] = `
     className="avatar lazyImage"
     data-src="photo"
     onClick={[Function]}
-    src="http://res.cloudinary.com/orderstaker/image/upload/v1536616770/others/PlaceHolder.png"
+    src="https://res.cloudinary.com/orderstaker/image/upload/v1536616770/others/PlaceHolder.png"
   />
   <Typography
     className="menuName"
