@@ -9,7 +9,7 @@ import googleLoginButton from '../../images/GoogleLogin.png';
 import { API_FACEBOOK_LOGIN, API_GOOGLE_LOGIN } from '../../actions/ApiUrls';
 import { loginWithPassword, emptyUser } from '../../actions/UserActions';
 
-const LOGIN_FAIL_MESSAGE = 'User name and password are not match';
+const LOGIN_FAIL_MESSAGE = 'Wrong username or password';
 
 /* istanbul ignore next */
 const getDividerBeforAfter = color => ({ // Generating a basic styling object for divider's before and after.

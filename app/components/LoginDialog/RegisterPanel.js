@@ -48,9 +48,9 @@ const styles = {
 
 const USERNAME_REGEXP = /[^\w\d_@]/g;
 const EMAIL_REGEXP = /^[\w\d]+@.+\..+/g;
-const USERNAME_TIP_MESSAGE = 'Just characters, number, _ and @ are allowed';
-const PASSWORD_TIP_MESSAGE = 'Password and repeat password should be same';
-const EMAIL_TIP_MESSAGE = 'Please offer a correct email address';
+const USERNAME_TIP_MESSAGE = 'Characters, number, _ and @';
+const PASSWORD_TIP_MESSAGE = 'Passwords should be same';
+const EMAIL_TIP_MESSAGE = 'Wrong email address';
 /**
  * Show the register panel.
  */

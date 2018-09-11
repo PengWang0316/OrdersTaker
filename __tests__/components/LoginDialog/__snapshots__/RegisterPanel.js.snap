@@ -15,7 +15,7 @@ Array [
     <div>
       <Tooltip
         id="tooltipUsername"
-        title="Just characters, number, _ and @ are allowed"
+        title="Characters, number, _ and @"
       >
         <TextField
           autoFocus={true}
@@ -135,7 +135,7 @@ Array [
     <div>
       <Tooltip
         id="tooltipUsername"
-        title="Just characters, number, _ and @ are allowed"
+        title="Characters, number, _ and @"
       >
         <TextField
           autoFocus={true}

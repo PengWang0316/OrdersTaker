@@ -11,7 +11,7 @@ jest.mock('@material-ui/core/Tooltip', () => 'Tooltip');
 jest.mock('@material-ui/core/CircularProgress', () => 'CircularProgress');
 jest.mock('@material-ui/icons/Check', () => 'Check');
 jest.mock('../../../app/components/LoginDialog/CheckingIndicator', () => 'CheckingIndicator');
-jest.mock('../../../app/actions/UserActions', () => ({  checkUsernameAvailable: jest.fn().mockReturnValue(Promise.resolve('true')) }));
+jest.mock('../../../app/actions/UserActions', () => ({ checkUsernameAvailable: jest.fn().mockReturnValue(Promise.resolve('true')) }));
 
 console.error = jest.fn();
 
@@ -75,7 +75,7 @@ describe('RegisterPanel', () => {
     expect(component.state('isReady')).toBe(false);
     expect(component.state('isUsernameError')).toBe(true);
     expect(defaultProps.onToggleSnackbar).toHaveBeenCalledTimes(1);
-    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Just characters, number, _ and @ are allowed');
+    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Characters, number, _ and @');
     // component.instance().handleTextFieldChange({ target: { id: 'username', value: 'V8al_u@e' } });
     component.setState({ username: 'V8al_u@e' });
 
@@ -84,7 +84,7 @@ describe('RegisterPanel', () => {
     expect(component.state('isPasswordError')).toBe(true);
     expect(component.state('isReady')).toBe(false);
     expect(defaultProps.onToggleSnackbar).toHaveBeenCalledTimes(2);
-    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Password and repeat password should be same');
+    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Passwords should be same');
     component.setState({ repeatPassword: 'password' });
     component.instance().handleTextFieldChange({ target: { id: 'password', value: 'password' } });
     expect(component.state('isPasswordError')).toBe(false);
@@ -101,7 +101,7 @@ describe('RegisterPanel', () => {
     expect(component.state('isPasswordError')).toBe(true);
     expect(component.state('isReady')).toBe(false);
     expect(defaultProps.onToggleSnackbar).toHaveBeenCalledTimes(3);
-    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Password and repeat password should be same');
+    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Passwords should be same');
     component.instance().handleTextFieldChange({ target: { id: 'repeatPassword', value: 'password' } });
 
     component.instance().handleTextFieldChange({ target: { id: 'email', value: 'd@d.c' } });
@@ -113,7 +113,7 @@ describe('RegisterPanel', () => {
     expect(component.state('isReady')).toBe(false);
     expect(component.state('isEmailError')).toBe(true);
     expect(defaultProps.onToggleSnackbar).toHaveBeenCalledTimes(4);
-    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Please offer a correct email address');
+    expect(defaultProps.onToggleSnackbar).toHaveBeenLastCalledWith('Wrong email address');
 
     component.instance().handleTextFieldChange({ target: { id: '', value: 'd@d.c' } }); // For switch default
   });
