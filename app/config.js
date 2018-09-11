@@ -19,7 +19,7 @@ export const ORDER_STATUS_PREPARING = 'Preparing';
 
 /* Lazy image loading */
 export const LAZY_IMAGE_CLASS = 'lazyImage';
-export const IMAGE_PLACEHOLDER_URL = 'http://res.cloudinary.com/orderstaker/image/upload/v1536616770/others/PlaceHolder.png';
+export const IMAGE_PLACEHOLDER_URL = 'https://res.cloudinary.com/orderstaker/image/upload/v1536616770/others/PlaceHolder.png';
 
 /* URLS */
 export const HOME_PAGE_URL = '/';
