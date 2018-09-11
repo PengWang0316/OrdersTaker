@@ -22,11 +22,13 @@ describe('MenuItem', () => {
     // const ComponentWithContext = getComponentWithContext();
     // showDetailDialogContext.
     const component = mount(<MenuItem {...defaultProps} />);
+    const { showDetailDialog, lazyImageObserver } = context;
     // console.log(component.html());
     // console.log(component.find('Avatar'));
     component.find('img').simulate('click');
-    expect(context).toHaveBeenCalledTimes(1);
+    expect(showDetailDialog).toHaveBeenCalledTimes(1);
     component.find('Typography').simulate('click');
-    expect(context).toHaveBeenCalledTimes(2);
+    expect(showDetailDialog).toHaveBeenCalledTimes(2);
+    expect(lazyImageObserver.observe).toHaveBeenCalled();
   });
 });

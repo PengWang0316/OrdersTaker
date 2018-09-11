@@ -45,9 +45,10 @@ describe('OrderItem', () => {
     .toJSON()).toMatchSnapshot());
 
   test('Clicking Avatar', () => {
+    const { showDetailDialog } = context;
     mount(<OrderItem {...defaultProps} />).find('Avatar').simulate('click');
-    expect(context).toHaveBeenCalledTimes(1);
-    expect(context).toHaveBeenLastCalledWith('itemId');
+    expect(showDetailDialog).toHaveBeenCalledTimes(1);
+    expect(showDetailDialog).toHaveBeenLastCalledWith('itemId');
   });
 
   test('Clicking IconButtons', () => {

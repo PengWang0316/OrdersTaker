@@ -47,11 +47,15 @@ const styles = {
   }
 };
 
+
 export const MenuItem = ({ classes, item }) => (
   <ShowDetailDialogContext.Consumer>
-    {showDetailDialog => (
+    {({ showDetailDialog, lazyImageObserver }) => (
       <div className={classes.menuItem}>
-        <img src={IMAGE_PLACEHOLDER_URL} data-src={item.photo} className={`${classes.avatar} ${LAZY_IMAGE_CLASS}`} onClick={() => showDetailDialog(item._id)} alt="items" />
+        {lazyImageObserver && <img ref={image => { if (image) lazyImageObserver.observe(image); }} src={IMAGE_PLACEHOLDER_URL} data-src={item.photo} className={`${classes.avatar} ${LAZY_IMAGE_CLASS}`} onClick={() => showDetailDialog(item._id)} alt="items" />}
+        {/* istanbul ignore next */
+          !lazyImageObserver && <img src={item.photo} className={classes.avatar} onClick={() => showDetailDialog(item._id)} alt="items" />
+        }
         <Typography className={classes.menuName} color="primary" onClick={() => showDetailDialog(item._id)}>{item.name}</Typography>
         <PriceItem item={item} />
       </div>
