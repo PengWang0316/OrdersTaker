@@ -36,7 +36,7 @@
   "start_url": "/?utm_source=homescreen",
   "scope": "/",
   "background_color": "#FFFFFF",
-  "theme_color": "#FFFFFF",
+  "theme_color": "#6d9cb5",
   "display": "standalone",
   "gcm_sender_id": "103953800507"
 }
