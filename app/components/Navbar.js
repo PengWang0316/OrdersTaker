@@ -105,7 +105,7 @@ export class Navbar extends Component {
             return (
               <AppBar position="static" className={classes.appbar} data-testid="navbar">
                 <Toolbar>
-                  <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`}>
+                  <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
                     <Typography variant="title" color="inherit">Name of the restaurant</Typography>
                   </Link>
                   <Hidden only="xs">
