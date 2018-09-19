@@ -6,7 +6,7 @@
   "scripts": {
     "create": "webpack",
     "start": "webpack-dev-server --mode development --open",
-    "build": "set NODE_ENV=production & webpack --mode production -p",
+    "build": "set NODE_ENV=production & webpack --mode=production -p",
     "deploy": "scp -i c:/projects/orderstaker.pem c:/projects/orderstaker/dist/*.* ubuntu@orderstaker.kevin-project.com:/var/www/html/",
     "test": "jest",
     "testCoverage": "jest --coverage --runInBand",
@@ -27,7 +27,9 @@
   },
   "sideEffects": false,
   "jest": {
-    "testPathIgnorePatterns": ["/node_modules/"],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/tools/assetsTransformer.js",
       "\\.(css|less)$": "identity-obj-proxy"
