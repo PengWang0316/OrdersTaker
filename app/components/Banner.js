@@ -58,6 +58,7 @@ export class Banner extends Component {
     basicInformation: PropTypes.object,
     fetchBasicInformation: PropTypes.func.isRequired
   };
+
   static defaultProps = { basicInformation: null };
 
   /**
@@ -78,19 +79,23 @@ export class Banner extends Component {
     const { classes, basicInformation } = this.props;
     return (
       <div className={basicInformation ? '' : classes.divPlaceHolder}>
-        {basicInformation &&
+        {basicInformation && (
           <Fragment>
             <div className={classes.bannerText}>
-              <div className={classes.title}>{basicInformation.banners[0].title}</div>
-              <div className={classes.subTitle}>{basicInformation.banners[0].subTitle}</div>
+              <div className={classes.title}>
+                {basicInformation.banners[0].title}
+              </div>
+              <div className={classes.subTitle}>
+                {basicInformation.banners[0].subTitle}
+              </div>
             </div>
             <Hidden only="xs">
-              <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} />
+              <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} data-testid="lgBannerImage" />
             </Hidden>
             <Hidden only={['lg', 'md', 'sm']}>
-              <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} />
+              <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} data-testid="xsBannerImage" />
             </Hidden>
-          </Fragment>}
+          </Fragment>)}
       </div>
     );
   }
