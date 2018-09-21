@@ -104,21 +104,22 @@ export class LoginPanel extends Component {
    * @param {object} event is the html element the user is interacting with.
    * @return {null} No return.
    */
-  handleTextChanged = ({ target }) =>
-    this.setState({ [target.id]: target.value }, () =>
-      this.setState({ isReady: !!(this.state.username && this.state.password) }));
+  handleTextChanged = ({ target }) => this.setState({
+    [target.id]: target.value
+  }, () => this.setState({
+    isReady: !!(this.state.username && this.state.password)
+  }));
 
   /**
    * Call the login action when a user clicks the login button.
    * @return {null} No return.
    */
-  handlLoginButtonClick = () =>
-    this.setState(
-      { isReady: false, isSubmitted: true },
-      () => this.props.loginWithPassword({
-        username: this.state.username, password: this.state.password
-      })
-    );
+  handlLoginButtonClick = () => this.setState(
+    { isReady: false, isSubmitted: true },
+    () => this.props.loginWithPassword({
+      username: this.state.username, password: this.state.password
+    })
+  );
 
   /**
    * The render method.
@@ -129,11 +130,21 @@ export class LoginPanel extends Component {
     const { isReady, username, password } = this.state;
     return (
       <Fragment>
-        <Typography color="primary" className={classes.title}>Social Login</Typography>
-        <div><a href={API_FACEBOOK_LOGIN}><img className={classes.loginBtn} src={facebookLoginButton} alt="Use Facebook account login" /></a></div>
-        <div><a href={API_GOOGLE_LOGIN}><img className={classes.loginBtn} src={googleLoginButton} alt="Use Google account login" /></a></div>
+        <Typography color="primary" className={classes.title} data-testid="loginPanelTitle">Social Login</Typography>
+        <div>
+          <a href={API_FACEBOOK_LOGIN}>
+            <img className={classes.loginBtn} src={facebookLoginButton} alt="Use Facebook account login" />
+          </a>
+        </div>
+        <div>
+          <a href={API_GOOGLE_LOGIN}>
+            <img className={classes.loginBtn} src={googleLoginButton} alt="Use Google account login" />
+          </a>
+        </div>
 
-        <div className={classes.divider}><Typography color="primary" className={classes.fontWeight700}>or</Typography></div>
+        <div className={classes.divider}>
+          <Typography color="primary" className={classes.fontWeight700}>or</Typography>
+        </div>
 
         <Typography color="primary" className={classes.title}>UserName Login</Typography>
 
@@ -166,7 +177,7 @@ export class LoginPanel extends Component {
           </div>
         </form>
         <div className={classes.loginButtonDiv}>
-          <Button onClick={onTogglePanels} className={classes.regesterBtn} size="small" aria-label="Login" color="primary">Do not have an account? Regester one</Button>
+          <Button onClick={onTogglePanels} className={classes.regesterBtn} size="small" aria-label="Login" color="primary" data-testid="switchRegisterButton">Do not have an account? Regester one</Button>
         </div>
       </Fragment>
     );
