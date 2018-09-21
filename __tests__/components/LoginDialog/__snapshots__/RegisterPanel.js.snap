@@ -5,6 +5,7 @@ Array [
   <Typography
     className="title"
     color="primary"
+    data-testid="registerPanelTitle"
   >
     Register a new user
   </Typography>,
@@ -99,6 +100,7 @@ Array [
       <Button
         className="switchBtn"
         color="primary"
+        data-testid="switchLoginButton"
         onClick={
           [MockFunction] {
             "calls": Array [
@@ -125,6 +127,7 @@ Array [
   <Typography
     className="title"
     color="primary"
+    data-testid="registerPanelTitle"
   >
     Register a new user
   </Typography>,
@@ -223,6 +226,7 @@ Array [
       <Button
         className="switchBtn"
         color="primary"
+        data-testid="switchLoginButton"
         onClick={
           [MockFunction] {
             "calls": Array [
