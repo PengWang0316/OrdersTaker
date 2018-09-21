@@ -54,6 +54,7 @@ exports[`Navbar test NavBar snapshot with user with avatar 1`] = `
     <Hidden
       only={
         Array [
+          "xl",
           "lg",
           "md",
           "sm",
@@ -178,6 +179,7 @@ exports[`Navbar test NavBar snapshot with user with avatar with role 2 1`] = `
     <Hidden
       only={
         Array [
+          "xl",
           "lg",
           "md",
           "sm",
@@ -299,6 +301,7 @@ exports[`Navbar test NavBar snapshot with user without avatar 1`] = `
     <Hidden
       only={
         Array [
+          "xl",
           "lg",
           "md",
           "sm",
@@ -399,6 +402,7 @@ exports[`Navbar test NavBar snapshot without user 1`] = `
     <Hidden
       only={
         Array [
+          "xl",
           "lg",
           "md",
           "sm",

@@ -126,7 +126,7 @@ export class Navbar extends Component {
                         </Fragment>) : 'Login'}
                     </Button>
                   </Hidden>
-                  <Hidden only={['lg', 'md', 'sm']}>
+                  <Hidden only={['xl', 'lg', 'md', 'sm']}>
                     <IconButton
                       color="inherit"
                       aria-label="Menu"

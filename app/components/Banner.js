@@ -58,7 +58,10 @@ export class Banner extends Component {
     basicInformation: PropTypes.object,
     fetchBasicInformation: PropTypes.func.isRequired
   };
-  static defaultProps = { basicInformation: null };
+
+  static defaultProps = {
+    basicInformation: null
+  };
 
   /**
    * Call the redux action to get the basic infomariont.
@@ -78,19 +81,23 @@ export class Banner extends Component {
     const { classes, basicInformation } = this.props;
     return (
       <div className={basicInformation ? '' : classes.divPlaceHolder}>
-        {basicInformation &&
+        {basicInformation && (
           <Fragment>
             <div className={classes.bannerText}>
-              <div className={classes.title}>{basicInformation.banners[0].title}</div>
-              <div className={classes.subTitle}>{basicInformation.banners[0].subTitle}</div>
+              <div className={classes.title}>
+                {basicInformation.banners[0].title}
+              </div>
+              <div className={classes.subTitle}>
+                {basicInformation.banners[0].subTitle}
+              </div>
             </div>
             <Hidden only="xs">
               <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} />
             </Hidden>
-            <Hidden only={['lg', 'md', 'sm']}>
+            <Hidden only={['xl', 'lg', 'md', 'sm']}>
               <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} />
             </Hidden>
-          </Fragment>}
+          </Fragment>)}
       </div>
     );
   }
