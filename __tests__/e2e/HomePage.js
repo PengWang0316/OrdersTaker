@@ -41,7 +41,21 @@ describe('HomePage E2E Testing', () => {
     expect(bannerImage).not.toBe(false);
   });
 
-  // test('');
+  test('Clicking Login button', async () => {
+    await page.goto(url);
+    await page.click('[data-testid="loginButton"]');
+    let loginPanelTitle = await page.$eval('[data-testid="loginPanelTitle"', el => el || false);
+    expect(loginPanelTitle).not.toBe(false);
+
+    await page.click('[data-testid="switchRegisterButton"]');
+    const registerPanelTitle = await page.$eval('[data-testid="registerPanelTitle"]', el => el || false);
+    expect(registerPanelTitle).not.toBe(false);
+
+    loginPanelTitle = false; // Reseting the element for the future test.
+    await page.click('[data-testid="switchLoginButton"]');
+    loginPanelTitle = await page.$eval('[data-testid="loginPanelTitle"]', el => el || false);
+    expect(loginPanelTitle).not.toBe(false);
+  });
 
   test('Element in the xs width', async () => {
     const override = Object.assign(page.viewport(), { width: 500 });
