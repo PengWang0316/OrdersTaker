@@ -162,7 +162,7 @@ export class RegisterPanel extends Component {
     } = this.state;
     return (
       <Fragment>
-        <Typography className={classes.title} color="primary">Register a new user</Typography>
+        <Typography className={classes.title} color="primary" data-testid="registerPanelTitle">Register a new user</Typography>
         <form noValidate autoComplete="off">
           <div className={classes.usernameDiv}>
             <Tooltip id="tooltipUsername" title={USERNAME_TIP_MESSAGE}>
@@ -234,7 +234,7 @@ export class RegisterPanel extends Component {
             </div>
           </Tooltip>
           <div>
-            <Button onClick={onTogglePanels} color="primary" className={classes.switchBtn}>Have an account already? Go to login</Button>
+            <Button onClick={onTogglePanels} color="primary" className={classes.switchBtn} data-testid="switchLoginButton">Have an account already? Go to login</Button>
           </div>
         </form>
 
