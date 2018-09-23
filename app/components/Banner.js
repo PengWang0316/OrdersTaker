@@ -59,7 +59,9 @@ export class Banner extends Component {
     fetchBasicInformation: PropTypes.func.isRequired
   };
 
-  static defaultProps = { basicInformation: null };
+  static defaultProps = {
+    basicInformation: null
+  };
 
   /**
    * Call the redux action to get the basic infomariont.
@@ -92,7 +94,7 @@ export class Banner extends Component {
             <Hidden only="xs">
               <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} data-testid="lgBannerImage" />
             </Hidden>
-            <Hidden only={['lg', 'md', 'sm']}>
+            <Hidden only={['xl', 'lg', 'md', 'sm']}>
               <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} data-testid="xsBannerImage" />
             </Hidden>
           </Fragment>)}

@@ -24,6 +24,7 @@ exports[`Banner snapshot 1`] = `
   <Hidden
     only={
       Array [
+        "xl",
         "lg",
         "md",
         "sm",
