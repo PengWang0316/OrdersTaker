@@ -107,7 +107,7 @@ Array [
       onClick={[MockFunction]}
       size="small"
     >
-      Do not have an account? Regester one
+      Do not have an account? Register one
     </Button>
   </div>,
 ]

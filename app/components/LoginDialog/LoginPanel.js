@@ -177,7 +177,7 @@ export class LoginPanel extends Component {
           </div>
         </form>
         <div className={classes.loginButtonDiv}>
-          <Button onClick={onTogglePanels} className={classes.regesterBtn} size="small" aria-label="Login" color="primary" data-testid="switchRegisterButton">Do not have an account? Regester one</Button>
+          <Button onClick={onTogglePanels} className={classes.regesterBtn} size="small" aria-label="Login" color="primary" data-testid="switchRegisterButton">Do not have an account? Register one</Button>
         </div>
       </Fragment>
     );
