@@ -92,10 +92,10 @@ export class Banner extends Component {
               </div>
             </div>
             <Hidden only="xs">
-              <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} />
+              <img alt="Big Banner" src={basicInformation.banners[0].url} className={classes.bigBanner} data-testid="lgBannerImage" />
             </Hidden>
             <Hidden only={['xl', 'lg', 'md', 'sm']}>
-              <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} />
+              <img alt="Small Banner" src={basicInformation.banners[0].xsUrl} className={classes.smallBanner} data-testid="xsBannerImage" />
             </Hidden>
           </Fragment>)}
       </div>

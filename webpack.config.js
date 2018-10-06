@@ -7,7 +7,7 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin'); // Does not support Webpack 4 right now.
 // const ClosureCompiler = require('google-closure-compiler-js').webpack;
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   // entry: {
@@ -68,8 +68,8 @@ const config = {
       // globPatterns: ['**/*.{html,js,png,jpg,json,css}'],
       swSrc: './app/service-worker.js',
       swDest: './service-worker.js'
-    })
-    // new BundleAnalyzerPlugin() // Analyze the bundle file.
+    }),
+    new BundleAnalyzerPlugin() // Analyze the bundle file.
   ]
 };
 
@@ -111,6 +111,8 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
     ],
     exclude: /\.global\.css$/
   });
+
+  config.mode = 'production';
 
   config.plugins.push(
     // new webpack.DefinePlugin({

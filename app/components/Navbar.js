@@ -103,22 +103,22 @@ export class Navbar extends Component {
             this.handleLogoutAction = handleLogoutAction;
             this.handleToggleLoginDialog = handleToggleLoginDialog;
             return (
-              <AppBar position="static" className={classes.appbar}>
+              <AppBar position="static" className={classes.appbar} data-testid="navbar">
                 <Toolbar>
-                  <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`}>
+                  <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
                     <Typography variant="title" color="inherit">Name of the restaurant</Typography>
                   </Link>
                   <Hidden only="xs">
                     <Link to={ORDERS_PAGE_URL} className={classes.link}>
-                      <Button color="inherit">Order</Button>
+                      <Button color="inherit" data-testid="orderButton">Order</Button>
                     </Link>
-                    <Button color="inherit">Menu</Button>
+                    <Button color="inherit" data-testid="menuButton">Menu</Button>
                     {user.role && user.role < NORMAL_USER_ROLE && (
                       <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.link}>
-                        <Button color="inherit">Kithen</Button>
+                        <Button color="inherit" data-testid="kithenButton">Kithen</Button>
                       </Link>
                     )}
-                    <Button color="inherit" onClick={this.handleLoginButtonClick}>
+                    <Button color="inherit" onClick={this.handleLoginButtonClick}  data-testid="loginButton">
                       {user._id ? (
                         <Fragment>
                           {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}
@@ -133,6 +133,7 @@ export class Navbar extends Component {
                       onClick={this.handleMenuIconClick}
                       aria-owns={anchorEl ? 'simple-menu' : null}
                       aria-haspopup="true"
+                      data-testid="navbarDropMenuButton"
                     >
                       <MenuIcon />
                     </IconButton>
@@ -141,9 +142,10 @@ export class Navbar extends Component {
                       anchorEl={anchorEl}
                       open={Boolean(anchorEl)}
                       onClose={this.handleMenuIconClick}
+                      data-testid="dropDownMenu"
                     >
                       <MenuItem>
-                        <Link to={ORDERS_PAGE_URL} className={classes.menuLink}>
+                        <Link to={ORDERS_PAGE_URL} className={classes.menuLink} data-testid="orderLink">
                           <Typography color="textPrimary">Order</Typography>
                         </Link>
                       </MenuItem>
@@ -152,12 +154,12 @@ export class Navbar extends Component {
                       </MenuItem>
                       {user.role && user.role < NORMAL_USER_ROLE && (
                         <MenuItem>
-                          <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.menuLink}>
+                          <Link to={KITHEN_INTERFACE_PAGE_URL} className={classes.menuLink} data-testid="kithenLink">
                             <Typography color="textPrimary">Kithen</Typography>
                           </Link>
                         </MenuItem>
                       )}
-                      <MenuItem onClick={this.handleLoginButtonClick}>
+                      <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
                         {user._id ? (
                           <Fragment>
                             {user.avatar && <Avatar alt="avatar" className={classes.avatar} src={user.avatar} />}

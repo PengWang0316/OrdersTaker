@@ -5,6 +5,7 @@ Array [
   <Typography
     className="title"
     color="primary"
+    data-testid="loginPanelTitle"
   >
     Social Login
   </Typography>,
@@ -102,10 +103,11 @@ Array [
       aria-label="Login"
       className="regesterBtn"
       color="primary"
+      data-testid="switchRegisterButton"
       onClick={[MockFunction]}
       size="small"
     >
-      Do not have an account? Regester one
+      Do not have an account? Register one
     </Button>
   </div>,
 ]

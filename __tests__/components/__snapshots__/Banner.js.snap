@@ -17,6 +17,7 @@ exports[`Banner snapshot 1`] = `
   >
     <img
       alt="Big Banner"
+      data-testid="lgBannerImage"
       src="url"
     />
   </Hidden>
@@ -32,6 +33,7 @@ exports[`Banner snapshot 1`] = `
   >
     <img
       alt="Small Banner"
+      data-testid="xsBannerImage"
       src="xsUrl"
     />
   </Hidden>
