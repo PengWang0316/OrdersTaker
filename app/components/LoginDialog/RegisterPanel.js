@@ -83,6 +83,7 @@ export class RegisterPanel extends Component {
    * @return {null} No return.
    */
   handleTextFieldChange = ({ target }) => {
+    const { onToggleSnackbar } = this.props;
     this.setState({ [target.id]: target.value }, () => {
       // If all field is not empty, set the isReady to true.
       this.setState(({
@@ -94,7 +95,7 @@ export class RegisterPanel extends Component {
         case 'username':
           this.setState({ isUsernameError: false, isReady: false }); // Erasing the error state and check it again. If username is changed, alway set the isReady to false and let the checking function callback to decide it state.
           if (target.value.match(USERNAME_REGEXP)) {
-            this.props.onToggleSnackbar(USERNAME_TIP_MESSAGE);
+            onToggleSnackbar(USERNAME_TIP_MESSAGE);
             this.setState({ isUsernameError: true });
           } else {
             // Setting up a timeout function to check the avalibility for the username.
@@ -110,21 +111,21 @@ export class RegisterPanel extends Component {
         case 'password':
           this.setState({ isPasswordError: false }); // Erasing the error state and check it again.
           if (target.value !== this.state.repeatPassword) {
-            this.props.onToggleSnackbar(PASSWORD_TIP_MESSAGE);
+            onToggleSnackbar(PASSWORD_TIP_MESSAGE);
             this.setState({ isPasswordError: true, isReady: false });
           }
           break;
         case 'repeatPassword':
           this.setState({ isPasswordError: false }); // Erasing the error state and check it again.
           if (target.value !== this.state.password) {
-            this.props.onToggleSnackbar(PASSWORD_TIP_MESSAGE);
+            onToggleSnackbar(PASSWORD_TIP_MESSAGE);
             this.setState({ isPasswordError: true, isReady: false });
           }
           break;
         case 'email':
           this.setState({ isEmailError: false }); // Erasing the error state and check it again.
           if (!target.value.match(EMAIL_REGEXP)) {
-            this.props.onToggleSnackbar(EMAIL_TIP_MESSAGE);
+            onToggleSnackbar(EMAIL_TIP_MESSAGE);
             this.setState({ isEmailError: true, isReady: false });
           }
           break;
