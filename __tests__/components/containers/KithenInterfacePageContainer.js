@@ -45,7 +45,7 @@ describe('KithenInterfacePageContainer', () => {
   });
 
   test('constructor and has wrong role', () => {
-    getShallowComponent({ ...defaultProps, user: { _id: 'id', role: SUPER_USER_ROLE - 1 } });
+    getShallowComponent({ ...defaultProps, user: { _id: 'id', role: SUPER_USER_ROLE + 1 } });
     expect(defaultProps.history.push).toHaveBeenCalledTimes(3);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
     expect(defaultProps.fetchAllMenu).not.toHaveBeenCalled();
