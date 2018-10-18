@@ -42,7 +42,7 @@ export class KithenInterfacePageContainer extends Component {
   constructor(props) {
     super(props);
     const { user, history } = props;
-    if (!user._id || !user.role || user.role < SUPER_USER_ROLE) {
+    if (!user._id || !user.role || user.role > SUPER_USER_ROLE) {
       history.push(HOME_PAGE_URL);
       return;
     }
