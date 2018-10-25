@@ -123,7 +123,7 @@ export class OrdersPageContainer extends Component {
    */
   handleLinkOrder = () => {
     const orderId = this.unloginOrderId;
-    linkOrderToAccount(orderId, this.props.user.jwt);
+    this.props.linkOrderToAccount(orderId, this.props.user.jwt);
     this.handleToggleLinkAlertDialog(null);
     return this.setState(({ unloginUserOrders }) => ({ unloginUserOrders: OrdersPageContainer.getNewUnloginOrdersArray(unloginUserOrders, orderId), snackbarMessage: 'Linked to your account sccessfully' }), () => this.handleToggleSnackbar());
   };
@@ -231,6 +231,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchOrderAmount: jwtMessage => dispatch(fetchOrderAmount(jwtMessage)),
   fetchAllMenu: () => dispatch(fetchAllMenu()),
-  removeTempOrderId: orderId => dispatch(removeTempOrderId(orderId))
+  removeTempOrderId: orderId => dispatch(removeTempOrderId(orderId)),
+  linkOrderToAccount: (orderId, jwt) => dispatch(linkOrderToAccount(orderId, jwt)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(OrdersPageContainer);

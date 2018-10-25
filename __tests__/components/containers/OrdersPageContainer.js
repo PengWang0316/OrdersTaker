@@ -13,7 +13,7 @@ jest.mock('../../../app/actions/OrdersActions', () => ({
   fetchUnloginUserOrders: jest.fn().mockReturnValue(Promise.resolve([])),
   fetchLoginUserOrders: jest.fn().mockReturnValue(Promise.resolve([]))
 }));
-jest.mock('../../../app/actions/TempOrderIdsActions', () => ({ linkOrderToAccount: jest.fn() }));
+// jest.mock('../../../app/actions/TempOrderIdsActions', () => ({ linkOrderToAccount: jest.fn() }));
 
 describe('OrdersPageContainer', () => {
   const defaultProps = {
@@ -32,7 +32,8 @@ describe('OrdersPageContainer', () => {
     fetchOrderAmount: jest.fn(),
     fetchAllMenu: jest.fn(),
     loginUserOrderAmount: 2,
-    removeTempOrderId: jest.fn()
+    removeTempOrderId: jest.fn(),
+    linkOrderToAccount: jest.fn(),
   };
   const getShallowComponent = (props = defaultProps) => shallow(<OrdersPageContainer {...props} />);
 
@@ -150,7 +151,7 @@ describe('OrdersPageContainer', () => {
   });
 
   test('handleLinkOrder', async () => {
-    const TempOrderIdsActions = require('../../../app/actions/TempOrderIdsActions');
+    // const TempOrderIdsActions = require('../../../app/actions/TempOrderIdsActions');
     const component = getShallowComponent();
     component.instance().unloginOrderId = 'unloginOrderId';
     const mockHandleToggleLinkAlertDialog = jest.fn();
@@ -166,8 +167,8 @@ describe('OrdersPageContainer', () => {
     expect(mockHandleToggleSnackbar).toHaveBeenCalledTimes(1);
     expect(component.state('unloginUserOrders')).toEqual([{ _id: '1' }]);
     expect(component.state('snackbarMessage')).toEqual('Linked to your account sccessfully');
-    expect(TempOrderIdsActions.linkOrderToAccount).toHaveBeenCalledTimes(1);
-    expect(TempOrderIdsActions.linkOrderToAccount).toHaveBeenLastCalledWith('unloginOrderId', 'jwt');
+    expect(defaultProps.linkOrderToAccount).toHaveBeenCalledTimes(1);
+    expect(defaultProps.linkOrderToAccount).toHaveBeenLastCalledWith('unloginOrderId', 'jwt');
   });
 
   test('handleToggleRemoveAlertDialog', async () => {

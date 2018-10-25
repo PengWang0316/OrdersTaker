@@ -34,26 +34,36 @@ describe('TempOrderIdsActions', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test('linkOrderToAccount without error', async () => {
+  test('linkOrderToAccount without error', () => {
     console.error = jest.fn();
     const axios = require('axios');
     const paramters = { orderId: 'id', jwt: 'jwt' };
-
-    await TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt);
-    expect(axios.put).toHaveBeenCalledTimes(1);
-    expect(axios.put).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
-    expect(console.error).not.toHaveBeenCalled();
+    const expectedActions = [
+      { type: REMOVE_ORDER_ID_SUCCESS, id: paramters.orderId },
+    ];
+    const store = mockStore();
+    return store.dispatch(TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt))
+      .then(() => {
+        expect(axios.put).toHaveBeenCalledTimes(1);
+        expect(axios.put).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
+        expect(console.error).not.toHaveBeenCalled();
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+    // await TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt);
   });
 
-  test('linkOrderToAccount with error', async () => {
+  test('linkOrderToAccount with error', () => {
     console.error = jest.fn();
     const axios = require('axios');
     axios.put.mockReturnValue(Promise.reject());
     const paramters = { orderId: 'id', jwt: 'jwt' };
-
-    await TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt);
-    expect(axios.put).toHaveBeenCalledTimes(2);
-    expect(axios.put).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
-    expect(console.error).toHaveBeenCalledTimes(1);
+    const store = mockStore();
+    
+    return store.dispatch(TempOrderIdsActions.linkOrderToAccount(paramters.orderId, paramters.jwt))
+      .then(() => {
+        expect(axios.put).toHaveBeenCalledTimes(2);
+        expect(axios.put).toHaveBeenLastCalledWith(API_LINK_ORDER_TO_ACCOUNT, paramters);
+        expect(console.error).toHaveBeenCalledTimes(1);
+      });
   });
 });
