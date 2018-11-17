@@ -10,7 +10,7 @@ exports[`RecipePanel Snapshot 1`] = `
 >
   <ExpansionPanelSummary
     expandIcon={
-      <pure(ExpandMore)
+      <pure(ExpandMoreIcon)
         color="primary"
       />
     }
