@@ -69,7 +69,7 @@ const config = {
       swSrc: './app/service-worker.js',
       swDest: './service-worker.js'
     }),
-    new BundleAnalyzerPlugin() // Analyze the bundle file.
+    // new BundleAnalyzerPlugin() // Analyze the bundle file.
   ]
 };
 
