@@ -9,7 +9,7 @@ The web app that can help restaurants hanld their order taking process.
 - Front-end:
   - React + Redux
 - Back-end:
-  - Node js and Express
+  - Node.js, Express.js, and Socket.IO
 - Database:
   - MongoDB
 - Authentication:
@@ -21,3 +21,26 @@ The web app that can help restaurants hanld their order taking process.
 ### Test :tada: :tada:
 Test code is under the __tests__ folder
 Jest is using as the test framework
+
+## Living website
+[Click to check the living dome](https://orderstaker.kevin-project.com/)
+
+## Show cases
+
+#### Desktop view
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/1.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/2.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/3.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/4.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/5.png?raw=true)
+
+#### Mobile view
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/6.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/7.png?raw=true)
+
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/8.png?raw=true)
