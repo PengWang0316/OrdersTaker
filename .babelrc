@@ -3,14 +3,14 @@
     ["@babel/preset-env", {"modules": false}],
     "@babel/react"
   ],
-  "plugins": ["transform-class-properties", "@babel/plugin-proposal-object-rest-spread", "react-hot-loader/babel", "syntax-dynamic-import", "react-imported-component/babel"],
+  "plugins": ["transform-class-properties", "@babel/plugin-proposal-object-rest-spread", "react-hot-loader/babel", "syntax-dynamic-import", "react-imported-component/babel", "@babel/transform-runtime"],
   "env": {
     "test": {
       "presets": [
         "@babel/preset-env",
         "@babel/react"
       ],
-      "plugins": ["transform-class-properties", "@babel/plugin-proposal-object-rest-spread", "dynamic-import-webpack"]
+      "plugins": ["transform-class-properties", "@babel/plugin-proposal-object-rest-spread", "dynamic-import-webpack", "@babel/transform-runtime"]
     }
   }
 }
