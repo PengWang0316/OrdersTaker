@@ -27,6 +27,10 @@ Jest is using as the test framework
 
 ## Show cases
 
+#### LightHouse Report
+![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/LightHouse%20Report.png?raw=true)
+
+
 #### Desktop view
 ![alt text](https://github.com/PengWang0316/OrdersTaker/blob/master/showcases/1.png?raw=true)
 
