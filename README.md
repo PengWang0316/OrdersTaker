@@ -18,6 +18,9 @@ The web app that can help restaurants hanld their order taking process.
 - PWA:
   - A service worker is using with Workbox-SW to achieve the PWA standard
 
+### Back-end repository
+[Order Taker Backend](https://github.com/PengWang0316/OrdersTaker-Backend)
+
 ### Test :tada: :tada:
 Test code is under the __tests__ folder
 Jest is using as the test framework
